@@ -7,6 +7,20 @@ uniform2distribution <- function(param) {
   UseMethod("default", param)
 }
 
+list_to_distribution <- function(li) {
+  distribution <- li$distribution %||% "uniform"
+
+  if (distribution == "uniform") {
+    uniform(lower = li$lower, upper = li$upper)
+  } else if (distribution == "normal") {
+    normal(mean = li$mean, sd = li$sd, lower = li$lower %||% -Inf, upper = li$upper %||% Inf)
+  } else if (distribution == "expuniform") {
+    expuniform(lower = li$lower, upper = li$upper)
+  } else {
+    stop("Unknown distribution list format: ", deparse(li, width.cutoff = 100))
+  }
+}
+
 ###########################################################
 ###                       UNIFORM                       ###
 ###########################################################

@@ -4,8 +4,38 @@
 # character_subset
 # integer_range, numeric_range
 
-from_list <- function(l) {
-  # .. do something with l
+
+list_to_parameter <- function(li) {
+  if (li$type %in% c("discrete", "character")) {
+    character_parameter(
+      id = li$id,
+      default = li$default,
+      values = li$values,
+      description = li$description
+    )
+  } else if (li$type == "logical") {
+    logical_parameter(
+      id = li$id,
+      default = li$default,
+      description = li$description
+    )
+  } else if (li$type == "integer") {
+    integer_parameter(
+      id = li$id,
+      default = li$default,
+      description = li$description,
+      distribution = list_to_distribution(li)
+    )
+  } else if (li$type == "numeric") {
+    numeric_parameter(
+      id = li$id,
+      default = li$default,
+      description = li$description,
+      distribution = list_to_distribution(li)
+    )
+  } else {
+    stop("Unknown parameter type: ", li$type)
+  }
 }
 
 parameter <- function(
@@ -24,11 +54,11 @@ parameter <- function(
   param
 }
 
-default <- function(param) {
-  UseMethod("default", param)
+default_value <- function(param) {
+  UseMethod("default_value", param)
 }
 
-default.parameter <- function(param) {
+default_value.parameter <- function(param) {
   param$default
 }
 
@@ -92,7 +122,6 @@ as.character.numeric_parameter <- function(param) {
 ###########################################################
 ###                       INTEGER                       ###
 ###########################################################
-# wip! still figuring this out
 integer_parameter <- function(
   id,
   default,
@@ -126,25 +155,23 @@ to_paramhelper.integer_parameter <- function(param) {
 character_parameter <- function(
   id,
   default,
-  set,
+  values,
   description = NULL
 ) {
-  parameter(id = id, default = default, set = set, description = description)
+  parameter(id = id, default = default, values = values, description = description)
 }
 
 to_paramhelper.character_parameter <- function(param) {
   ParamHelpers::makeDiscreteParam(
     id = param$id,
-    values = param$set,
+    values = param$values,
     default = param$default
   )
 }
 
 as.character.character_parameter <- function(param) {
-  paste0(param$id, ": ", param$type, " \u2208 {", paste(set, collapse = ", "), ", d=", param$default)
+  paste0(param$id, ": ", param$type, " \u2208 {", paste(values, collapse = ", "), ", d=", param$default)
 }
-
-
 
 
 ###########################################################
@@ -173,4 +200,3 @@ to_paramhelper.logical_parameter <- function(param) {
 as.character.logical_parameter <- function(param) {
   paste0(param$id, ": ", param$type, ", d=", param$default)
 }
-
