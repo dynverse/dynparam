@@ -29,7 +29,7 @@ uniform <- function(lower, upper) {
   if (!check_finite(upper)) {stop("Provide finite upper boundary when using an uniformly distributed parameter")}
 
   p <- lst(lower, upper)
-  class(p) <- c("distribution", "dist_uniform")
+  class(p) <- c("distribution", "dist_uniform", "list")
   p
 }
 
@@ -53,7 +53,7 @@ normal <- function(mean, sd, lower = -Inf, upper = Inf) {
   if (!check_finite(sd)) {stop("Provide sd when using a normal distributed parameter")}
 
   p <- lst(mean, sd, lower, upper)
-  class(p) <- c("distribution", "dist_normal")
+  class(p) <- c("distribution", "dist_normal", "list")
   p
 }
 
@@ -77,7 +77,7 @@ expuniform <- function(lower, upper) {
   if (!check_finite(upper)) {stop("Provide finite upper boundary when using an uniformly distributed parameter")}
 
   p <- lst(lower, upper)
-  class(p) <- c("distribution", "dist_expuniform")
+  class(p) <- c("distribution", "dist_expuniform", "list")
   p
 }
 
@@ -91,4 +91,17 @@ uniform2distribution.dist_expuniform <- function(param) {
 
 as.character.dist_expuniform <- function(param) {
   paste0("e^U(", sprintf("%.2f", log(param$lower)), ", ", sprintf("%.2f", log(param$upper)), ")")
+}
+
+###########################################################
+###                         SET                         ###
+###########################################################
+set <- function(values) {
+  p <- lst(values)
+  class(p) <- c("distribution", "dist_set", "list")
+  p
+}
+
+as.character.dist_set <- function(param) {
+  paste0("{", paste(param, collapse = ", "), "}")
 }
