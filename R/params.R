@@ -11,16 +11,14 @@ from_list <- function(l) {
 parameter <- function(
   id,
   default,
-  distribution,
-  trafo = NULL,
+  ...,
   description = NULL
 ) {
   param <- lst(
     id,
     description,
     default,
-    distribution,
-    trafo
+    ...
   )
   class(param) <- c("parameter")
   param
@@ -57,10 +55,14 @@ numeric_parameter <- function(
   id,
   default,
   distribution,
-  trafo = NULL,
   description = NULL
 ) {
-  parameter(id = id, default = default, distribution = distribution, trafo = trafo, description = description) %>%
+  parameter(
+    id = id,
+    default = default,
+    distribution = distribution,
+    description = description
+  ) %>%
     extend_with(
       "numeric_parameter",
       type = "numeric"
@@ -81,7 +83,7 @@ to_paramhelper.numeric_parameter <- function(param) {
 }
 
 as.character.numeric_parameter <- function(param) {
-  paste0(param$id, ": ", param$type, " \u2208 ", as.character(param$distribution), ", d=", param$default, "trafo=", !is.null(param$trafo))
+  paste0(param$id, ": ", param$type, " \u2208 ", as.character(param$distribution), ", d=", param$default)
 }
 
 
@@ -113,15 +115,10 @@ character_parameter <- function(
   set,
   description = NULL
 ) {
-  parameter(id = id, default = default, distribution = distribution, trafo = trafo, description = description)
+  parameter(id = id, default = default, set = set, description = description)
 }
 
 to_paramhelper.character_parameter <- function(param) {
-  d2u <- distribution2uniform(param$distribution)
-  u2d <- uniform2distribution(param$distribution)
-
-  trafo <- if (is.null(param$trafo)) u2d else function(x) param$trafo(u2d(x))
-
   ParamHelpers::makeDiscreteParam(
     id = param$id,
     values = param$set,
@@ -131,5 +128,35 @@ to_paramhelper.character_parameter <- function(param) {
 
 as.character.character_parameter <- function(param) {
   paste0(param$id, ": ", param$type, " \u2208 {", paste(set, collapse = ", "), ", d=", param$default)
+}
+
+
+
+
+###########################################################
+###                       LOGICAL                       ###
+###########################################################
+logical_parameter <- function(
+  id,
+  default,
+  description = NULL
+) {
+  parameter(id = id, default = default, distribution = distribution, trafo = trafo, description = description)
+}
+
+to_paramhelper.logical_parameter <- function(param) {
+  d2u <- distribution2uniform(param$distribution)
+  u2d <- uniform2distribution(param$distribution)
+
+  trafo <- if (is.null(param$trafo)) u2d else function(x) param$trafo(u2d(x))
+
+  ParamHelpers::makeLogicalParam(
+    id = param$id,
+    default = param$default
+  )
+}
+
+as.character.logical_parameter <- function(param) {
+  paste0(param$id, ": ", param$type, ", d=", param$default)
 }
 
