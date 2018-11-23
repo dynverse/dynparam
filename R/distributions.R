@@ -96,12 +96,12 @@ as.character.dist_expuniform <- function(param) {
 ###########################################################
 ###                         SET                         ###
 ###########################################################
-set <- function(values) {
-  p <- lst(values)
+set <- function(..., values = NULL) {
+  p <- lst(values = c(..., values))
   class(p) <- c("distribution", "dist_set", "list")
   p
 }
 
 as.character.dist_set <- function(param) {
-  paste0("{", paste(param, collapse = ", "), "}")
+  paste0("{", paste(param$values, collapse = ", "), "}")
 }
