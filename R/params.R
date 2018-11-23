@@ -9,7 +9,8 @@ parameter <- function(
   id,
   default,
   ...,
-  description = NULL
+  description = NULL,
+  length = 1
 ) {
   param <- lst(
     id,
@@ -24,8 +25,8 @@ parameter <- function(
 default_value <- function(param) {
   UseMethod("default_value", param)
 }
-to_paramhelper <- function(param) {
-  UseMethod("to_paramhelper")
+as_paramhelper <- function(param) {
+  UseMethod("as_paramhelper")
 }
 
 to_roxygen <- function(param) {
@@ -42,27 +43,31 @@ list_to_parameter <- function(li) {
       id = li$id,
       default = li$default,
       values = li$values,
-      description = li$description
+      description = li$description,
+      length = li$length
     )
   } else if (li$type == "logical") {
     logical_parameter(
       id = li$id,
       default = li$default,
-      description = li$description
+      description = li$description,
+      length = li$length
     )
   } else if (li$type == "integer") {
     integer_parameter(
       id = li$id,
       default = li$default,
       description = li$description,
-      distribution = list_to_distribution(li)
+      distribution = list_to_distribution(li),
+      length = li$length
     )
-  } else if (li$type == "numeric") {
+  } else if (li$type %in% c("numeric", "double")) {
     numeric_parameter(
       id = li$id,
       default = li$default,
       description = li$description,
-      distribution = list_to_distribution(li)
+      distribution = list_to_distribution(li),
+      length = li$length
     )
   } else {
     stop("Unknown parameter type: ", li$type)
@@ -75,36 +80,37 @@ default_value.parameter <- function(param) {
 
 as.character.parameter <- function(param) {
   distribution_str <- if (is.null(param$distribution)) "" else paste0(", . \u2208 ", as.character(param$distribution))
+  default_str <- if (length(param$default) == 1) param$default else paste0("{", paste(param$default, collapse = ", "), "}")
 
-  paste0(param$id, ": ", param$type, ", default=", param$default, distribution_str)
+  paste0(param$id, ": ", param$type, ", default=", default_str, distribution_str)
 }
 
 print.parameter <- function(param) {
   cat(as.character(param))
 }
 
-#' @importFrom Hmisc capitalize
-to_roxygen.parameter <- function(param) {
-  description <-
-    param$description %>%
-    ifelse(!is.null(.), ., "") %>%     # use "" if no description is provided
-    str_replace_all("\n", "") %>%      # remove newlines
-    Hmisc::capitalize() %>%            # capitalise sentences
-    gsub("\\\\link\\[[a-zA-Z0-9_:]*\\]\\{([^\\}]*)\\}", "\\1", .) # substitute \link[X](Y) with just Y
-
-  range_text <-
-    case_when(
-      param$type == "discrete" ~ paste0("; values: {", paste0("`", sapply(parameter$values, deparse), "`", collapse = ", "), "}"),
-      param$type %in% c("integer", "numeric") ~ paste0("; range: from `", deparse(parameter$lower), "` to `", deparse(parameter$upper), "`"),
-      TRUE ~ ""
-    )
-
-  paste0(
-    "@param ", parameter_id, " ",
-    parameter$type, "; ", description, " (default: `",
-    deparse(parameter$default, width.cutoff = 500), "`", range_text, ")"
-  )
-}
+# #' @importFrom Hmisc capitalize
+# to_roxygen.parameter <- function(param) {
+#   description <-
+#     param$description %>%
+#     ifelse(!is.null(.), ., "") %>%     # use "" if no description is provided
+#     str_replace_all("\n", "") %>%      # remove newlines
+#     Hmisc::capitalize() %>%            # capitalise sentences
+#     gsub("\\\\link\\[[a-zA-Z0-9_:]*\\]\\{([^\\}]*)\\}", "\\1", .) # substitute \link[X](Y) with just Y
+#
+#   range_text <-
+#     case_when(
+#       param$type == "discrete" ~ paste0("; values: {", paste0("`", sapply(parameter$values, deparse), "`", collapse = ", "), "}"),
+#       param$type %in% c("integer", "numeric") ~ paste0("; range: from `", deparse(parameter$lower), "` to `", deparse(parameter$upper), "`"),
+#       TRUE ~ ""
+#     )
+#
+#   paste0(
+#     "@param ", parameter_id, " ",
+#     parameter$type, "; ", description, " (default: `",
+#     deparse(parameter$default, width.cutoff = 500), "`", range_text, ")"
+#   )
+# }
 
 ###########################################################
 ###                       NUMERIC                       ###
@@ -113,29 +119,34 @@ numeric_parameter <- function(
   id,
   default,
   distribution,
-  description = NULL
+  description = NULL,
+  length = 1
 ) {
   distribution$type <- "numeric"
   parameter(
     id = id,
     default = default,
     distribution = distribution,
-    description = description
+    description = description,
+    length = length
   ) %>%
     extend_with("numeric_parameter", type = "numeric")
 }
 
-to_paramhelper.numeric_parameter <- function(param) {
+as_paramhelper.numeric_parameter <- function(param) {
   d2u <- distribution2uniform(param$distribution)
   u2d <- uniform2distribution(param$distribution)
 
-  ParamHelpers::makeNumericParam(
+  fun <- if (param$length == 1) ParamHelpers::makeNumericParam else ParamHelpers::makeNumericVectorParam
+  args <- list(
     id = param$id,
     lower = d2u(param$lower),
     upper = d2u(param$upper),
     default = d2u(param$default),
     trafo = u2d
   )
+  if (param$length == 1) args$len <- param$length
+  do.call(fun, args)
 }
 
 
@@ -146,24 +157,28 @@ integer_parameter <- function(
   id,
   default,
   distribution,
-  description = NULL
+  description = NULL,
+  length = 1
 ) {
   distribution$type <- "integer"
-  parameter(id = id, default = default, distribution = distribution, description = description) %>%
+  parameter(id = id, default = default, distribution = distribution, description = description, length = length) %>%
     extend_with("integer_parameter", type = "integer")
 }
 
-to_paramhelper.integer_parameter <- function(param) {
+as_paramhelper.integer_parameter <- function(param) {
   d2u <- distribution2uniform(param$distribution)
   u2d <- uniform2distribution(param$distribution)
 
-  ParamHelpers::makeNumericParam(
+  fun <- if (param$length == 1) ParamHelpers::makeNumericParam else ParamHelpers::makeNumericVectorParam
+  args <- list(
     id = param$id,
     lower = d2u(param$lower - .5 + 1e-10),
     upper = d2u(param$upper + .5 - 1e-10),
     default = d2u(param$default),
-    trafo =  function(x) round(u2d(x))
+    trafo = function(x) round(u2d(x))
   )
+  if (param$length == 1) args$len <- param$length
+  do.call(fun, args)
 }
 
 
@@ -174,20 +189,25 @@ character_parameter <- function(
   id,
   default,
   values,
-  description = NULL
+  description = NULL,
+  length = 1
 ) {
   distribution <- values
   if (is.character(distribution)) distribution <- set(values = distribution)
-  parameter(id = id, default = default, distribution = distribution, description = description) %>%
+
+  parameter(id = id, default = default, distribution = distribution, description = description, length = length) %>%
     extend_with("character_parameter", type = "character")
 }
 
-to_paramhelper.character_parameter <- function(param) {
-  ParamHelpers::makeDiscreteParam(
+as_paramhelper.character_parameter <- function(param) {
+  fun <- if (param$length == 1) ParamHelpers::makeDiscreteParam else ParamHelpers::makeDiscreteVectorParam
+  args <- list(
     id = param$id,
     values = param$values,
     default = param$default
   )
+  if (param$length == 1) args$len <- param$length
+  do.call(fun, args)
 }
 
 ###########################################################
@@ -196,15 +216,19 @@ to_paramhelper.character_parameter <- function(param) {
 logical_parameter <- function(
   id,
   default,
-  description = NULL
+  description = NULL,
+  length = 1
 ) {
-  parameter(id = id, default = default, distribution = NULL, description = description) %>%
+  parameter(id = id, default = default, distribution = NULL, description = description, length = length) %>%
     extend_with("logical_parameter", type = "logical")
 }
 
-to_paramhelper.logical_parameter <- function(param) {
-  ParamHelpers::makeLogicalParam(
+as_paramhelper.logical_parameter <- function(param) {
+  fun <- if (param$length == 1) ParamHelpers::makeLogicalParam() else ParamHelpers::makeLogicalVectorParam
+  args <- list(
     id = param$id,
     default = param$default
   )
+  if (param$length == 1) args$len <- param$length
+  do.call(fun, args)
 }
