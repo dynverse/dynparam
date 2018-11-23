@@ -34,11 +34,11 @@ as.character.dist_uniform <- function(param) {
 ###########################################################
 ###                       NORMAL                        ###
 ###########################################################
-normal <- function(mean, sd) {
+normal <- function(mean, sd, lower = -Inf, upper = Inf) {
   if (!check_finite(mean)) {stop("Provide finite mean when using a normal distributed parameter")}
   if (!check_finite(sd)) {stop("Provide sd when using a normal distributed parameter")}
 
-  p <- lst(mean, sd)
+  p <- lst(mean, sd, lower, upper)
   class(p) <- c("distribution", "dist_normal")
   p
 }
@@ -48,7 +48,7 @@ distribution2uniform.dist_normal <- function(param) {
 }
 
 uniform2distribution.dist_normal <- function(param) {
-  function(p) stats::qnorm(p, param$mean, param$sd)
+  function(p) stats::qnorm(p, mean = param$mean, sd = param$sd)
 }
 
 as.character.dist_normal <- function(param) {
