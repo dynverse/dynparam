@@ -60,5 +60,19 @@ param <- logical_parameter(
 )
 param
 as_paramhelper(param)
+```
 
+## Parsing
+```{r}
+param <- list_to_parameter(list(
+  type = "numeric",
+  id = "gamma",
+  default = c(1.1, 2.2),
+  description = "Gamma factor",
+  length = 2,
+  distribution = "uniform",
+  lower = 0,
+  upper = 5
+))
+param
 ```

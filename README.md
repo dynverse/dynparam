@@ -92,3 +92,21 @@ as_paramhelper(param)
 
     ##      Type len  Def Constr Req Tunable Trafo
     ## 1 logical   - TRUE      -   -    TRUE     -
+
+## Parsing
+
+``` r
+param <- list_to_parameter(list(
+  type = "numeric",
+  id = "gamma",
+  default = c(1.1, 2.2),
+  description = "Gamma factor",
+  length = 2,
+  distribution = "uniform",
+  lower = 0,
+  upper = 5
+))
+param
+```
+
+    ## gamma: numeric, default={1.1, 2.2}, . ∈ U(0, 5)
