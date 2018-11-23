@@ -42,6 +42,10 @@ to_roxygen <- function(param) {
   UseMethod("to_roxygen")
 }
 
+to_argparse <- function(param) {
+  UseMethod("to_argparse")
+}
+
 ###########################################################
 ###                       NUMERIC                       ###
 ###########################################################
