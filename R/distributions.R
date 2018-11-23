@@ -1,10 +1,10 @@
 check_finite <- function(x) length(x) == 1 && is.finite(x)
 
 distribution2uniform <- function(param) {
-  UseMethod("default", param)
+  UseMethod("distribution2uniform", param)
 }
 uniform2distribution <- function(param) {
-  UseMethod("default", param)
+  UseMethod("uniform2distribution", param)
 }
 
 list_to_distribution <- function(li) {

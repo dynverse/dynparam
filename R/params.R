@@ -16,6 +16,7 @@ parameter <- function(
     id,
     description,
     default,
+    length,
     ...
   )
   class(param) <- c("parameter", "list")
@@ -140,12 +141,12 @@ as_paramhelper.numeric_parameter <- function(param) {
   fun <- if (param$length == 1) ParamHelpers::makeNumericParam else ParamHelpers::makeNumericVectorParam
   args <- list(
     id = param$id,
-    lower = d2u(param$lower),
-    upper = d2u(param$upper),
+    lower = d2u(param$distribution$lower),
+    upper = d2u(param$distribution$upper),
     default = d2u(param$default),
     trafo = u2d
   )
-  if (param$length == 1) args$len <- param$length
+  if (param$length != 1) args$len <- param$length
   do.call(fun, args)
 }
 
@@ -172,12 +173,12 @@ as_paramhelper.integer_parameter <- function(param) {
   fun <- if (param$length == 1) ParamHelpers::makeNumericParam else ParamHelpers::makeNumericVectorParam
   args <- list(
     id = param$id,
-    lower = d2u(param$lower - .5 + 1e-10),
-    upper = d2u(param$upper + .5 - 1e-10),
+    lower = d2u(param$distribution$lower - .5 + 1e-10),
+    upper = d2u(param$distribution$upper + .5 - 1e-10),
     default = d2u(param$default),
     trafo = function(x) round(u2d(x))
   )
-  if (param$length == 1) args$len <- param$length
+  if (param$length != 1) args$len <- param$length
   do.call(fun, args)
 }
 
@@ -203,10 +204,10 @@ as_paramhelper.character_parameter <- function(param) {
   fun <- if (param$length == 1) ParamHelpers::makeDiscreteParam else ParamHelpers::makeDiscreteVectorParam
   args <- list(
     id = param$id,
-    values = param$values,
+    values = param$distribution$values,
     default = param$default
   )
-  if (param$length == 1) args$len <- param$length
+  if (param$length != 1) args$len <- param$length
   do.call(fun, args)
 }
 
@@ -224,11 +225,11 @@ logical_parameter <- function(
 }
 
 as_paramhelper.logical_parameter <- function(param) {
-  fun <- if (param$length == 1) ParamHelpers::makeLogicalParam() else ParamHelpers::makeLogicalVectorParam
+  fun <- if (param$length == 1) ParamHelpers::makeLogicalParam else ParamHelpers::makeLogicalVectorParam
   args <- list(
     id = param$id,
     default = param$default
   )
-  if (param$length == 1) args$len <- param$length
+  if (param$length != 1) args$len <- param$length
   do.call(fun, args)
 }
