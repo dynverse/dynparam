@@ -78,7 +78,7 @@ to_paramhelper.numeric_parameter <- function(param) {
     lower = d2u(param$lower),
     upper = d2u(param$upper),
     default = d2u(param$default),
-    trafo =  u2d
+    trafo = u2d
   )
 }
 
@@ -99,11 +99,25 @@ integer_parameter <- function(
   distribution,
   description = NULL
 ) {
-  parameter(id = id, default = default, distribution = distribution, trafo = trafo, description = description) %>%
+  distribution$upper <- distribution$upper + 1 - 1e-10
+  parameter(id = id, default = default, distribution = distribution, description = description) %>%
     extend_with(
       "integer_parameter",
       type = "integer"
     )
+}
+
+to_paramhelper.integer_parameter <- function(param) {
+  d2u <- distribution2uniform(param$distribution)
+  u2d <- uniform2distribution(param$distribution)
+
+  ParamHelpers::makeNumericParam(
+    id = param$id,
+    lower = d2u(param$lower),
+    upper = d2u(param$upper),
+    default = d2u(param$default),
+    trafo =  function(x) floor(u2d(x))
+  )
 }
 
 ###########################################################
