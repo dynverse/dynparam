@@ -11,23 +11,35 @@ devtools::load_all(".")
 ## Integer parameter
 
 ``` r
-param <- integer_parameter(id = "k", default = 3, distribution = uniform(2, 10), description = "Number of clusters")
+param <- integer_parameter(
+  id = "num_iter", 
+  default = 100,
+  distribution = expuniform(lower = 1e0, upper = 1e4), 
+  description = "Number of iterations"
+)
 param
 ```
 
-    ## k: integer, default=3, . ∈ U(2, 10)
+    ## num_iter: integer, default=100, . ∈ e^U(0.00, 9.21)
 
 ``` r
 as_paramhelper(param)
 ```
 
-    ##      Type len   Def Constr Req Tunable Trafo
-    ## 1 numeric   - 0.125 0 to 1   -    TRUE     Y
+    ##      Type len Def Constr Req Tunable Trafo
+    ## 1 numeric   - 0.5 0 to 1   -    TRUE     Y
 
 ## Numeric parameter
 
 ``` r
-param <- numeric_parameter(id = "delta", default = c(4.5, 2.4, 1.9), distribution = normal(5, 1), description = "Multiplying factors", length = 3)
+param <- numeric_parameter(
+  id = "delta", 
+  default = c(4.5, 2.4, 1.9), 
+  distribution = normal(mean = 5, sd = 1),
+  description = "Multiplying factors",
+  length = 3
+)
+
 param
 ```
 
@@ -43,7 +55,12 @@ as_paramhelper(param)
 ## Character parameter
 
 ``` r
-param <- character_parameter(id = "method", default = "kendall", values = set("kendall", "spearman", "pearson"), description = "Correlation method")
+param <- character_parameter(
+  id = "method", 
+  default = "kendall",
+  values = set("kendall", "spearman", "pearson"), 
+  description = "Correlation method"
+)
 param
 ```
 
@@ -59,7 +76,11 @@ as_paramhelper(param)
 ## Logical parameter
 
 ``` r
-param <- logical_parameter(id = "inverse", default = TRUE, description = "Inversion parameter")
+param <- logical_parameter(
+  id = "inverse",
+  default = TRUE, 
+  description = "Inversion parameter"
+)
 param
 ```
 

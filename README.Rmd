@@ -15,28 +15,49 @@ devtools::load_all(".")
 
 ## Integer parameter
 ```{r}
-param <- integer_parameter(id = "k", default = 3, distribution = uniform(2, 10), description = "Number of clusters")
+param <- integer_parameter(
+  id = "num_iter", 
+  default = 100,
+  distribution = expuniform(lower = 1e0, upper = 1e4), 
+  description = "Number of iterations"
+)
 param
 as_paramhelper(param)
 ```
 
 ## Numeric parameter
 ```{r}
-param <- numeric_parameter(id = "delta", default = c(4.5, 2.4, 1.9), distribution = normal(5, 1), description = "Multiplying factors", length = 3)
+param <- numeric_parameter(
+  id = "delta", 
+  default = c(4.5, 2.4, 1.9), 
+  distribution = normal(mean = 5, sd = 1),
+  description = "Multiplying factors",
+  length = 3
+)
+
 param
 as_paramhelper(param)
 ```
 
 ## Character parameter
 ```{r}
-param <- character_parameter(id = "method", default = "kendall", values = set("kendall", "spearman", "pearson"), description = "Correlation method")
+param <- character_parameter(
+  id = "method", 
+  default = "kendall",
+  values = set("kendall", "spearman", "pearson"), 
+  description = "Correlation method"
+)
 param
 as_paramhelper(param)
 ```
 
 ## Logical parameter
 ```{r}
-param <- logical_parameter(id = "inverse", default = TRUE, description = "Inversion parameter")
+param <- logical_parameter(
+  id = "inverse",
+  default = TRUE, 
+  description = "Inversion parameter"
+)
 param
 as_paramhelper(param)
 
