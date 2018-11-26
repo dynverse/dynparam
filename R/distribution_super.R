@@ -1,5 +1,3 @@
-check_finite <- function(x) length(x) == 1 && is.finite(x)
-
 #' Helper functions for converting distributions from and to other formats
 #'
 #' @param dist A distribution object.

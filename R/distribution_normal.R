@@ -16,20 +16,30 @@ normal_distribution <- function(mean, sd, lower = -Inf, upper = Inf) {
   if (!check_finite(sd)) {stop("Provide sd when using a normal distributed parameter")}
 
   p <- list(mean = mean, sd = sd, lower = lower, upper = upper)
-  class(p) <- c("distribution", "normal_distribution", "list")
+  class(p) <- c("normal_distribution", "distribution", "list")
   p
 }
 
 #' @export
 #' @importFrom stats pnorm
+#' @importFrom carrier crate
 distribution_function.normal_distribution <- function(dist) {
-  function(q) stats::pnorm(q, mean = dist$mean, sd = dist$sd)
+  carrier::crate(
+    ~ stats::pnorm(., mean = mean, sd = sd),
+    mean = dist$mean,
+    sd = dist$sd
+  )
 }
 
 #' @export
 #' @importFrom stats qnorm
+#' @importFrom carrier crate
 quantile_function.normal_distribution <- function(dist) {
-  function(p) stats::qnorm(p, mean = dist$mean, sd = dist$sd)
+  carrier::crate(
+    ~ stats::qnorm(., mean = mean, sd = sd),
+    mean = dist$mean,
+    sd = dist$sd
+  )
 }
 
 #' @export

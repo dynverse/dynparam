@@ -14,20 +14,30 @@ expuniform_distribution <- function(lower, upper) {
   if (!check_finite(upper)) {stop("Provide finite upper boundary when using an uniformly distributed parameter")}
 
   p <- lst(lower, upper)
-  class(p) <- c("distribution", "expuniform_distribution", "list")
+  class(p) <- c("expuniform_distribution", "distribution", "list")
   p
 }
 
 #' @export
 #' @importFrom stats punif
+#' @importFrom carrier crate
 distribution_function.expuniform_distribution <- function(dist) {
-  function(q) stats::punif(log(q), min = log(dist$lower), max = log(dist$upper))
+  carrier::crate(
+    ~ stats::punif(log(.), min = min, max = max),
+    min = log(dist$lower),
+    max = log(dist$upper)
+  )
 }
 
 #' @export
 #' @importFrom stats qunif
+#' @importFrom carrier crate
 quantile_function.expuniform_distribution <- function(dist) {
-  function(p) exp(stats::qunif(p, log(dist$lower), log(dist$upper)))
+  carrier::crate(
+    ~ exp(stats::qunif(., min = min, max = max)),
+    min = log(dist$lower),
+    max = log(dist$upper)
+  )
 }
 
 #' @export
