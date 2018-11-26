@@ -18,7 +18,7 @@ library(dynparam)
 param <- integer_parameter(
   id = "num_iter", 
   default = 100,
-  distribution = expuniform_distribution(lower = 1e0, upper = 1e4), 
+  distribution = expuniform_distribution(lower = 1e0, upper = 1e4),
   description = "Number of iterations"
 )
 param
@@ -64,7 +64,7 @@ as_paramhelper(param)
 
 ## Parsing
 ```{r}
-param <- list_to_parameter(list(
+param <- list_as_parameter(list(
   type = "numeric",
   id = "gamma",
   default = c(1.1, 2.2),

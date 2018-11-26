@@ -5,7 +5,7 @@
 
 ``` r
 library(tidyverse)
-devtools::load_all(".")
+library(dynparam)
 ```
 
 ## Integer parameter
@@ -14,13 +14,13 @@ devtools::load_all(".")
 param <- integer_parameter(
   id = "num_iter", 
   default = 100,
-  distribution = expuniform(lower = 1e0, upper = 1e4), 
+  distribution = expuniform_distribution(lower = 1e0, upper = 1e4),
   description = "Number of iterations"
 )
 param
 ```
 
-    ## num_iter: integer, default=100, . ∈ e^U(0.00, 9.21)
+    ## num_iter ⊂ e^U(0.00, 9.21), type=integer, default=100
 
 ``` r
 as_paramhelper(param)
@@ -35,7 +35,7 @@ as_paramhelper(param)
 param <- numeric_parameter(
   id = "delta", 
   default = c(4.5, 2.4, 1.9), 
-  distribution = normal(mean = 5, sd = 1),
+  distribution = normal_distribution(mean = 5, sd = 1),
   description = "Multiplying factors",
   length = 3
 )
@@ -43,7 +43,7 @@ param <- numeric_parameter(
 param
 ```
 
-    ## delta: numeric, default={4.5, 2.4, 1.9}, . ∈ N(5, 1)
+    ## delta ⊂ N(5, 1), type=numeric, default={4.5, 2.4, 1.9}
 
 ``` r
 as_paramhelper(param)
@@ -58,13 +58,13 @@ as_paramhelper(param)
 param <- character_parameter(
   id = "method", 
   default = "kendall",
-  values = set("kendall", "spearman", "pearson"), 
+  values = c("kendall", "spearman", "pearson"), 
   description = "Correlation method"
 )
 param
 ```
 
-    ## method: character, default=kendall, . ∈ {kendall, spearman, pearson}
+    ## method ⊂ {kendall, spearman, pearson}, type=character, default=kendall
 
 ``` r
 as_paramhelper(param)
@@ -84,7 +84,7 @@ param <- logical_parameter(
 param
 ```
 
-    ## inverse: logical, default=TRUE
+    ## inverse, type=logical, default=TRUE
 
 ``` r
 as_paramhelper(param)
@@ -96,17 +96,19 @@ as_paramhelper(param)
 ## Parsing
 
 ``` r
-param <- list_to_parameter(list(
+param <- list_as_parameter(list(
   type = "numeric",
   id = "gamma",
   default = c(1.1, 2.2),
   description = "Gamma factor",
   length = 2,
-  distribution = "uniform",
-  lower = 0,
-  upper = 5
+  distribution = list(
+    distribution = "uniform",
+    lower = 0,
+    upper = 5
+  ) 
 ))
 param
 ```
 
-    ## gamma: numeric, default={1.1, 2.2}, . ∈ U(0, 5)
+    ## gamma ⊂ U(0, 5), type=numeric, default={1.1, 2.2}
