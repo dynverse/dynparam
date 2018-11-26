@@ -69,5 +69,5 @@ as_list.numeric_parameter <- function(x) {
 
 #' @export
 as.character.numeric_parameter <- function(x, ...) {
-  paste0(x$id, " \u2282 ", as.character(x$distribution), ", type=", x$type, ", default=", collapse_vector(x$default))
+  paste0(x$id, " \u2286 ", as.character(x$distribution), ", type=", x$type, ", default=", collapse_vector(x$default))
 }

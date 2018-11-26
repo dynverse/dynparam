@@ -20,7 +20,7 @@ param <- integer_parameter(
 param
 ```
 
-    ## num_iter ⊂ e^U(0.00, 9.21), type=integer, default=100
+    ## num_iter ⊆ e^U(0.00, 9.21), type=integer, default=100
 
 ``` r
 as_paramhelper(param)
@@ -43,7 +43,7 @@ param <- numeric_parameter(
 param
 ```
 
-    ## delta ⊂ N(5, 1), type=numeric, default={4.5, 2.4, 1.9}
+    ## delta ⊆ N(5, 1), type=numeric, default={4.5, 2.4, 1.9}
 
 ``` r
 as_paramhelper(param)
@@ -64,7 +64,7 @@ param <- character_parameter(
 param
 ```
 
-    ## method ⊂ {kendall, spearman, pearson}, type=character, default=kendall
+    ## method ⊆ {kendall, spearman, pearson}, type=character, default=kendall
 
 ``` r
 as_paramhelper(param)
@@ -111,4 +111,4 @@ param <- list_as_parameter(list(
 param
 ```
 
-    ## gamma ⊂ U(0, 5), type=numeric, default={1.1, 2.2}
+    ## gamma ⊆ U(0, 5), type=numeric, default={1.1, 2.2}

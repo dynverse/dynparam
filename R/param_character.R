@@ -49,5 +49,5 @@ as_list.character_parameter <- function(x) {
 
 #' @export
 as.character.character_parameter <- function(x, ...) {
-  paste0(x$id, " \u2282 {", paste(x$values, collapse = ", "), "}, type=", x$type, ", default=", collapse_vector(x$default))
+  paste0(x$id, " \u2286 {", paste(x$values, collapse = ", "), "}, type=", x$type, ", default=", collapse_vector(x$default))
 }
