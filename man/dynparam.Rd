@@ -4,7 +4,34 @@
 \name{dynparam}
 \alias{dynparam}
 \alias{dynparam-package}
-\title{Helper package for parameter stuff}
+\title{Wrapper functions for descripting parameters}
 \description{
-Helper package for parameter stuff
+Wrapper functions for descripting parameters
 }
+\section{Parameters}{
+
+These functions help you provide a meta description of parameters.
+
+Implemented are the following functions:
+\itemize{
+\item \code{\link[=character_parameter]{character_parameter()}}
+\item \code{\link[=integer_parameter]{integer_parameter()}}
+\item \code{\link[=logical_parameter]{logical_parameter()}}
+\item \code{\link[=numeric_parameter]{numeric_parameter()}}
+}
+
+See \link[dynparam:parameters]{?parameters} for a list of helper functions converting parameters from and to other formats.
+}
+
+\section{Distributions}{
+
+These distributions allow to define prior distributions for numeric and integer parameters.
+
+Implemented are the following distributions:
+\itemize{
+\item \code{\link[=uniform_distribution]{uniform_distribution()}}
+\item \code{\link[=expuniform_distribution]{expuniform_distribution()}}
+\item \code{\link[=normal_distribution]{normal_distribution()}}
+}
+}
+
