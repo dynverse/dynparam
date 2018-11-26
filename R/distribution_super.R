@@ -22,13 +22,13 @@ quantile_function <- function(dist) {
 #' @export
 #' @rdname distributions
 list_as_distribution <- function(li) {
-  distribution <- li$distribution %||% "uniform"
+  class <- li$class
 
-  if (distribution == "uniform") {
+  if (class == "uniform_distribution") {
     uniform_distribution(lower = li$lower, upper = li$upper)
-  } else if (distribution == "normal") {
+  } else if (class == "normal_distribution") {
     normal_distribution(mean = li$mean, sd = li$sd, lower = li$lower %||% -Inf, upper = li$upper %||% Inf)
-  } else if (distribution == "expuniform") {
+  } else if (class == "expuniform_distribution") {
     expuniform_distribution(lower = li$lower, upper = li$upper)
   } else {
     stop("Unknown distribution list format: ", deparse(li, width.cutoff = 100))

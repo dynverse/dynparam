@@ -29,7 +29,6 @@ numeric_parameter <- function(
   description = NULL,
   length = 1
 ) {
-  distribution$type <- "numeric"
   parameter(
     id = id,
     default = default,
@@ -37,7 +36,7 @@ numeric_parameter <- function(
     description = description,
     length = length
   ) %>%
-    extend_with("numeric_parameter", type = "numeric")
+    add_class("numeric_parameter")
 }
 
 #' @export
@@ -61,6 +60,7 @@ as_paramhelper.numeric_parameter <- function(param) {
 #' @export
 as_list.numeric_parameter <- function(x) {
   list(
+    class = "numeric_parameter",
     id = x$id,
     default = x$default,
     description = x$description,

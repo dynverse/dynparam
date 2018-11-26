@@ -19,7 +19,7 @@ subset_parameter <- function(
   description = NULL
 ) {
   parameter(id = id, default = default, values = values, description = description) %>%
-    extend_with("subset_parameter", type = "subset")
+    add_class("subset_parameter")
 }
 
 #' @export
@@ -49,6 +49,7 @@ as_paramhelper.subset_parameter <- function(param) {
 #' @export
 as_list.subset_parameter <- function(x) {
   lst(
+    class = "subset_parameter",
     id = x$id,
     default = x$default,
     values = as_list(x$values),

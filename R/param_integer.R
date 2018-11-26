@@ -29,9 +29,8 @@ integer_parameter <- function(
   description = NULL,
   length = 1
 ) {
-  distribution$type <- "integer"
   parameter(id = id, default = default, distribution = distribution, description = description, length = length) %>%
-    extend_with("integer_parameter", type = "integer")
+    add_class("integer_parameter")
 }
 
 #' @export
@@ -55,6 +54,7 @@ as_paramhelper.integer_parameter <- function(param) {
 #' @export
 as_list.integer_parameter <- function(x) {
   lst(
+    class = "integer_parameter",
     id = x$id,
     default = x$default,
     distribution = as_list(x$distribution),

@@ -61,7 +61,7 @@ as_list <- function(x) {
 #' @export
 #' @rdname parameters
 list_as_parameter <- function(li) {
-  if (li$type %in% c("discrete", "character", "string")) {
+  if (li$class == "character_parameter") {
     character_parameter(
       id = li$id,
       default = li$default,
@@ -69,14 +69,14 @@ list_as_parameter <- function(li) {
       description = li$description,
       length = li$length
     )
-  } else if (li$type == "logical") {
+  } else if (li$class == "logical_parameter") {
     logical_parameter(
       id = li$id,
       default = li$default,
       description = li$description,
       length = li$length
     )
-  } else if (li$type == "integer") {
+  } else if (li$class == "integer_parameter") {
     integer_parameter(
       id = li$id,
       default = li$default,
@@ -84,7 +84,7 @@ list_as_parameter <- function(li) {
       distribution = list_as_distribution(li$distribution),
       length = li$length
     )
-  } else if (li$type %in% c("numeric", "double")) {
+  } else if (li$class == "numeric_parameter") {
     numeric_parameter(
       id = li$id,
       default = li$default,
@@ -92,15 +92,24 @@ list_as_parameter <- function(li) {
       distribution = list_as_distribution(li$distribution),
       length = li$length
     )
-  } else if (li$type == "subset") {
+  } else if (li$class == "subset_parameter") {
     subset_parameter(
       id = li$id,
       default = li$default,
       values = li$values,
       description = li$description
     )
+  } else if (li$class == "range_parameter") {
+    range_parameter(
+      id = li$id,
+      lower_default = li$lower_default,
+      upper_default = li$upper_default,
+      lower_distribution = list_as_distribution(li$lower_distribution),
+      upper_distribution = list_as_distribution(li$upper_distribution),
+      description = li$description
+    )
   } else {
-    stop("Unknown parameter type: ", li$type)
+    stop("Unknown parameter class: ", li$class)
   }
 }
 

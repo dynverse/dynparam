@@ -20,7 +20,7 @@ param <- integer_parameter(
 param
 ```
 
-    ## num_iter ∈ e^U(0.00, 9.21), type=integer, default={}
+    ## num_iter ∈ 1, type=, default={} num_iter ∈ 10000, type=, default={}
 
 ## Numeric parameter
 
@@ -36,7 +36,7 @@ param <- numeric_parameter(
 param
 ```
 
-    ## delta ⊆ N(5, 1), type=numeric, default={}
+    ## delta ⊆ 5, type=, default={} delta ⊆ 1, type=, default={} delta ⊆ -Inf, type=, default={} delta ⊆ Inf, type=, default={}
 
 ## Character parameter
 
@@ -50,7 +50,7 @@ param <- character_parameter(
 param
 ```
 
-    ## method ∈ {kendall, spearman, pearson}, type=character, default={}
+    ## method ∈ {kendall, spearman, pearson}, type=, default={}
 
 ## Logical parameter
 
@@ -63,7 +63,7 @@ param <- logical_parameter(
 param
 ```
 
-    ## inverse, type=logical, default={}
+    ## inverse, type=, default={}
 
 ## Subset parameter
 
@@ -77,7 +77,7 @@ param <- subset_parameter(
 param
 ```
 
-    ## dimreds = {x | x ⊆ {pca, mds, tsne, umap, ica}}, type=subset, default={}
+    ## dimreds = {x | x ⊆ {pca, mds, tsne, umap, ica}}, type=, default={}
 
 ## Range parameter
 
@@ -92,19 +92,19 @@ range_parameter(
 )
 ```
 
-    ## ks ∈ ( U(1, 5), U(10, 20) ), type=range, default=(3,15)
+    ## ks ∈ ( 1, 10 ), type=, default=(3,15) ks ∈ ( 5, 20 ), type=, default=(3,15)
 
 ## Parsing
 
 ``` r
 param <- list_as_parameter(list(
-  type = "numeric",
+  class = "numeric_parameter",
   id = "gamma",
   default = c(1.1, 2.2),
   description = "Gamma factor",
   length = 2,
   distribution = list(
-    distribution = "uniform",
+    class = "uniform_distribution",
     lower = 0,
     upper = 5
   ) 
@@ -112,4 +112,4 @@ param <- list_as_parameter(list(
 param
 ```
 
-    ## gamma ⊆ U(0, 5), type=numeric, default={}
+    ## gamma ⊆ 0, type=, default={} gamma ⊆ 5, type=, default={}

@@ -84,13 +84,13 @@ range_parameter(
 ## Parsing
 ```{r}
 param <- list_as_parameter(list(
-  type = "numeric",
+  class = "numeric_parameter",
   id = "gamma",
   default = c(1.1, 2.2),
   description = "Gamma factor",
   length = 2,
   distribution = list(
-    distribution = "uniform",
+    class = "uniform_distribution",
     lower = 0,
     upper = 5
   ) 

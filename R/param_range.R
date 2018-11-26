@@ -27,8 +27,6 @@ range_parameter <- function(
   upper_distribution,
   description = NULL
 ) {
-  lower_distribution$type <- "integer"
-  upper_distribution$type <- "integer"
   parameter(
     id = id,
     lower_default = lower_default,
@@ -37,7 +35,7 @@ range_parameter <- function(
     upper_distribution = upper_distribution,
     description = description
   ) %>%
-    extend_with("range_parameter", type = "range")
+    add_class("range_parameter")
 }
 
 #' @export
@@ -89,6 +87,7 @@ as_paramhelper.range_parameter <- function(param) {
 #' @export
 as_list.range_parameter <- function(x) {
   list(
+    class = "range_parameter",
     id = x$id,
     lower_default = x$lower_default,
     upper_default = x$upper_default,

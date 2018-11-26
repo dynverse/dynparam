@@ -19,7 +19,7 @@ logical_parameter <- function(
   length = 1
 ) {
   parameter(id = id, default = default, distribution = NULL, description = description, length = length) %>%
-    extend_with("logical_parameter", type = "logical")
+    add_class("logical_parameter")
 }
 
 #' @export
@@ -37,6 +37,7 @@ as_paramhelper.logical_parameter <- function(param) {
 #' @export
 as_list.logical_parameter <- function(x) {
   lst(
+    class = "logical_parameter",
     id = x$id,
     default = x$default,
     description = x$description,

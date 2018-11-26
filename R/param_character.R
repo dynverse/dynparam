@@ -21,7 +21,7 @@ character_parameter <- function(
   length = 1
 ) {
   parameter(id = id, default = default, values = values, description = description, length = length) %>%
-    extend_with("character_parameter", type = "character")
+    add_class("character_parameter")
 }
 
 #' @export
@@ -40,6 +40,7 @@ as_paramhelper.character_parameter <- function(param) {
 #' @export
 as_list.character_parameter <- function(x) {
   lst(
+    class = "character_parameter",
     id = x$id,
     default = x$default,
     values = as_list(x$values),

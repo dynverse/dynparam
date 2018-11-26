@@ -16,7 +16,7 @@ normal_distribution <- function(mean, sd, lower = -Inf, upper = Inf) {
   if (!check_finite(sd)) {stop("Provide sd when using a normal distributed parameter")}
 
   p <- list(mean = mean, sd = sd, lower = lower, upper = upper)
-  class(p) <- c("distribution", "dist_normal", "list")
+  class(p) <- c("distribution", "normal_distribution", "list")
   p
 }
 
@@ -39,5 +39,11 @@ as.character.dist_normal <- function(x, ...) {
 
 #' @export
 as_list.dist_normal <- function(x) {
-  list(mean = x$mean, sd = x$sd, lower = x$lower, upper = x$upper)
+  list(
+    class = "normal_distribution",
+    mean = x$mean,
+    sd = x$sd,
+    lower = x$lower,
+    upper = x$upper
+  )
 }

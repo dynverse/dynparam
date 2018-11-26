@@ -14,7 +14,7 @@ expuniform_distribution <- function(lower, upper) {
   if (!check_finite(upper)) {stop("Provide finite upper boundary when using an uniformly distributed parameter")}
 
   p <- lst(lower, upper)
-  class(p) <- c("distribution", "dist_expuniform", "list")
+  class(p) <- c("distribution", "expuniform_distribution", "list")
   p
 }
 
@@ -37,5 +37,9 @@ as.character.dist_expuniform <- function(x, ...) {
 
 #' @export
 as_list.dist_expuniform <- function(x) {
-  lst(lower = x$lower, upper = x$upper)
+  lst(
+    class = "expuniform_distribution",
+    lower = x$lower,
+    upper = x$upper
+  )
 }
