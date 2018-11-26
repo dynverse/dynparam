@@ -167,7 +167,7 @@ cat(yaml::as.yaml(as_list(param)))
 ## Range parameter
 
 ``` r
-range_parameter(
+param <- range_parameter(
   id = "ks",
   lower_default = 3,
   upper_default = 15,
@@ -175,6 +175,7 @@ range_parameter(
   upper_distribution = uniform_distribution(10, 20),
   description = "The numbers of clusters to be evaluated."
 )
+param
 ```
 
     ## [range] ks ∈ ( U(1, 5), U(10, 20) ), default=(3,15)
@@ -185,16 +186,16 @@ As yaml:
 cat(yaml::as.yaml(as_list(param)))
 ```
 
-    ## class: subset_parameter
-    ## id: dimreds
-    ## default:
-    ## - pca
-    ## - mds
-    ## values:
-    ## - pca
-    ## - mds
-    ## - tsne
-    ## - umap
-    ## - ica
-    ## description: Which dimensionality reduction methods to apply (can be multiple)
-    ## length: ~
+    ## class: range_parameter
+    ## id: ks
+    ## lower_default: 3.0
+    ## upper_default: 15.0
+    ## description: The numbers of clusters to be evaluated.
+    ## lower_distribution:
+    ##   class: uniform_distribution
+    ##   lower: 1.0
+    ##   upper: 5.0
+    ## upper_distribution:
+    ##   class: uniform_distribution
+    ##   lower: 10.0
+    ##   upper: 20.0
