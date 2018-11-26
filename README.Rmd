@@ -24,6 +24,11 @@ param <- integer_parameter(
 param
 ```
 
+As yaml:
+```{r}
+cat(yaml::as.yaml(as_list(param)))
+```
+
 ## Numeric parameter
 ```{r}
 param <- numeric_parameter(
@@ -37,6 +42,11 @@ param <- numeric_parameter(
 param
 ```
 
+As yaml:
+```{r}
+cat(yaml::as.yaml(as_list(param)))
+```
+
 ## Character parameter
 ```{r}
 param <- character_parameter(
@@ -46,6 +56,11 @@ param <- character_parameter(
   description = "Correlation method"
 )
 param
+```
+
+As yaml:
+```{r}
+cat(yaml::as.yaml(as_list(param)))
 ```
 
 ## Logical parameter
@@ -58,6 +73,11 @@ param <- logical_parameter(
 param
 ```
 
+As yaml:
+```{r}
+cat(yaml::as.yaml(as_list(param)))
+```
+
 ## Subset parameter
 ```{r}
 param <- subset_parameter(
@@ -67,6 +87,11 @@ param <- subset_parameter(
  description = "Which dimensionality reduction methods to apply (can be multiple)"
 )
 param
+```
+
+As yaml:
+```{r}
+cat(yaml::as.yaml(as_list(param)))
 ```
 
 ## Range parameter
@@ -81,19 +106,7 @@ range_parameter(
 )
 ```
 
-## Parsing
+As yaml:
 ```{r}
-param <- list_as_parameter(list(
-  class = "numeric_parameter",
-  id = "gamma",
-  default = c(1.1, 2.2),
-  description = "Gamma factor",
-  length = 2,
-  distribution = list(
-    class = "uniform_distribution",
-    lower = 0,
-    upper = 5
-  ) 
-))
-param
+cat(yaml::as.yaml(as_list(param)))
 ```
