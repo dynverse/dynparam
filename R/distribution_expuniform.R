@@ -9,7 +9,7 @@
 #' expuniform_distribution(1, 10000)
 #'
 #' expuniform_distribution(1e-5, 1e-2)
-expuniform <- function(lower, upper) {
+expuniform_distribution <- function(lower, upper) {
   if (!check_finite(lower)) {stop("Provide finite lower boundary when using an uniformly distributed parameter")}
   if (!check_finite(upper)) {stop("Provide finite upper boundary when using an uniformly distributed parameter")}
 

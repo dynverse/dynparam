@@ -10,14 +10,14 @@
 #' integer_parameter(
 #'   id = "k",
 #'   default = 5,
-#'   distribution = uniform(3, 10),
+#'   distribution = uniform_distribution(3, 10),
 #'   description = "The number of clusters."
 #' )
 #'
 #' integer_parameter(
 #'   id = "num_iter",
 #'   default = 100,
-#'   distribution = expuniform(10, 10000),
+#'   distribution = expuniform_distribution(10, 10000),
 #'   description = "The number of iterations."
 #' )
 integer_parameter <- function(
@@ -34,16 +34,16 @@ integer_parameter <- function(
 
 #' @importFrom ParamHelpers makeNumericParam makeNumericVectorParam
 as_paramhelper.integer_parameter <- function(param) {
-  d2u <- distribution2uniform(param$distribution)
-  u2d <- uniform2distribution(param$distribution)
+  dfun <- distribution_function(param$distribution)
+  qfun <- quantile_function(param$distribution)
 
   fun <- if (param$length == 1) ParamHelpers::makeNumericParam else ParamHelpers::makeNumericVectorParam
   args <- list(
     id = param$id,
-    lower = d2u(param$distribution$lower - .5 + 1e-10),
-    upper = d2u(param$distribution$upper + .5 - 1e-10),
-    default = d2u(param$default),
-    trafo = function(x) round(u2d(x))
+    lower = qfun(param$distribution$lower - .5 + 1e-10),
+    upper = qfun(param$distribution$upper + .5 - 1e-10),
+    default = qfun(param$default),
+    trafo = function(x) round(dfun(x))
   )
   if (param$length != 1) args$len <- param$length
   do.call(fun, args)

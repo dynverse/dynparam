@@ -15,7 +15,7 @@ normal_distribution <- function(mean, sd, lower = -Inf, upper = Inf) {
   if (!check_finite(mean)) {stop("Provide finite mean when using a normal distributed parameter")}
   if (!check_finite(sd)) {stop("Provide sd when using a normal distributed parameter")}
 
-  p <- lst(mean, sd, lower, upper)
+  p <- list(mean = mean, sd = sd, lower = lower, upper = upper)
   class(p) <- c("distribution", "dist_normal", "list")
   p
 }
@@ -30,10 +30,10 @@ quantile_function.dist_normal <- function(dist) {
   function(p) stats::qnorm(p, mean = dist$mean, sd = dist$sd)
 }
 
-as.character.dist_normal <- function(param) {
+as.character.dist_normal <- function(dist) {
   paste0("N(", dist$mean, ", ", dist$sd, ")")
 }
 
 as_list.dist_normal <- function(dist) {
-  lst(mean = dist$mean, sd = dist$sd, lower = dist$lower, upper = dist$upper)
+  list(mean = dist$mean, sd = dist$sd, lower = dist$lower, upper = dist$upper)
 }

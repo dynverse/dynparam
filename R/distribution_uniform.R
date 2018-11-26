@@ -22,12 +22,12 @@ distribution_function.dist_uniform <- function(dist) {
 }
 
 #' @importFrom stats qunif
-quantile_function.dist_uniform <- function(param) {
+quantile_function.dist_uniform <- function(dist) {
   function(p) stats::qunif(p, dist$lower, dist$upper)
 }
 
-as.character.dist_uniform <- function(param) {
-  paste0("U(", param$lower, ", ", param$upper, ")")
+as.character.dist_uniform <- function(dist) {
+  paste0("U(", dist$lower, ", ", dist$upper, ")")
 }
 
 as_list.dist_uniform <- function(dist) {

@@ -26,14 +26,14 @@ Define a numeric parameter
 numeric_parameter(
   id = "alpha",
   default = 0.5,
-  distribution = uniform(0.0, 1.0),
+  distribution = uniform_distribution(0.0, 1.0),
   description = "Weighting parameter for distance function."
 )
 
 numeric_parameter(
   id = "beta",
   default = 0.001,
-  distribution = expuniform(1e-4, 1e-1),
+  distribution = expuniform_distribution(1e-4, 1e-1),
   description = "Percentage decrease in age per iteration"
 )
 }

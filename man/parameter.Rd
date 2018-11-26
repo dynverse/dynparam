@@ -11,6 +11,8 @@ parameter(id, default, ..., description = NULL, length = 1)
 
 \item{default}{The default value of the parameter.}
 
+\item{...}{Extra fields to be saved in the parameter.}
+
 \item{description}{An optional (but recommended) description of the parameter.}
 
 \item{length}{The length of the vector of this parameter (default 1).}

@@ -6,6 +6,9 @@
 \usage{
 collapse_vector(vec)
 }
+\arguments{
+\item{vec}{The vector to collapse.}
+}
 \description{
 Will surround the collapsed vector with brackets if it has more than one element.
 }

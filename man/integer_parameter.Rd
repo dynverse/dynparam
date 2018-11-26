@@ -26,14 +26,14 @@ Define a integer parameter
 integer_parameter(
   id = "k",
   default = 5,
-  distribution = uniform(3, 10),
+  distribution = uniform_distribution(3, 10),
   description = "The number of clusters."
 )
 
 integer_parameter(
   id = "num_iter",
   default = 100,
-  distribution = expuniform(10, 10000),
+  distribution = expuniform_distribution(10, 10000),
   description = "The number of iterations."
 )
 }

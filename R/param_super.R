@@ -10,6 +10,7 @@
 #' @param default The default value of the parameter.
 #' @param description An optional (but recommended) description of the parameter.
 #' @param length The length of the vector of this parameter (default 1).
+#' @param ... Extra fields to be saved in the parameter.
 parameter <- function(
   id,
   default,
@@ -95,14 +96,6 @@ list_as_parameter <- function(li) {
   } else {
     stop("Unknown parameter type: ", li$type)
   }
-}
-
-as.character.parameter <- function(param) {
-  paste0("{", paste(dist$values, collapse = ", "), "}")
-  distribution_str <- if (is.null(param$distribution)) "" else paste0(" \u2282 ", as.character(param$distribution))
-  default_str <- if (length(param$default) == 1) param$default else paste0("{", paste(param$default, collapse = ", "), "}")
-
-  paste0(param$id, ": ", param$type, ", default=", default_str, distribution_str)
 }
 
 print.parameter <- function(param) {
