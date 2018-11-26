@@ -47,10 +47,10 @@ as_paramhelper.numeric_parameter <- function(param) {
   fun <- if (param$length == 1) ParamHelpers::makeNumericParam else ParamHelpers::makeNumericVectorParam
   args <- list(
     id = param$id,
-    lower = qfun(param$distribution$lower),
-    upper = qfun(param$distribution$upper),
-    default = qfun(param$default),
-    trafo = dfun
+    lower = dfun(param$distribution$lower),
+    upper = dfun(param$distribution$upper),
+    default = dfun(param$default),
+    trafo = qfun
   )
   if (param$length != 1) args$len <- param$length
   do.call(fun, args)

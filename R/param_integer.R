@@ -41,10 +41,10 @@ as_paramhelper.integer_parameter <- function(param) {
   fun <- if (param$length == 1) ParamHelpers::makeNumericParam else ParamHelpers::makeNumericVectorParam
   args <- list(
     id = param$id,
-    lower = qfun(param$distribution$lower - .5 + 1e-10),
-    upper = qfun(param$distribution$upper + .5 - 1e-10),
-    default = qfun(param$default),
-    trafo = function(x) round(dfun(x))
+    lower = dfun(param$distribution$lower - .5 + 1e-10),
+    upper = dfun(param$distribution$upper + .5 - 1e-10),
+    default = dfun(param$default),
+    trafo = function(x) round(qfun(x))
   )
   if (param$length != 1) args$len <- param$length
   do.call(fun, args)
