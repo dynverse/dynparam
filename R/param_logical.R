@@ -47,5 +47,5 @@ as_list.logical_parameter <- function(x) {
 
 #' @export
 as.character.logical_parameter <- function(x, ...) {
-  paste0(x$id, ", type=", x$type, ", default=", collapse_vector(x$default))
+  paste0(x$id, ", class=", x$class, ", default=", collapse_vector(x$default))
 }

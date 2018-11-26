@@ -52,7 +52,7 @@ as_list.subset_parameter <- function(x) {
     class = "subset_parameter",
     id = x$id,
     default = x$default,
-    values = as_list(x$values),
+    values = x$values,
     description = x$description,
     length = x$length
   )
@@ -60,5 +60,5 @@ as_list.subset_parameter <- function(x) {
 
 #' @export
 as.character.subset_parameter <- function(x, ...) {
-  paste0(x$id, " = {x | x \u2286 {", paste(x$values, collapse = ", "), "}}, type=", x$type, ", default=", collapse_vector(x$default))
+  paste0(x$id, " = {x | x \u2286 {", paste(x$values, collapse = ", "), "}}, class=", x$class, ", default=", collapse_vector(x$default))
 }

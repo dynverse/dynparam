@@ -22,23 +22,23 @@ normal_distribution <- function(mean, sd, lower = -Inf, upper = Inf) {
 
 #' @export
 #' @importFrom stats pnorm
-distribution_function.dist_normal <- function(dist) {
+distribution_function.normal_distribution <- function(dist) {
   function(q) stats::pnorm(q, mean = dist$mean, sd = dist$sd)
 }
 
 #' @export
 #' @importFrom stats qnorm
-quantile_function.dist_normal <- function(dist) {
+quantile_function.normal_distribution <- function(dist) {
   function(p) stats::qnorm(p, mean = dist$mean, sd = dist$sd)
 }
 
 #' @export
-as.character.dist_normal <- function(x, ...) {
+as.character.normal_distribution <- function(x, ...) {
   paste0("N(", x$mean, ", ", x$sd, ")")
 }
 
 #' @export
-as_list.dist_normal <- function(x) {
+as_list.normal_distribution <- function(x) {
   list(
     class = "normal_distribution",
     mean = x$mean,

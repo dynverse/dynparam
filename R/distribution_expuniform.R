@@ -20,23 +20,23 @@ expuniform_distribution <- function(lower, upper) {
 
 #' @export
 #' @importFrom stats punif
-distribution_function.dist_expuniform <- function(dist) {
+distribution_function.expuniform_distribution <- function(dist) {
   function(q) stats::punif(log(q), min = log(dist$lower), max = log(dist$upper))
 }
 
 #' @export
 #' @importFrom stats qunif
-quantile_function.dist_expuniform <- function(dist) {
+quantile_function.expuniform_distribution <- function(dist) {
   function(p) exp(stats::qunif(p, log(dist$lower), log(dist$upper)))
 }
 
 #' @export
-as.character.dist_expuniform <- function(x, ...) {
+as.character.expuniform_distribution <- function(x, ...) {
   paste0("e^U(", sprintf("%.2f", log(x$lower)), ", ", sprintf("%.2f", log(x$upper)), ")")
 }
 
 #' @export
-as_list.dist_expuniform <- function(x) {
+as_list.expuniform_distribution <- function(x) {
   lst(
     class = "expuniform_distribution",
     lower = x$lower,

@@ -18,23 +18,23 @@ uniform_distribution <- function(lower, upper) {
 
 #' @export
 #' @importFrom stats punif
-distribution_function.dist_uniform <- function(dist) {
+distribution_function.uniform_distribution <- function(dist) {
   function(q) stats::punif(q, min = dist$lower, max = dist$upper)
 }
 
 #' @export
 #' @importFrom stats qunif
-quantile_function.dist_uniform <- function(dist) {
+quantile_function.uniform_distribution <- function(dist) {
   function(p) stats::qunif(p, dist$lower, dist$upper)
 }
 
 #' @export
-as.character.dist_uniform <- function(x, ...) {
+as.character.uniform_distribution <- function(x, ...) {
   paste0("U(", x$lower, ", ", x$upper, ")")
 }
 
 #' @export
-as_list.dist_uniform <- function(x) {
+as_list.uniform_distribution <- function(x) {
   lst(
     class = "uniform_distribution",
     lower = x$lower,

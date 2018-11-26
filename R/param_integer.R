@@ -66,5 +66,5 @@ as_list.integer_parameter <- function(x) {
 #' @export
 as.character.integer_parameter <- function(x, ...) {
   subset_char <- if (x$length == 1) " \u2208 " else " \u2286 "
-  paste0(x$id, subset_char, as.character(x$distribution), ", type=", x$type, ", default=", collapse_vector(x$default))
+  paste0(x$id, subset_char, as.character(x$distribution), ", class=", x$class, ", default=", collapse_vector(x$default))
 }

@@ -43,7 +43,7 @@ as_list.character_parameter <- function(x) {
     class = "character_parameter",
     id = x$id,
     default = x$default,
-    values = as_list(x$values),
+    values = x$values,
     description = x$description,
     length = x$length
   )
@@ -52,5 +52,5 @@ as_list.character_parameter <- function(x) {
 #' @export
 as.character.character_parameter <- function(x, ...) {
   subset_char <- if (x$length == 1) " \u2208 " else " \u2286 "
-  paste0(x$id, subset_char, "{", paste(x$values, collapse = ", "), "}, type=", x$type, ", default=", collapse_vector(x$default))
+  paste0(x$id, subset_char, "{", paste(x$values, collapse = ", "), "}, class=", x$class, ", default=", collapse_vector(x$default))
 }
