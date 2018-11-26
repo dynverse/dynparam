@@ -6,11 +6,13 @@
 #' @param ... Extra fields to be saved in the parameter.
 parameter <- function(
   id,
+  default,
   ...,
   description = NULL
 ) {
   param <- list(
     id = id,
+    default = default,
     description = description,
     ...
   )

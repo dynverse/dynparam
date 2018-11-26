@@ -5,32 +5,27 @@
 #'   See [?dynparam][dynparam::dynparam] for a list of possible distributions.
 #' @param upper_distribution A distribution from which the upper value fo the range can be sampled.
 #'   See [?dynparam][dynparam::dynparam] for a list of possible distributions.
-#' @param lower_default The default lower value of the range.
-#' @param upper_default The default upper value of the range.
 #'
 #' @export
 #'
 #' @examples
 #' range_parameter(
 #'   id = "ks",
-#'   lower_default = 3,
-#'   upper_default = 15,
+#'   default = c(3, 15),
 #'   lower_distribution = uniform_distribution(1, 5),
 #'   upper_distribution = uniform_distribution(10, 20),
 #'   description = "The numbers of clusters to be evaluated."
 #' )
 range_parameter <- function(
   id,
-  lower_default,
-  upper_default,
+  default,
   lower_distribution,
   upper_distribution,
   description = NULL
 ) {
   parameter(
     id = id,
-    lower_default = lower_default,
-    upper_default = upper_default,
+    default = default,
     lower_distribution = lower_distribution,
     upper_distribution = upper_distribution,
     description = description
@@ -53,14 +48,14 @@ as_paramhelper.range_parameter <- function(param) {
       id = paste0(param$id, "_lower"),
       lower = dfun_lower(param$lower_distribution$lower),
       upper = dfun_lower(param$lower_distribution$upper),
-      default = dfun_lower(param$lower_default),
+      default = dfun_lower(param$default[[1]]),
       trafo = qfun_lower
     ),
     ParamHelpers::makeNumericParam(
       id = paste0(param$id, "_upper"),
       upper = dfun_upper(param$upper_distribution$upper),
       upper = dfun_upper(param$upper_distribution$upper),
-      default = dfun_upper(param$upper_default),
+      default = dfun_upper(param$default[[2]]),
       trafo = qfun_upper
     )
   )
@@ -89,8 +84,7 @@ as_list.range_parameter <- function(x) {
   list(
     class = "range_parameter",
     id = x$id,
-    lower_default = x$lower_default,
-    upper_default = x$upper_default,
+    default = x$default,
     description = x$description,
     lower_distribution = as_list(x$lower_distribution),
     upper_distribution = as_list(x$upper_distribution)
@@ -99,5 +93,5 @@ as_list.range_parameter <- function(x) {
 
 #' @export
 as.character.range_parameter <- function(x, ...) {
-  paste0("[range] ", x$id, " \u2208 ( ", as.character(x$lower_distribution), ", ", as.character(x$upper_distribution), " ), default=(", x$lower_default, ",", x$upper_default, ")")
+  paste0("[range] ", x$id, " \u2208 ( ", as.character(x$lower_distribution), ", ", as.character(x$upper_distribution), " ), default=(", x$default[[1]], ",", x$default[[2]], ")")
 }

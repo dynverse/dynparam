@@ -4,16 +4,16 @@
 \alias{parameter}
 \title{Abstract parameter creation function}
 \usage{
-parameter(id, ..., description = NULL)
+parameter(id, default, ..., description = NULL)
 }
 \arguments{
 \item{id}{The name of the parameter.}
 
+\item{default}{The default value of the parameter.}
+
 \item{...}{Extra fields to be saved in the parameter.}
 
 \item{description}{An optional (but recommended) description of the parameter.}
-
-\item{default}{The default value of the parameter.}
 }
 \description{
 Abstract parameter creation function

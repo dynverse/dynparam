@@ -4,15 +4,13 @@
 \alias{range_parameter}
 \title{Define a range parameter}
 \usage{
-range_parameter(id, lower_default, upper_default, lower_distribution,
-  upper_distribution, description = NULL)
+range_parameter(id, default, lower_distribution, upper_distribution,
+  description = NULL)
 }
 \arguments{
 \item{id}{The name of the parameter.}
 
-\item{lower_default}{The default lower value of the range.}
-
-\item{upper_default}{The default upper value of the range.}
+\item{default}{The default value of the parameter.}
 
 \item{lower_distribution}{A distribution from which the lower value of the range can be sampled.
 See \link[dynparam:dynparam]{?dynparam} for a list of possible distributions.}
@@ -28,8 +26,7 @@ Define a range parameter
 \examples{
 range_parameter(
   id = "ks",
-  lower_default = 3,
-  upper_default = 15,
+  default = c(3, 15),
   lower_distribution = uniform_distribution(1, 5),
   upper_distribution = uniform_distribution(10, 20),
   description = "The numbers of clusters to be evaluated."

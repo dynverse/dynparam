@@ -169,8 +169,7 @@ cat(yaml::as.yaml(as_list(param)))
 ``` r
 param <- range_parameter(
   id = "ks",
-  lower_default = 3,
-  upper_default = 15,
+  default = c(3, 15),
   lower_distribution = uniform_distribution(1, 5),
   upper_distribution = uniform_distribution(10, 20),
   description = "The numbers of clusters to be evaluated."
@@ -188,8 +187,9 @@ cat(yaml::as.yaml(as_list(param)))
 
     ## class: range_parameter
     ## id: ks
-    ## lower_default: 3.0
-    ## upper_default: 15.0
+    ## default:
+    ## - 3.0
+    ## - 15.0
     ## description: The numbers of clusters to be evaluated.
     ## lower_distribution:
     ##   class: uniform_distribution
