@@ -69,6 +69,18 @@ param <- subset_parameter(
 param
 ```
 
+## Range parameter
+```{r}
+range_parameter(
+  id = "ks",
+  lower_default = 3,
+  upper_default = 15,
+  lower_distribution = uniform_distribution(1, 5),
+  upper_distribution = uniform_distribution(10, 20),
+  description = "The numbers of clusters to be evaluated."
+)
+```
+
 ## Parsing
 ```{r}
 param <- list_as_parameter(list(

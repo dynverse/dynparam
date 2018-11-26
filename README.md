@@ -20,7 +20,7 @@ param <- integer_parameter(
 param
 ```
 
-    ## num_iter ∈ e^U(0.00, 9.21), type=integer, default=100
+    ## num_iter ∈ e^U(0.00, 9.21), type=integer, default={}
 
 ## Numeric parameter
 
@@ -36,7 +36,7 @@ param <- numeric_parameter(
 param
 ```
 
-    ## delta ⊆ N(5, 1), type=numeric, default={4.5, 2.4, 1.9}
+    ## delta ⊆ N(5, 1), type=numeric, default={}
 
 ## Character parameter
 
@@ -50,7 +50,7 @@ param <- character_parameter(
 param
 ```
 
-    ## method ∈ {kendall, spearman, pearson}, type=character, default=kendall
+    ## method ∈ {kendall, spearman, pearson}, type=character, default={}
 
 ## Logical parameter
 
@@ -63,7 +63,7 @@ param <- logical_parameter(
 param
 ```
 
-    ## inverse, type=logical, default=TRUE
+    ## inverse, type=logical, default={}
 
 ## Subset parameter
 
@@ -77,7 +77,22 @@ param <- subset_parameter(
 param
 ```
 
-    ## dimreds = {x | x ⊆ {pca, mds, tsne, umap, ica}}, type=subset, default={pca, mds}
+    ## dimreds = {x | x ⊆ {pca, mds, tsne, umap, ica}}, type=subset, default={}
+
+## Range parameter
+
+``` r
+range_parameter(
+  id = "ks",
+  lower_default = 3,
+  upper_default = 15,
+  lower_distribution = uniform_distribution(1, 5),
+  upper_distribution = uniform_distribution(10, 20),
+  description = "The numbers of clusters to be evaluated."
+)
+```
+
+    ## ks ∈ ( U(1, 5), U(10, 20) ), type=range, default=(3,15)
 
 ## Parsing
 
@@ -97,4 +112,4 @@ param <- list_as_parameter(list(
 param
 ```
 
-    ## gamma ⊆ U(0, 5), type=numeric, default={1.1, 2.2}
+    ## gamma ⊆ U(0, 5), type=numeric, default={}
