@@ -1,9 +1,3 @@
-# required parameter types:
-# [OK] integer, character, numeric, logical
-# [OK] integer_vector, character_vector, numeric_vector, logical_vector
-# [OK] character_subset
-# [  ] integer_range, numeric_range
-
 #' Abstract parameter creation function
 #'
 #' @param id The name of the parameter.
