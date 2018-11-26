@@ -20,7 +20,7 @@ logical_parameter <- function(
     extend_with("logical_parameter", type = "logical")
 }
 
-#' @S3method as_paramhelper logical_parameter
+#' @export
 #' @importFrom ParamHelpers makeLogicalParam makeLogicalVectorParam
 as_paramhelper.logical_parameter <- function(param) {
   fun <- if (param$length == 1) ParamHelpers::makeLogicalParam else ParamHelpers::makeLogicalVectorParam
@@ -32,17 +32,17 @@ as_paramhelper.logical_parameter <- function(param) {
   do.call(fun, args)
 }
 
-#' @S3method as_list logical_parameter
-as_list.logical_parameter <- function(param) {
+#' @export
+as_list.logical_parameter <- function(x) {
   lst(
-    id = param$id,
-    default = param$default,
-    description = param$description,
-    length = param$length
+    id = x$id,
+    default = x$default,
+    description = x$description,
+    length = x$length
   )
 }
 
-#' @S3method as.character logical_parameter
-as.character.logical_parameter <- function(param) {
-  paste0(param$id, ", type=", param$type, ", default=", collapse_vector(param$default))
+#' @export
+as.character.logical_parameter <- function(x, ...) {
+  paste0(x$id, ", type=", x$type, ", default=", collapse_vector(x$default))
 }

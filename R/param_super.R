@@ -31,12 +31,15 @@ parameter <- function(
 
 #' Helper functions for converting parameters from and to other formats
 #'
-#' @param param The parameter to be converted.
+#' @param param A parameter to be converted.
+#' @param x An object (parameter or distribution) to be converted.
 #' @param li A list to be converted into a parameter.
 #'
 #' @export
 #'
 #' @rdname parameters
+#'
+#' @seealso [dynparam][dynparam]
 as_paramhelper <- function(param) {
   UseMethod("as_paramhelper")
 }
@@ -55,7 +58,7 @@ as_argparse <- function(param) {
 
 #' @export
 #' @rdname parameters
-as_list <- function(param) {
+as_list <- function(x) {
   UseMethod("as_list")
 }
 
@@ -98,9 +101,9 @@ list_as_parameter <- function(li) {
   }
 }
 
-#' @S3method print parameter
-print.parameter <- function(param) {
-  cat(as.character(param))
+#' @export
+print.parameter <- function(x, ...) {
+  cat(as.character(x))
 }
 
 # #' @importFrom Hmisc capitalize

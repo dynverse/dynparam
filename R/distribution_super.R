@@ -1,19 +1,26 @@
 check_finite <- function(x) length(x) == 1 && is.finite(x)
 
+#' Helper functions for converting distributions from and to other formats
+#'
+#' @param dist A distribution object.
+#' @param li A list to be converted into a distribution.
+#'
 #' @export
-#' @rdname parameters
-distribution_function <- function(param) {
-  UseMethod("distribution_function", param)
+#' @rdname distributions
+#'
+#' @seealso [dynparam][dynparam].
+distribution_function <- function(dist) {
+  UseMethod("distribution_function", dist)
 }
 
 #' @export
-#' @rdname parameters
-quantile_function <- function(param) {
-  UseMethod("quantile_function", param)
+#' @rdname distributions
+quantile_function <- function(dist) {
+  UseMethod("quantile_function", dist)
 }
 
 #' @export
-#' @rdname parameters
+#' @rdname distributions
 list_as_distribution <- function(li) {
   distribution <- li$distribution %||% "uniform"
 

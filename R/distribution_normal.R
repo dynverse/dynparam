@@ -20,24 +20,24 @@ normal_distribution <- function(mean, sd, lower = -Inf, upper = Inf) {
   p
 }
 
-#' @S3method distribution_function dist_normal
+#' @export
 #' @importFrom stats pnorm
 distribution_function.dist_normal <- function(dist) {
   function(q) stats::pnorm(q, mean = dist$mean, sd = dist$sd)
 }
 
-#' @S3method quantile_function dist_normal
+#' @export
 #' @importFrom stats qnorm
 quantile_function.dist_normal <- function(dist) {
   function(p) stats::qnorm(p, mean = dist$mean, sd = dist$sd)
 }
 
-#' @S3method as.character dist_normal
-as.character.dist_normal <- function(dist) {
-  paste0("N(", dist$mean, ", ", dist$sd, ")")
+#' @export
+as.character.dist_normal <- function(x, ...) {
+  paste0("N(", x$mean, ", ", x$sd, ")")
 }
 
-#' @S3method as_list dist_normal
-as_list.dist_normal <- function(dist) {
-  list(mean = dist$mean, sd = dist$sd, lower = dist$lower, upper = dist$upper)
+#' @export
+as_list.dist_normal <- function(x) {
+  list(mean = x$mean, sd = x$sd, lower = x$lower, upper = x$upper)
 }

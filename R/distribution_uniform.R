@@ -16,24 +16,24 @@ uniform_distribution <- function(lower, upper) {
   p
 }
 
-#' @S3method distribution_function dist_uniform
+#' @export
 #' @importFrom stats punif
 distribution_function.dist_uniform <- function(dist) {
   function(q) stats::punif(q, min = dist$lower, max = dist$upper)
 }
 
-#' @S3method quantile_function dist_uniform
+#' @export
 #' @importFrom stats qunif
 quantile_function.dist_uniform <- function(dist) {
   function(p) stats::qunif(p, dist$lower, dist$upper)
 }
 
-#' @S3method as.character dist_uniform
-as.character.dist_uniform <- function(dist) {
-  paste0("U(", dist$lower, ", ", dist$upper, ")")
+#' @export
+as.character.dist_uniform <- function(x, ...) {
+  paste0("U(", x$lower, ", ", x$upper, ")")
 }
 
-#' @S3method as_list dist_uniform
-as_list.dist_uniform <- function(dist) {
-  lst(lower = dist$lower, upper = dist$upper)
+#' @export
+as_list.dist_uniform <- function(x) {
+  lst(lower = x$lower, upper = x$upper)
 }

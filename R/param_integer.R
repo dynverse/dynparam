@@ -32,7 +32,7 @@ integer_parameter <- function(
     extend_with("integer_parameter", type = "integer")
 }
 
-#' @S3method as_paramhelper integer_parameter
+#' @export
 #' @importFrom ParamHelpers makeNumericParam makeNumericVectorParam
 as_paramhelper.integer_parameter <- function(param) {
   dfun <- distribution_function(param$distribution)
@@ -50,18 +50,18 @@ as_paramhelper.integer_parameter <- function(param) {
   do.call(fun, args)
 }
 
-#' @S3method as_list integer_parameter
-as_list.integer_parameter <- function(param) {
+#' @export
+as_list.integer_parameter <- function(x) {
   lst(
-    id = param$id,
-    default = param$default,
-    distribution = as_list(param$distribution),
-    description = param$description,
-    length = param$length
+    id = x$id,
+    default = x$default,
+    distribution = as_list(x$distribution),
+    description = x$description,
+    length = x$length
   )
 }
 
-#' @S3method as.character integer_parameter
-as.character.integer_parameter <- function(param) {
-  paste0(param$id, " \u2282 ", as.character(param$distribution), ", type=", param$type, ", default=", collapse_vector(param$default))
+#' @export
+as.character.integer_parameter <- function(x, ...) {
+  paste0(x$id, " \u2282 ", as.character(x$distribution), ", type=", x$type, ", default=", collapse_vector(x$default))
 }
