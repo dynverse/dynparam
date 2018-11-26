@@ -53,7 +53,7 @@ as_paramhelper.numeric_parameter <- function(param) {
     trafo = qfun
   )
   if (param$length != 1) args$len <- param$length
-  do.call(fun, args)
+  list(params = do.call(fun, args))
 }
 
 #' @export

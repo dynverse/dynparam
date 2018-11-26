@@ -29,7 +29,7 @@ as_paramhelper.logical_parameter <- function(param) {
     default = param$default
   )
   if (param$length != 1) args$len <- param$length
-  do.call(fun, args)
+  list(params = do.call(fun, args))
 }
 
 #' @export

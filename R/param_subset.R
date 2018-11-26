@@ -26,17 +26,19 @@ subset_parameter <- function(
 #' @importFrom ParamHelpers makeDiscreteVectorParam
 #' @importFrom carrier crate
 as_paramhelper.subset_parameter <- function(param) {
-  list(
+  param <-
     ParamHelpers::makeDiscreteVectorParam(
-      id = param$id,
-      values = param$values,
-      default = param$default,
-      len = param$length
-    ),
-    carrier::crate(function(df) {
-      df %>% mutate_at(param$id, ~ map(., function(x) param$values[x]))
-    }, param = param)
+    id = param$id,
+    values = param$values,
+    default = param$default,
+    len = param$length
   )
+  trafo_fun <-
+    carrier::crate(function(df) {
+    df %>% mutate_at(param$id, ~ map(., function(x) param$values[x]))
+  }, param = param)
+
+  list(params = list(param), trafo_fun = trafo_fun)
 }
 
 #' @export

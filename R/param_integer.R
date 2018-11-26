@@ -47,7 +47,7 @@ as_paramhelper.integer_parameter <- function(param) {
     trafo = function(x) round(qfun(x))
   )
   if (param$length != 1) args$len <- param$length
-  do.call(fun, args)
+  list(params = list(do.call(fun, args)))
 }
 
 #' @export
