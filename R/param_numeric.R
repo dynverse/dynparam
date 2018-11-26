@@ -38,6 +38,7 @@ numeric_parameter <- function(
     extend_with("numeric_parameter", type = "numeric")
 }
 
+#' @S3method as_paramhelper numeric_parameter
 #' @importFrom ParamHelpers makeNumericParam makeNumericVectorParam
 as_paramhelper.numeric_parameter <- function(param) {
   dfun <- distribution_function(param$distribution)
@@ -55,6 +56,7 @@ as_paramhelper.numeric_parameter <- function(param) {
   do.call(fun, args)
 }
 
+#' @S3method as_list numeric_parameter
 as_list.numeric_parameter <- function(param) {
   list(
     id = param$id,
@@ -65,6 +67,7 @@ as_list.numeric_parameter <- function(param) {
   )
 }
 
+#' @S3method as.character numeric_parameter
 as.character.numeric_parameter <- function(param) {
   paste0(param$id, " \u2282 ", as.character(param$distribution), ", type=", param$type, ", default=", collapse_vector(param$default))
 }

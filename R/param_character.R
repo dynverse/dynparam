@@ -23,6 +23,7 @@ character_parameter <- function(
     extend_with("character_parameter", type = "character")
 }
 
+#' @S3method as_paramhelper character_parameter
 #' @importFrom ParamHelpers makeDiscreteParam makeDiscreteVectorParam
 as_paramhelper.character_parameter <- function(param) {
   fun <- if (param$length == 1) ParamHelpers::makeDiscreteParam else ParamHelpers::makeDiscreteVectorParam
@@ -35,6 +36,7 @@ as_paramhelper.character_parameter <- function(param) {
   do.call(fun, args)
 }
 
+#' @S3method as_list character_parameter
 as_list.character_parameter <- function(param) {
   lst(
     id = param$id,
@@ -45,6 +47,7 @@ as_list.character_parameter <- function(param) {
   )
 }
 
+#' @S3method as.character character_parameter
 as.character.character_parameter <- function(param) {
   paste0(param$id, " \u2282 {", paste(param$values, collapse = ", "), "}, type=", param$type, ", default=", collapse_vector(param$default))
 }

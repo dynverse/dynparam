@@ -98,6 +98,7 @@ list_as_parameter <- function(li) {
   }
 }
 
+#' @S3method print parameter
 print.parameter <- function(param) {
   cat(as.character(param))
 }

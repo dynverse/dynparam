@@ -18,20 +18,24 @@ expuniform_distribution <- function(lower, upper) {
   p
 }
 
+#' @S3method distribution_function dist_expuniform
 #' @importFrom stats punif
 distribution_function.dist_expuniform <- function(dist) {
   function(q) stats::punif(log(q), min = log(dist$lower), max = log(dist$upper))
 }
 
+#' @S3method quantile_function dist_expuniform
 #' @importFrom stats qunif
 quantile_function.dist_expuniform <- function(dist) {
   function(p) exp(stats::qunif(p, log(dist$lower), log(dist$upper)))
 }
 
+#' @S3method as.character dist_expuniform
 as.character.dist_expuniform <- function(dist) {
   paste0("e^U(", sprintf("%.2f", log(dist$lower)), ", ", sprintf("%.2f", log(dist$upper)), ")")
 }
 
+#' @S3method as_list dist_expuniform
 as_list.dist_expuniform <- function(dist) {
   lst(lower = dist$lower, upper = dist$upper)
 }

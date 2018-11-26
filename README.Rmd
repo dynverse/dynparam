@@ -10,7 +10,7 @@ editor_options:
 
 ```{r, message = FALSE, error = FALSE, warning = FALSE}
 library(tidyverse)
-devtools::load_all(".")
+library(dynparam)
 ```
 
 ## Integer parameter
@@ -18,7 +18,7 @@ devtools::load_all(".")
 param <- integer_parameter(
   id = "num_iter", 
   default = 100,
-  distribution = expuniform(lower = 1e0, upper = 1e4), 
+  distribution = expuniform_distribution(lower = 1e0, upper = 1e4), 
   description = "Number of iterations"
 )
 param
@@ -30,7 +30,7 @@ as_paramhelper(param)
 param <- numeric_parameter(
   id = "delta", 
   default = c(4.5, 2.4, 1.9), 
-  distribution = normal(mean = 5, sd = 1),
+  distribution = normal_distribution(mean = 5, sd = 1),
   description = "Multiplying factors",
   length = 3
 )
@@ -44,7 +44,7 @@ as_paramhelper(param)
 param <- character_parameter(
   id = "method", 
   default = "kendall",
-  values = set("kendall", "spearman", "pearson"), 
+  values = c("kendall", "spearman", "pearson"), 
   description = "Correlation method"
 )
 param
@@ -70,9 +70,11 @@ param <- list_to_parameter(list(
   default = c(1.1, 2.2),
   description = "Gamma factor",
   length = 2,
-  distribution = "uniform",
-  lower = 0,
-  upper = 5
+  distribution = list(
+    distribution = "uniform",
+    lower = 0,
+    upper = 5
+  ) 
 ))
 param
 ```
