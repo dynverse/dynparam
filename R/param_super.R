@@ -1,6 +1,6 @@
 # required parameter types:
 # [OK] integer, character, numeric, logical
-# [  ] integer_vector, character_vector, numeric_vector, logical_vector
+# [OK] integer_vector, character_vector, numeric_vector, logical_vector
 # [  ] character_subset
 # [  ] integer_range, numeric_range
 
