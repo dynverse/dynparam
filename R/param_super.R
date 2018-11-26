@@ -97,8 +97,7 @@ list_as_parameter <- function(li) {
   } else if (li$class == "range_parameter") {
     range_parameter(
       id = li$id,
-      lower_default = li$lower_default,
-      upper_default = li$upper_default,
+      default = li$default,
       lower_distribution = list_as_distribution(li$lower_distribution),
       upper_distribution = list_as_distribution(li$upper_distribution),
       description = li$description
