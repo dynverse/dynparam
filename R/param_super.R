@@ -1,7 +1,7 @@
 # required parameter types:
 # [OK] integer, character, numeric, logical
 # [OK] integer_vector, character_vector, numeric_vector, logical_vector
-# [  ] character_subset
+# [OK] character_subset
 # [  ] integer_range, numeric_range
 
 #' Abstract parameter creation function
@@ -95,6 +95,13 @@ list_as_parameter <- function(li) {
       description = li$description,
       distribution = list_as_distribution(li$distribution),
       length = li$length
+    )
+  } else if (li$type == "subset") {
+    subset_parameter(
+      id = li$id,
+      default = li$default,
+      values = li$values,
+      description = li$description
     )
   } else {
     stop("Unknown parameter type: ", li$type)
