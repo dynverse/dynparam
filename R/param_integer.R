@@ -1,0 +1,64 @@
+#' Define a integer parameter
+#'
+#' @inheritParams parameter
+#' @param distribution A distribution from which the parameter can be sampled.
+#'   See [?dynparam][dynparam::dynparam] for a list of possible distributions.
+#'
+#' @export
+#'
+#' @examples
+#' integer_parameter(
+#'   id = "k",
+#'   default = 5,
+#'   distribution = uniform(3, 10),
+#'   description = "The number of clusters."
+#' )
+#'
+#' integer_parameter(
+#'   id = "num_iter",
+#'   default = 100,
+#'   distribution = expuniform(10, 10000),
+#'   description = "The number of iterations."
+#' )
+integer_parameter <- function(
+  id,
+  default,
+  distribution,
+  description = NULL,
+  length = 1
+) {
+  distribution$type <- "integer"
+  parameter(id = id, default = default, distribution = distribution, description = description, length = length) %>%
+    extend_with("integer_parameter", type = "integer")
+}
+
+#' @importFrom ParamHelpers makeNumericParam makeNumericVectorParam
+as_paramhelper.integer_parameter <- function(param) {
+  d2u <- distribution2uniform(param$distribution)
+  u2d <- uniform2distribution(param$distribution)
+
+  fun <- if (param$length == 1) ParamHelpers::makeNumericParam else ParamHelpers::makeNumericVectorParam
+  args <- list(
+    id = param$id,
+    lower = d2u(param$distribution$lower - .5 + 1e-10),
+    upper = d2u(param$distribution$upper + .5 - 1e-10),
+    default = d2u(param$default),
+    trafo = function(x) round(u2d(x))
+  )
+  if (param$length != 1) args$len <- param$length
+  do.call(fun, args)
+}
+
+as_list.integer_parameter <- function(param) {
+  lst(
+    id = param$id,
+    default = param$default,
+    distribution = as_list(param$distribution),
+    description = param$description,
+    length = param$length
+  )
+}
+
+as.character.integer_parameter <- function(param) {
+  paste0(param$id, " \u2282 ", as.character(param$distribution), ", type=", param$type, ", default=", collapse_vector(param$default))
+}
