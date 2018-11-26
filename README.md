@@ -20,7 +20,7 @@ param <- integer_parameter(
 param
 ```
 
-    ## num_iter ⊆ e^U(0.00, 9.21), type=integer, default=100
+    ## num_iter ∈ e^U(0.00, 9.21), type=integer, default=100
 
 ``` r
 as_paramhelper(param)
@@ -64,7 +64,7 @@ param <- character_parameter(
 param
 ```
 
-    ## method ⊆ {kendall, spearman, pearson}, type=character, default=kendall
+    ## method ∈ {kendall, spearman, pearson}, type=character, default=kendall
 
 ``` r
 as_paramhelper(param)
