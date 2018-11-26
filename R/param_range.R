@@ -99,5 +99,5 @@ as_list.range_parameter <- function(x) {
 
 #' @export
 as.character.range_parameter <- function(x, ...) {
-  paste0(x$id, " \u2208 ( ", as.character(x$lower_distribution), ", ", as.character(x$upper_distribution), " ), class=", x$class, ", default=(", x$lower_default, ",", x$upper_default, ")")
+  paste0("[range] ", x$id, " \u2208 ( ", as.character(x$lower_distribution), ", ", as.character(x$upper_distribution), " ), default=(", x$lower_default, ",", x$upper_default, ")")
 }

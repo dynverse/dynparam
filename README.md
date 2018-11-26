@@ -20,7 +20,7 @@ param <- integer_parameter(
 param
 ```
 
-    ## num_iter ∈ e^U(0.00, 9.21), class=, default=100
+    ## [integer] num_iter ∈ e^U(0.00, 9.21), default=100
 
 As yaml:
 
@@ -52,7 +52,7 @@ param <- numeric_parameter(
 param
 ```
 
-    ## delta ⊆ N(5, 1), class=, default={4.5, 2.4, 1.9}
+    ## [numeric] delta ⊆ N(5, 1), default={4.5, 2.4, 1.9}
 
 As yaml:
 
@@ -87,7 +87,7 @@ param <- character_parameter(
 param
 ```
 
-    ## method ∈ {kendall, spearman, pearson}, class=, default=kendall
+    ## [character] method ∈ {kendall, spearman, pearson}, default=kendall
 
 As yaml:
 
@@ -116,7 +116,7 @@ param <- logical_parameter(
 param
 ```
 
-    ## inverse, class=, default=TRUE
+    ## [logical] inverse, default=TRUE
 
 As yaml:
 
@@ -142,7 +142,7 @@ param <- subset_parameter(
 param
 ```
 
-    ## dimreds = {x | x ⊆ {pca, mds, tsne, umap, ica}}, class=, default={pca, mds}
+    ## [subset] dimreds = {x | x ⊆ {pca, mds, tsne, umap, ica}}, default={pca, mds}
 
 As yaml:
 
@@ -177,7 +177,7 @@ range_parameter(
 )
 ```
 
-    ## ks ∈ ( U(1, 5), U(10, 20) ), class=, default=(3,15)
+    ## [range] ks ∈ ( U(1, 5), U(10, 20) ), default=(3,15)
 
 As yaml:
 
