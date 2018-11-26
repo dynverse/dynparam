@@ -96,7 +96,7 @@ cat(yaml::as.yaml(as_list(param)))
 
 ## Range parameter
 ```{r}
-range_parameter(
+param <- range_parameter(
   id = "ks",
   lower_default = 3,
   upper_default = 15,
@@ -104,6 +104,7 @@ range_parameter(
   upper_distribution = uniform_distribution(10, 20),
   description = "The numbers of clusters to be evaluated."
 )
+param
 ```
 
 As yaml:
