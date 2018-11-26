@@ -1,0 +1,10 @@
+language: r
+sudo: required
+dist: trusty
+cache: packages
+install:
+ - R -e 'if ("devtools" %in% rownames(installed.packages())) update.packages(oldPkgs = "devtools", ask = FALSE) else install.packages("devtools")'
+ - R -e 'devtools::install_cran("covr")'
+ - R -e 'setRepositories(ind = 1:4); devtools::install(dependencies = TRUE, upgrade_dependencies = TRUE)'
+after_success:
+ - R -e 'covr::codecov()'
