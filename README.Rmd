@@ -22,7 +22,6 @@ param <- integer_parameter(
   description = "Number of iterations"
 )
 param
-as_paramhelper(param)
 ```
 
 ## Numeric parameter
@@ -36,7 +35,6 @@ param <- numeric_parameter(
 )
 
 param
-as_paramhelper(param)
 ```
 
 ## Character parameter
@@ -48,7 +46,6 @@ param <- character_parameter(
   description = "Correlation method"
 )
 param
-as_paramhelper(param)
 ```
 
 ## Logical parameter
@@ -59,7 +56,17 @@ param <- logical_parameter(
   description = "Inversion parameter"
 )
 param
-as_paramhelper(param)
+```
+
+## Subset parameter
+```{r}
+param <- subset_parameter(
+ id = "dimreds",
+ default = c("pca", "mds"),
+ values = c("pca", "mds", "tsne", "umap", "ica"),
+ description = "Which dimensionality reduction methods to apply (can be multiple)"
+)
+param
 ```
 
 ## Parsing

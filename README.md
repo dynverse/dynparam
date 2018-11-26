@@ -22,13 +22,6 @@ param
 
     ## num_iter ∈ e^U(0.00, 9.21), type=integer, default=100
 
-``` r
-as_paramhelper(param)
-```
-
-    ##      Type len Def Constr Req Tunable Trafo
-    ## 1 numeric   - 0.5 0 to 1   -    TRUE     Y
-
 ## Numeric parameter
 
 ``` r
@@ -45,13 +38,6 @@ param
 
     ## delta ⊆ N(5, 1), type=numeric, default={4.5, 2.4, 1.9}
 
-``` r
-as_paramhelper(param)
-```
-
-    ##            Type len             Def Constr Req Tunable Trafo
-    ## 1 numericvector   3 0.309,0.0046... 0 to 1   -    TRUE     Y
-
 ## Character parameter
 
 ``` r
@@ -66,13 +52,6 @@ param
 
     ## method ∈ {kendall, spearman, pearson}, type=character, default=kendall
 
-``` r
-as_paramhelper(param)
-```
-
-    ##       Type len     Def                   Constr Req Tunable Trafo
-    ## 1 discrete   - kendall kendall,spearman,pearson   -    TRUE     -
-
 ## Logical parameter
 
 ``` r
@@ -86,12 +65,19 @@ param
 
     ## inverse, type=logical, default=TRUE
 
+## Subset parameter
+
 ``` r
-as_paramhelper(param)
+param <- subset_parameter(
+ id = "dimreds",
+ default = c("pca", "mds"),
+ values = c("pca", "mds", "tsne", "umap", "ica"),
+ description = "Which dimensionality reduction methods to apply (can be multiple)"
+)
+param
 ```
 
-    ##      Type len  Def Constr Req Tunable Trafo
-    ## 1 logical   - TRUE      -   -    TRUE     -
+    ## dimreds = {x | x ⊆ {pca, mds, tsne, umap, ica}}, type=subset, default={pca, mds}
 
 ## Parsing
 
