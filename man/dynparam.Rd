@@ -4,9 +4,9 @@
 \name{dynparam}
 \alias{dynparam}
 \alias{dynparam-package}
-\title{Wrapper functions for descripting parameters}
+\title{Creating meta-information for parameters}
 \description{
-Wrapper functions for descripting parameters
+Creating meta-information for parameters
 }
 \section{Parameters}{
 

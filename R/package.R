@@ -1,15 +1,4 @@
-#' Wrapper functions for descripting parameters
-#'
-#' @import dplyr
-#' @import tidyr
-#' @import tibble
-#' @import dynutils
-#' @import purrr
-#' @importFrom magrittr %<>% %$% set_rownames set_colnames
-#' @importFrom glue glue
-#'
-#' @docType package
-#' @name dynparam
+#' Creating meta-information for parameters
 #'
 #' @section Parameters:
 #' These functions help you provide a meta description of parameters.
@@ -29,4 +18,14 @@
 #' * [uniform_distribution()]
 #' * [expuniform_distribution()]
 #' * [normal_distribution()]
+#'
+#' @import dplyr
+#' @import tidyr
+#' @import tibble
+#' @import dynutils
+#' @import purrr
+#' @importFrom magrittr %<>% %$% set_rownames set_colnames
+#'
+#' @docType package
+#' @name dynparam
 NULL

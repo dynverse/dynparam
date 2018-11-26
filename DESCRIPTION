@@ -1,6 +1,6 @@
 Package: dynparam
 Type: Package
-Title: Helper package for parameter stuff
+Title: Creating meta-information for parameters
 Version: 0.0.1
 Authors@R: c(
     person(
@@ -20,7 +20,7 @@ Authors@R: c(
   )
 URL: https://github.com/dynverse/dynparam
 BugReports: https://github.com/dynverse/dynparam/issues
-Description: Helper package for parameter stuff
+Description: These functions help you create meta informations on parameters.
 License: GPL-3
 LazyData: TRUE
 RoxygenNote: 6.1.0
@@ -31,20 +31,12 @@ Depends:
 Imports:
   dplyr,
   dynutils,
-  glue,
-  jsonlite,
   magrittr,
-  methods,
-  optparse,
+  ParamHelpers,
   purrr,
-  readr,
   testthat,
   tibble,
-  tidyr,
-  yaml
-Suggests:
-  hdf5r
+  tidyr
 Remotes:
   dynverse/dynutils,
   dynverse/dyndimred
-VignetteBuilder: knitr
