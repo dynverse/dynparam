@@ -2,6 +2,7 @@
 #'
 #' @inheritParams parameter
 #' @param values A set of possible values.
+#' @param length The length of the vector of this parameter (default 1).
 #'
 #' @export
 #'

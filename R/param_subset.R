@@ -18,7 +18,7 @@ subset_parameter <- function(
   values,
   description = NULL
 ) {
-  parameter(id = id, default = default, values = values, description = description, length = length(values)) %>%
+  parameter(id = id, default = default, values = values, description = description) %>%
     extend_with("subset_parameter", type = "subset")
 }
 
@@ -31,12 +31,17 @@ as_paramhelper.subset_parameter <- function(param) {
     id = param$id,
     values = param$values,
     default = param$default,
-    len = param$length
+    len = length(param$values)
   )
   trafo_fun <-
     carrier::crate(function(df) {
-    df %>% mutate_at(param$id, ~ map(., function(x) param$values[x]))
-  }, param = param)
+      df[[param$id]] <- lapply(
+        df[[param$id]],
+        function(x) {
+          param$values[x]
+        }
+      )
+    }, param = param)
 
   list(params = list(param), trafo_fun = trafo_fun)
 }

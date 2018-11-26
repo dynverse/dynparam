@@ -9,20 +9,16 @@
 #' @param id The name of the parameter.
 #' @param default The default value of the parameter.
 #' @param description An optional (but recommended) description of the parameter.
-#' @param length The length of the vector of this parameter (default 1).
 #' @param ... Extra fields to be saved in the parameter.
 parameter <- function(
   id,
   default,
   ...,
-  description = NULL,
-  length = 1
+  description = NULL
 ) {
   param <- lst(
     id,
     description,
-    default,
-    length,
     ...
   )
   class(param) <- c("parameter", "list")

@@ -1,6 +1,8 @@
 #' Define a integer parameter
 #'
 #' @inheritParams parameter
+#'
+#' @param length The length of the vector of this parameter (default 1).
 #' @param distribution A distribution from which the parameter can be sampled.
 #'   See [?dynparam][dynparam::dynparam] for a list of possible distributions.
 #'

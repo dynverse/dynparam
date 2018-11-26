@@ -4,7 +4,7 @@
 \alias{parameter}
 \title{Abstract parameter creation function}
 \usage{
-parameter(id, default, ..., description = NULL, length = 1)
+parameter(id, default, ..., description = NULL)
 }
 \arguments{
 \item{id}{The name of the parameter.}
@@ -14,8 +14,6 @@ parameter(id, default, ..., description = NULL, length = 1)
 \item{...}{Extra fields to be saved in the parameter.}
 
 \item{description}{An optional (but recommended) description of the parameter.}
-
-\item{length}{The length of the vector of this parameter (default 1).}
 }
 \description{
 Abstract parameter creation function
