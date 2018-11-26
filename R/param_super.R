@@ -15,9 +15,9 @@ parameter <- function(
   ...,
   description = NULL
 ) {
-  param <- lst(
-    id,
-    description,
+  param <- list(
+    id = id,
+    description = description,
     ...
   )
   class(param) <- c("parameter", "list")
