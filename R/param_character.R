@@ -40,8 +40,10 @@ as_paramhelper.character_parameter <- function(param) {
     default = param$default
   )
 
-  if (length != 1)
+  if (length != 1) {
     args$len <- length
+    args$default <- as.list(args$default)
+  }
 
   list(params = list(do.call(fun, args)))
 }
