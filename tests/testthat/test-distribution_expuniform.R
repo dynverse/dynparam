@@ -34,3 +34,11 @@ test_that("expuniform_distribution works with random values", {
   expect_true(all(abs(qfun(c(0, 0.5, 1)) - c(lower, middle, upper)) < 1e-5))
   expect_true(all(abs(dfun(c(lower, middle, upper)) - c(0, .5, 1)) < 1e-5))
 })
+
+test_that("expuniform_distribution errors when expected", {
+  expect_error(expuniform_distribution(lower = -Inf, upper = 0), "[Pp]rovide finite lower boundary")
+  expect_error(expuniform_distribution(lower = NA, upper = NA), "[Pp]rovide finite lower boundary")
+  expect_error(expuniform_distribution(lower = ~help_us, upper = "we need aid"), "[Pp]rovide finite lower boundary")
+  expect_error(expuniform_distribution(lower = 0, upper = Inf), "[Pp]rovide finite upper boundary")
+  expect_error(expuniform_distribution(lower = 10, upper = 0), "[Ll]ower boundary should be small than or equal to upper boundary")
+})
