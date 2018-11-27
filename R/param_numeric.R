@@ -68,7 +68,7 @@ as_list.numeric_parameter <- function(x) {
 
 #' @export
 as.character.numeric_parameter <- function(x, ...) {
-  subset_char <- if (length(param$default) == 1) " \u2208 " else " \u2286 "
+  subset_char <- if (length(x$default) == 1) " \u2208 " else " \u2286 "
   paste0("[numeric] ", x$id, subset_char, as.character(x$distribution), ", default=", collapse_set(x$default))
 }
 
