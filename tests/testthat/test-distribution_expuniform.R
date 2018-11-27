@@ -36,9 +36,9 @@ test_that("expuniform_distribution works with random values", {
 })
 
 test_that("expuniform_distribution errors when expected", {
-  expect_error(expuniform_distribution(lower = -Inf, upper = 0), "[Pp]rovide finite lower boundary")
-  expect_error(expuniform_distribution(lower = NA, upper = NA), "[Pp]rovide finite lower boundary")
-  expect_error(expuniform_distribution(lower = ~help_us, upper = "we need aid"), "[Pp]rovide finite lower boundary")
-  expect_error(expuniform_distribution(lower = 0, upper = Inf), "[Pp]rovide finite upper boundary")
-  expect_error(expuniform_distribution(lower = 10, upper = 0), "[Ll]ower boundary should be small than or equal to upper boundary")
+  expect_error(expuniform_distribution(lower = -Inf, upper = 0), "lower.*should be finite")
+  expect_error(expuniform_distribution(lower = NA, upper = NA), "lower.*should be finite")
+  expect_error(expuniform_distribution(lower = ~help_us, upper = "we need more wood"), "should be finite")
+  expect_error(expuniform_distribution(lower = 0, upper = Inf), "upper.*should be finite")
+  expect_error(expuniform_distribution(lower = 10, upper = 0), "lower.*should not be greater than.*upper")
 })

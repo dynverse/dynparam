@@ -10,9 +10,9 @@
 #'
 #' expuniform_distribution(1e-5, 1e-2)
 expuniform_distribution <- function(lower, upper) {
-  if (!check_finite(lower)) stop("Provide finite lower boundary when using an uniformly distributed parameter")
-  if (!check_finite(upper)) stop("Provide finite upper boundary when using an uniformly distributed parameter")
-  if (lower > upper) stop("Lower boundary should be small than or equal to upper boundary")
+  if (!check_finite(lower)) stop("Parameter ", sQuote("lower"), " should be finite")
+  if (!check_finite(upper)) stop("Parameter ", sQuote("upper"), " should be finite")
+  if (lower > upper) stop("Parameters: ", sQuote("lower"), " should not be greater than ", sQuote("upper"))
 
   p <- lst(lower, upper)
   class(p) <- c("expuniform_distribution", "distribution", "list")

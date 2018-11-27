@@ -12,11 +12,13 @@
 #'
 #' normal_distribution(mean = 5, sd = 1, lower = 1, upper = 10)
 normal_distribution <- function(mean, sd, lower = -Inf, upper = Inf) {
-  if (!check_finite(mean)) stop("Provide finite mean when using a normal distributed parameter")
-  if (!check_finite(sd)) stop("Provide sd when using a normal distributed parameter")
+  if (!check_finite(mean)) stop("Parameter ", sQuote("mean"), " should be finite")
+  if (!check_finite(sd)) stop("Parameter ", sQuote("sd"), " should be finite")
+  if (!check_finite(lower, allow_neg_inf = TRUE)) stop("Parameter ", sQuote("lower"), " should be finite or -Inf")
+  if (!check_finite(upper, allow_pos_inf = TRUE)) stop("Parameter ", sQuote("upper"), " should be finite or Inf")
 
   if (check_finite(lower) || check_finite(upper)) {
-    if (lower > upper) stop("Lower boundary should be small than or equal to upper boundary")
+    if (lower > upper) stop("Parameters: ", sQuote("lower"), " should not be greater than ", sQuote("upper"))
   }
 
   p <- list(mean = mean, sd = sd, lower = lower, upper = upper)

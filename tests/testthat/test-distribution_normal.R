@@ -3,6 +3,10 @@ context("test-distribution_normal")
 test_that("normal_distribution works with fixed values", {
   dis <- normal_distribution(mean = 50, sd = 10)
   expect_match(as.character(dis), "N\\(50[\\.0]*, 10[\\.0]*\\)")
+
+  dis <- normal_distribution(mean = 5, sd = 1, lower = -Inf, upper = Inf)
+  dis <- normal_distribution(mean = 5, sd = 1, lower = 0, upper = Inf)
+  dis <- normal_distribution(mean = 5, sd = 1, lower = -Inf, upper = 0)
 })
 
 test_that("normal_distribution works with random values", {
@@ -58,4 +62,13 @@ test_that("normal_distribution with limits works with random values", {
   expect_equal(class(dis2), class(dis))
   expect_lte(abs(dis2$lower - lower), 1e-5)
   expect_lte(abs(dis2$upper - upper), 1e-5)
+})
+
+test_that("normal_distribution errors when expected", {
+  expect_error(normal_distribution(mean = -Inf, sd = 0), "mean.*should be finite")
+  expect_error(normal_distribution(mean = NA, sd = NA), "should be finite")
+  expect_error(normal_distribution(mean = 0, sd = NA), "sd.*should be finite")
+  expect_error(normal_distribution(mean = 10, sd = 1, lower = NA, upper = 5), "lower.*should be finite or -Inf")
+  expect_error(normal_distribution(mean = 10, sd = 1, lower = 3, upper = "NaN"), "upper.*should be finite or Inf")
+  expect_error(normal_distribution(mean = 10, sd = 1, lower = 10, upper = 5), "lower.*should not be greater than.*upper")
 })

@@ -34,3 +34,11 @@ test_that("uniform_distribution works with random values", {
   expect_true(all(abs(qfun(c(0, 0.5, 1)) - c(lower, middle, upper)) < 1e-5))
   expect_true(all(abs(dfun(c(lower, middle, upper)) - c(0, .5, 1)) < 1e-5))
 })
+
+test_that("uniform_distribution errors when expected", {
+  expect_error(uniform_distribution(lower = -Inf, upper = 0), "lower.*should be finite")
+  expect_error(uniform_distribution(lower = NA, upper = NA), "lower.*should be finite")
+  expect_error(uniform_distribution(lower = ~help_us, upper = "we need more wood"), "should be finite")
+  expect_error(uniform_distribution(lower = 0, upper = Inf), "upper.*should be finite")
+  expect_error(uniform_distribution(lower = 10, upper = 0), "lower.*should not be greater than.*upper")
+})
