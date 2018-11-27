@@ -4,8 +4,7 @@
 \alias{numeric_parameter}
 \title{Define a numeric parameter}
 \usage{
-numeric_parameter(id, default, distribution, description = NULL,
-  length = 1)
+numeric_parameter(id, default, distribution, description = NULL)
 }
 \arguments{
 \item{id}{The name of the parameter.}
@@ -16,8 +15,6 @@ numeric_parameter(id, default, distribution, description = NULL,
 See \link[dynparam:dynparam]{?dynparam} for a list of possible distributions.}
 
 \item{description}{An optional (but recommended) description of the parameter.}
-
-\item{length}{The length of the vector of this parameter (default 1).}
 }
 \description{
 Define a numeric parameter

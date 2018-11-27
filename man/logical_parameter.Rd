@@ -4,7 +4,7 @@
 \alias{logical_parameter}
 \title{Define a logical parameter}
 \usage{
-logical_parameter(id, default, description = NULL, length = 1)
+logical_parameter(id, default, description = NULL)
 }
 \arguments{
 \item{id}{The name of the parameter.}
@@ -12,8 +12,6 @@ logical_parameter(id, default, description = NULL, length = 1)
 \item{default}{The default value of the parameter.}
 
 \item{description}{An optional (but recommended) description of the parameter.}
-
-\item{length}{The length of the vector of this parameter (default 1).}
 }
 \description{
 Define a logical parameter

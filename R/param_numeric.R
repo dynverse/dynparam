@@ -2,7 +2,6 @@
 #'
 #' @inheritParams parameter
 #'
-#' @param length The length of the vector of this parameter (default 1).
 #' @param distribution A distribution from which the parameter can be sampled.
 #'   See [?dynparam][dynparam::dynparam] for a list of possible distributions.
 #'
@@ -26,15 +25,13 @@ numeric_parameter <- function(
   id,
   default,
   distribution,
-  description = NULL,
-  length = 1
+  description = NULL
 ) {
   parameter(
     id = id,
     default = default,
     distribution = distribution,
-    description = description,
-    length = length
+    description = description
   ) %>%
     add_class("numeric_parameter")
 }
@@ -44,8 +41,9 @@ numeric_parameter <- function(
 as_paramhelper.numeric_parameter <- function(param) {
   dfun <- distribution_function(param$distribution)
   qfun <- quantile_function(param$distribution)
+  length <- length(param$default)
 
-  fun <- if (param$length == 1) ParamHelpers::makeNumericParam else ParamHelpers::makeNumericVectorParam
+  fun <- if (length == 1) ParamHelpers::makeNumericParam else ParamHelpers::makeNumericVectorParam
   args <- list(
     id = param$id,
     lower = dfun(param$distribution$lower),
@@ -53,7 +51,7 @@ as_paramhelper.numeric_parameter <- function(param) {
     default = dfun(param$default),
     trafo = qfun
   )
-  if (param$length != 1) args$len <- param$length
+  if (length != 1) args$len <- length
   list(params = do.call(fun, args))
 }
 
@@ -64,13 +62,24 @@ as_list.numeric_parameter <- function(x) {
     id = x$id,
     default = x$default,
     description = x$description,
-    distribution = as_list(x$distribution),
-    length = x$length
+    distribution = as_list(x$distribution)
   )
 }
 
 #' @export
 as.character.numeric_parameter <- function(x, ...) {
-  subset_char <- if (x$length == 1) " \u2208 " else " \u2286 "
+  subset_char <- if (length(param$default) == 1) " \u2208 " else " \u2286 "
   paste0("[numeric] ", x$id, subset_char, as.character(x$distribution), ", default=", collapse_set(x$default))
+}
+
+list_as_parameter.numeric_parameter <- function(li) {
+  if (!all(c("class", "id", "default", "distribution") %in% names(li))) return(NULL)
+  if (li$class != "numeric_parameter") return(NULL)
+
+  numeric_parameter(
+    id = li$id,
+    default = li$default,
+    distribution = list_as_distribution(li$distribution),
+    description = li$description %||% NULL
+  )
 }

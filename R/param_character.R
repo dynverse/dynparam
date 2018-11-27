@@ -2,7 +2,6 @@
 #'
 #' @inheritParams parameter
 #' @param values A set of possible values.
-#' @param length The length of the vector of this parameter (default 1).
 #'
 #' @export
 #'
@@ -17,23 +16,33 @@ character_parameter <- function(
   id,
   default,
   values,
-  description = NULL,
-  length = 1
+  description = NULL
 ) {
-  parameter(id = id, default = default, values = values, description = description, length = length) %>%
+  parameter(
+    id = id,
+    default = default,
+    values = unlist(unname(values)),
+    description = description
+  ) %>%
     add_class("character_parameter")
 }
 
 #' @export
 #' @importFrom ParamHelpers makeDiscreteParam makeDiscreteVectorParam
 as_paramhelper.character_parameter <- function(param) {
-  fun <- if (param$length == 1) ParamHelpers::makeDiscreteParam else ParamHelpers::makeDiscreteVectorParam
+  length <- length(param$default)
+
+  fun <- if (length == 1) ParamHelpers::makeDiscreteParam else ParamHelpers::makeDiscreteVectorParam
+
   args <- list(
     id = param$id,
     values = param$values,
     default = param$default
   )
-  if (param$length != 1) args$len <- param$length
+
+  if (length != 1)
+    args$len <- length
+
   list(params = list(do.call(fun, args)))
 }
 
@@ -44,13 +53,24 @@ as_list.character_parameter <- function(x) {
     id = x$id,
     default = x$default,
     values = x$values,
-    description = x$description,
-    length = x$length
+    description = x$description
   )
 }
 
 #' @export
 as.character.character_parameter <- function(x, ...) {
-  subset_char <- if (x$length == 1) " \u2208 " else " \u2286 "
+  subset_char <- if (length(x$default) == 1) " \u2208 " else " \u2286 "
   paste0("[character] ", x$id, subset_char, "{", paste(x$values, collapse = ", "), "}, default=", collapse_set(x$default))
+}
+
+list_as_parameter.character_parameter <- function(li) {
+  if (!all(c("class", "id", "default", "values") %in% names(li))) return(NULL)
+  if (li$class != "character_parameter") return(NULL)
+
+  character_parameter(
+    id = li$id,
+    default = li$default,
+    values = li$values,
+    description = li$description %||% NULL
+  )
 }

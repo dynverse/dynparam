@@ -56,55 +56,17 @@ as_list <- function(x) {
 #' @export
 #' @rdname parameters
 list_as_parameter <- function(li) {
-  if (li$class == "character_parameter") {
-    character_parameter(
-      id = li$id,
-      default = li$default,
-      values = li$values,
-      description = li$description,
-      length = li$length
-    )
-  } else if (li$class == "logical_parameter") {
-    logical_parameter(
-      id = li$id,
-      default = li$default,
-      description = li$description,
-      length = li$length
-    )
-  } else if (li$class == "integer_parameter") {
-    integer_parameter(
-      id = li$id,
-      default = li$default,
-      description = li$description,
-      distribution = list_as_distribution(li$distribution),
-      length = li$length
-    )
-  } else if (li$class == "numeric_parameter") {
-    numeric_parameter(
-      id = li$id,
-      default = li$default,
-      description = li$description,
-      distribution = list_as_distribution(li$distribution),
-      length = li$length
-    )
-  } else if (li$class == "subset_parameter") {
-    subset_parameter(
-      id = li$id,
-      default = li$default,
-      values = li$values,
-      description = li$description
-    )
-  } else if (li$class == "range_parameter") {
-    range_parameter(
-      id = li$id,
-      default = li$default,
-      lower_distribution = list_as_distribution(li$lower_distribution),
-      upper_distribution = list_as_distribution(li$upper_distribution),
-      description = li$description
-    )
-  } else {
-    stop("Unknown parameter class: ", li$class)
-  }
+  obj <-
+    list_as_parameter.character_parameter(li) %||%
+    list_as_parameter.integer_parameter(li) %||%
+    list_as_parameter.logical_parameter(li) %||%
+    list_as_parameter.numeric_parameter(li) %||%
+    list_as_parameter.subset_parameter(li) %||%
+    list_as_parameter.range_parameter(li)
+
+  if (is.null(obj)) stop("Unknown parameter list format: ", deparse(li, width.cutoff = 100))
+
+  obj
 }
 
 #' @export

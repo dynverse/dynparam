@@ -4,8 +4,7 @@
 \alias{character_parameter}
 \title{Define a character / string parameter}
 \usage{
-character_parameter(id, default, values, description = NULL,
-  length = 1)
+character_parameter(id, default, values, description = NULL)
 }
 \arguments{
 \item{id}{The name of the parameter.}
@@ -15,8 +14,6 @@ character_parameter(id, default, values, description = NULL,
 \item{values}{A set of possible values.}
 
 \item{description}{An optional (but recommended) description of the parameter.}
-
-\item{length}{The length of the vector of this parameter (default 1).}
 }
 \description{
 Define a character / string parameter

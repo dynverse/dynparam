@@ -95,3 +95,16 @@ as_list.range_parameter <- function(x) {
 as.character.range_parameter <- function(x, ...) {
   paste0("[range] ", x$id, " \u2208 ( ", as.character(x$lower_distribution), ", ", as.character(x$upper_distribution), " ), default=(", x$default[[1]], ",", x$default[[2]], ")")
 }
+
+list_as_parameter.range_parameter <- function(li) {
+  if (!all(c("class", "id", "default", "lower_distribution", "upper_distribution") %in% names(li))) return(NULL)
+  if (li$class != "range_parameter") return(NULL)
+
+  range_parameter(
+    id = li$id,
+    default = li$default,
+    lower_distribution = list_as_distribution(li$lower_distribution),
+    upper_distribution = list_as_distribution(li$upper_distribution),
+    description = li$description %||% NULL
+  )
+}
