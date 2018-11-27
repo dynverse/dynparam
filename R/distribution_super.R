@@ -20,15 +20,14 @@ quantile_function <- function(dist) {
 #' @export
 #' @rdname distributions
 list_as_distribution <- function(li) {
-  class <- li$class
+  obj <-
+    list_as_distribution.uniform_distribution(li) %||%
+    list_as_distribution.expuniform_distribution(li) %||%
+    list_as_distribution.normal_distribution(li)
 
-  if (class == "uniform_distribution") {
-    uniform_distribution(lower = li$lower, upper = li$upper)
-  } else if (class == "normal_distribution") {
-    normal_distribution(mean = li$mean, sd = li$sd, lower = li$lower %||% -Inf, upper = li$upper %||% Inf)
-  } else if (class == "expuniform_distribution") {
-    expuniform_distribution(lower = li$lower, upper = li$upper)
-  } else {
+  if (is.null(obj)) {
     stop("Unknown distribution list format: ", deparse(li, width.cutoff = 100))
   }
+
+  obj
 }

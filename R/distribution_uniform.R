@@ -52,3 +52,10 @@ as_list.uniform_distribution <- function(x) {
     upper = x$upper
   )
 }
+
+list_as_distribution.uniform_distribution <- function(li) {
+  if (!all(c("class", "lower", "upper") %in% names(li))) return(NULL)
+  if (li$class != "uniform_distribution") return(NULL)
+
+  uniform_distribution(lower = li$lower, upper = li$upper)
+}

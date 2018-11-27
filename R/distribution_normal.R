@@ -63,3 +63,15 @@ as_list.normal_distribution <- function(x) {
     upper = x$upper
   )
 }
+
+list_as_distribution.normal_distribution <- function(li) {
+  if (!all(c("class", "mean", "sd") %in% names(li))) return(NULL)
+  if (li$class != "normal_distribution") return(NULL)
+
+  normal_distribution(
+    mean = li$mean,
+    sd = li$sd,
+    lower = li$lower %||% -Inf,
+    upper = li$upper %||% Inf
+  )
+}
