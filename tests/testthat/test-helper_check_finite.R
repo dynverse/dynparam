@@ -16,3 +16,37 @@ test_that("check_finite works", {
   expect_false(check_finite(~ help_me + im_trapped + in_a_unit_test))
   expect_false(check_finite(function(x) "call 911 now"))
 })
+
+test_that("check_finite with allow_neg_inf works", {
+  expect_true(check_finite(23, allow_neg_inf = TRUE))
+  expect_true(check_finite(182L, allow_neg_inf = TRUE))
+  expect_true(check_finite(pi, allow_neg_inf = TRUE))
+  expect_true(check_finite(-Inf, allow_neg_inf = TRUE))
+
+  expect_false(check_finite("a", allow_neg_inf = TRUE))
+  expect_false(check_finite(Inf, allow_neg_inf = TRUE))
+  expect_false(check_finite(NA, allow_neg_inf = TRUE))
+  expect_false(check_finite(NaN, allow_neg_inf = TRUE))
+  expect_false(check_finite(NULL, allow_neg_inf = TRUE))
+  expect_false(check_finite(c(1,2, allow_neg_inf = TRUE)))
+  expect_false(check_finite(1:10, allow_neg_inf = TRUE))
+  expect_false(check_finite(~ help_me + im_trapped + in_a_unit_test, allow_neg_inf = TRUE))
+  expect_false(check_finite(function(x) "call 911 now", allow_neg_inf = TRUE))
+})
+
+test_that("check_finite with allow_pos_inf works", {
+  expect_true(check_finite(23, allow_pos_inf = TRUE))
+  expect_true(check_finite(182L, allow_pos_inf = TRUE))
+  expect_true(check_finite(pi, allow_pos_inf = TRUE))
+  expect_true(check_finite(Inf, allow_pos_inf = TRUE))
+
+  expect_false(check_finite("a", allow_pos_inf = TRUE))
+  expect_false(check_finite(-Inf, allow_pos_inf = TRUE))
+  expect_false(check_finite(NA, allow_pos_inf = TRUE))
+  expect_false(check_finite(NaN, allow_pos_inf = TRUE))
+  expect_false(check_finite(NULL, allow_pos_inf = TRUE))
+  expect_false(check_finite(c(1,2, allow_pos_inf = TRUE)))
+  expect_false(check_finite(1:10, allow_pos_inf = TRUE))
+  expect_false(check_finite(~ help_me + im_trapped + in_a_unit_test, allow_pos_inf = TRUE))
+  expect_false(check_finite(function(x) "call 911 now", allow_pos_inf = TRUE))
+})

@@ -4,10 +4,14 @@
 \alias{check_finite}
 \title{Helper function for checking whether a vector is finite and of length one}
 \usage{
-check_finite(x)
+check_finite(x, allow_neg_inf = FALSE, allow_pos_inf = FALSE)
 }
 \arguments{
 \item{x}{Vector to check for length 1 finiteness}
+
+\item{allow_neg_inf}{Allow `-Inf``}
+
+\item{allow_pos_inf}{Allow `Inf``}
 }
 \description{
 Helper function for checking whether a vector is finite and of length one
