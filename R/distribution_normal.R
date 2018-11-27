@@ -12,8 +12,12 @@
 #'
 #' normal_distribution(mean = 5, sd = 1, lower = 1, upper = 10)
 normal_distribution <- function(mean, sd, lower = -Inf, upper = Inf) {
-  if (!check_finite(mean)) {stop("Provide finite mean when using a normal distributed parameter")}
-  if (!check_finite(sd)) {stop("Provide sd when using a normal distributed parameter")}
+  if (!check_finite(mean)) stop("Provide finite mean when using a normal distributed parameter")
+  if (!check_finite(sd)) stop("Provide sd when using a normal distributed parameter")
+
+  if (check_finite(lower) || check_finite(upper)) {
+    if (lower > upper) stop("Lower boundary should be small than or equal to upper boundary")
+  }
 
   p <- list(mean = mean, sd = sd, lower = lower, upper = upper)
   class(p) <- c("normal_distribution", "distribution", "list")

@@ -8,8 +8,9 @@
 #' @examples
 #' uniform_distribution(1, 10)
 uniform_distribution <- function(lower, upper) {
-  if (!check_finite(lower)) {stop("Provide finite lower boundary when using an uniformly distributed parameter")}
-  if (!check_finite(upper)) {stop("Provide finite upper boundary when using an uniformly distributed parameter")}
+  if (!check_finite(lower)) stop("Provide finite lower boundary when using an uniformly distributed parameter")
+  if (!check_finite(upper)) stop("Provide finite upper boundary when using an uniformly distributed parameter")
+  if (lower > upper) stop("Lower boundary should be small than or equal to upper boundary")
 
   p <- lst(lower, upper)
   class(p) <- c("uniform_distribution", "distribution", "list")
