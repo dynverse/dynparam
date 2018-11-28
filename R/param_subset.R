@@ -34,10 +34,9 @@ subset_parameter <- function(
 #' @importFrom carrier crate
 as_paramhelper.subset_parameter <- function(param) {
   param <-
-    ParamHelpers::makeDiscreteVectorParam(
+    ParamHelpers::makeLogicalVectorParam(
     id = param$id,
-    values = param$values,
-    default = param$default,
+    default = param$values %in% param$default,
     len = length(param$values)
   )
   trafo_fun <-
