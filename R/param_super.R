@@ -30,6 +30,15 @@ parameter <- function(
 
 #' @export
 #' @rdname parameter
+as.character.parameter <- function(x, ...) {
+  # the parameter should have its own as.character funtion defined
+  class_name <- class(x)[[1]]
+  class(x) <- "list"
+  deparse(x) %>% gsub("^list", class_name, .)
+}
+
+#' @export
+#' @rdname parameter
 as_paramhelper <- function(param) {
   UseMethod("as_paramhelper")
 }

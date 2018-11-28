@@ -37,6 +37,7 @@ as.character.distribution <- function(x, ...) {
   class(x) <- "list"
   deparse(x) %>% gsub("^list", class_name, .)
 }
+
 #' @export
 #' @rdname distribution
 print.distribution <- function(x, ...) {

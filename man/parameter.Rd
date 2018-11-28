@@ -2,6 +2,7 @@
 % Please edit documentation in R/param_super.R
 \name{parameter}
 \alias{parameter}
+\alias{as.character.parameter}
 \alias{as_paramhelper}
 \alias{as_roxygen}
 \alias{as_argparse}
@@ -12,6 +13,8 @@
 \title{Helper functions for converting parameters from and to other formats}
 \usage{
 parameter(id, default, ..., description = NULL)
+
+\method{as.character}{parameter}(x, ...)
 
 as_paramhelper(param)
 
@@ -36,9 +39,9 @@ is_parameter(x)
 
 \item{description}{An optional (but recommended) description of the parameter.}
 
-\item{param}{A parameter to be converted.}
-
 \item{x}{An object (parameter or distribution) to be converted.}
+
+\item{param}{A parameter to be converted.}
 
 \item{li}{A list to be converted into a parameter.}
 }
