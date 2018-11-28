@@ -4,6 +4,7 @@
 \alias{distribution}
 \alias{distribution_function}
 \alias{quantile_function}
+\alias{as.character.distribution}
 \alias{print.distribution}
 \alias{as.list.distribution}
 \alias{as_distribution}
@@ -15,6 +16,8 @@ distribution(...)
 distribution_function(dist)
 
 quantile_function(dist)
+
+\method{as.character}{distribution}(x, ...)
 
 \method{print}{distribution}(x, ...)
 

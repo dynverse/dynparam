@@ -31,6 +31,14 @@ quantile_function <- function(dist) {
 
 #' @export
 #' @rdname distribution
+as.character.distribution <- function(x, ...) {
+  # the distribution should have its own as.character funtion defined
+  class_name <- class(x)[[1]]
+  class(x) <- "list"
+  deparse(x) %>% gsub("^list", class_name, .)
+}
+#' @export
+#' @rdname distribution
 print.distribution <- function(x, ...) {
   cat(as.character(x))
 }
