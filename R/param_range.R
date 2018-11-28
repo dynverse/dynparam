@@ -11,9 +11,9 @@
 #' @examples
 #' range_parameter(
 #'   id = "ks",
-#'   default = c(3, 15),
-#'   lower_distribution = uniform_distribution(1, 5),
-#'   upper_distribution = uniform_distribution(10, 20),
+#'   default = c(3L, 15L),
+#'   lower_distribution = uniform_distribution(1L, 5L),
+#'   upper_distribution = uniform_distribution(10L, 20L),
 #'   description = "The numbers of clusters to be evaluated."
 #' )
 range_parameter <- function(
@@ -40,25 +40,25 @@ range_parameter <- function(
 #' @importFrom glue glue
 #' @importFrom carrier crate
 as_paramhelper.range_parameter <- function(param) {
-  dfun_upper <- distribution_function(param$upper_distribution)
-  qfun_upper <- quantile_function(param$upper_distribution)
   dfun_lower <- distribution_function(param$lower_distribution)
   qfun_lower <- quantile_function(param$lower_distribution)
+  dfun_upper <- distribution_function(param$upper_distribution)
+  qfun_upper <- quantile_function(param$upper_distribution)
 
   params <- list(
     ParamHelpers::makeNumericParam(
       id = paste0(param$id, "_lower"),
-      lower = dfun_lower(param$lower_distribution$lower),
-      upper = dfun_lower(param$lower_distribution$upper),
+      lower = dfun_lower(param$lower_distribution$lower - .5 + 1e-10),
+      upper = dfun_lower(param$lower_distribution$upper + .5 - 1e-10),
       default = dfun_lower(param$default[[1]]),
-      trafo = qfun_lower
+      trafo = function(x) round(qfun_lower(x))
     ),
     ParamHelpers::makeNumericParam(
       id = paste0(param$id, "_upper"),
-      upper = dfun_upper(param$upper_distribution$upper),
-      upper = dfun_upper(param$upper_distribution$upper),
+      lower = dfun_upper(param$upper_distribution$lower - .5 + 1e-10),
+      upper = dfun_upper(param$upper_distribution$upper + .5 - 1e-10),
       default = dfun_upper(param$default[[2]]),
-      trafo = qfun_upper
+      trafo = function(x) round(qfun_upper(x))
     )
   )
 
