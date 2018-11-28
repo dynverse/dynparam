@@ -18,6 +18,8 @@ subset_parameter <- function(
   values,
   description = NULL
 ) {
+  assert_that(is.character(default), is.character(values))
+
   parameter(
     id = id,
     default = default,
@@ -52,30 +54,6 @@ as_paramhelper.subset_parameter <- function(param) {
 }
 
 #' @export
-as_list.subset_parameter <- function(x) {
-  lst(
-    class = "subset_parameter",
-    id = x$id,
-    default = x$default,
-    values = x$values,
-    description = x$description
-  )
-}
-
-#' @export
 as.character.subset_parameter <- function(x, ...) {
   paste0("[subset] ", x$id, " = {x | x \u2286 {", paste(x$values, collapse = ", "), "}}, default=", collapse_set(x$default))
-}
-
-
-list_as_parameter.subset_parameter <- function(li) {
-  if (!all(c("class", "id", "default", "values") %in% names(li))) return(NULL)
-  if (li$class != "subset_parameter") return(NULL)
-
-  subset_parameter(
-    id = li$id,
-    default = li$default,
-    values = li$values,
-    description = li$description %||% NULL
-  )
 }

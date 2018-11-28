@@ -26,6 +26,8 @@ integer_parameter <- function(
   distribution,
   description = NULL
 ) {
+  assert_that(is.numeric(default), is_distribution(distribution))
+
   parameter(
     id = id,
     default = default,
@@ -55,30 +57,7 @@ as_paramhelper.integer_parameter <- function(param) {
 }
 
 #' @export
-as_list.integer_parameter <- function(x) {
-  lst(
-    class = "integer_parameter",
-    id = x$id,
-    default = x$default,
-    distribution = as_list(x$distribution),
-    description = x$description
-  )
-}
-
-#' @export
 as.character.integer_parameter <- function(x, ...) {
   subset_char <- if (length(x$default) == 1) " \u2208 " else " \u2286 "
   paste0("[integer] ", x$id, subset_char, as.character(x$distribution), ", default=", collapse_set(x$default))
-}
-
-list_as_parameter.integer_parameter <- function(li) {
-  if (!all(c("class", "id", "default", "distribution") %in% names(li))) return(NULL)
-  if (li$class != "integer_parameter") return(NULL)
-
-  integer_parameter(
-    id = li$id,
-    default = li$default,
-    distribution = list_as_distribution(li$distribution),
-    description = li$description %||% NULL
-  )
 }

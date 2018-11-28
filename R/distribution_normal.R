@@ -12,18 +12,15 @@
 #'
 #' normal_distribution(mean = 5, sd = 1, lower = 1, upper = 10)
 normal_distribution <- function(mean, sd, lower = -Inf, upper = Inf) {
-  if (!check_finite(mean)) stop("Parameter ", sQuote("mean"), " should be finite")
-  if (!check_finite(sd)) stop("Parameter ", sQuote("sd"), " should be finite")
-  if (!check_finite(lower, allow_neg_inf = TRUE)) stop("Parameter ", sQuote("lower"), " should be finite or -Inf")
-  if (!check_finite(upper, allow_pos_inf = TRUE)) stop("Parameter ", sQuote("upper"), " should be finite or Inf")
-
-  if (check_finite(lower) || check_finite(upper)) {
-    if (lower > upper) stop("Parameters: ", sQuote("lower"), " should not be greater than ", sQuote("upper"))
-  }
-
-  p <- list(mean = mean, sd = sd, lower = lower, upper = upper)
-  class(p) <- c("normal_distribution", "distribution", "list")
-  p
+  assert_that(
+    is_single_numeric(mean),
+    is_single_numeric(sd),
+    is_single_numeric(lower, allow_neg_inf = TRUE),
+    is_single_numeric(upper, allow_pos_inf = TRUE),
+    lower < upper
+  )
+  distribution(mean, sd, lower, upper) %>%
+    add_class("normal_distribution")
 }
 
 #' @export
@@ -51,27 +48,4 @@ quantile_function.normal_distribution <- function(dist) {
 #' @export
 as.character.normal_distribution <- function(x, ...) {
   paste0("N(", x$mean, ", ", x$sd, ")")
-}
-
-#' @export
-as_list.normal_distribution <- function(x) {
-  list(
-    class = "normal_distribution",
-    mean = x$mean,
-    sd = x$sd,
-    lower = x$lower,
-    upper = x$upper
-  )
-}
-
-list_as_distribution.normal_distribution <- function(li) {
-  if (!all(c("class", "mean", "sd") %in% names(li))) return(NULL)
-  if (li$class != "normal_distribution") return(NULL)
-
-  normal_distribution(
-    mean = li$mean,
-    sd = li$sd,
-    lower = li$lower %||% -Inf,
-    upper = li$upper %||% Inf
-  )
 }

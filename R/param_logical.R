@@ -15,6 +15,8 @@ logical_parameter <- function(
   default,
   description = NULL
 ) {
+  assert_that(is.logical(default))
+
   parameter(
     id = id,
     default = default,
@@ -41,27 +43,6 @@ as_paramhelper.logical_parameter <- function(param) {
 }
 
 #' @export
-as_list.logical_parameter <- function(x) {
-  lst(
-    class = "logical_parameter",
-    id = x$id,
-    default = x$default,
-    description = x$description
-  )
-}
-
-#' @export
 as.character.logical_parameter <- function(x, ...) {
   paste0("[logical] ", x$id, ", default=", collapse_set(x$default))
-}
-
-list_as_parameter.logical_parameter <- function(li) {
-  if (!all(c("class", "id", "default") %in% names(li))) return(NULL)
-  if (li$class != "logical_parameter") return(NULL)
-
-  logical_parameter(
-    id = li$id,
-    default = li$default,
-    description = li$description %||% NULL
-  )
 }

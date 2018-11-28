@@ -10,13 +10,9 @@
 #'
 #' expuniform_distribution(1e-5, 1e-2)
 expuniform_distribution <- function(lower, upper) {
-  if (!check_finite(lower)) stop("Parameter ", sQuote("lower"), " should be finite")
-  if (!check_finite(upper)) stop("Parameter ", sQuote("upper"), " should be finite")
-  if (lower > upper) stop("Parameters: ", sQuote("lower"), " should not be greater than ", sQuote("upper"))
-
-  p <- lst(lower, upper)
-  class(p) <- c("expuniform_distribution", "distribution", "list")
-  p
+  assert_that(is_single_numeric(lower), is_single_numeric(upper), lower < upper)
+  distribution(lower, upper) %>%
+    add_class("expuniform_distribution")
 }
 
 #' @export
@@ -44,20 +40,4 @@ quantile_function.expuniform_distribution <- function(dist) {
 #' @export
 as.character.expuniform_distribution <- function(x, ...) {
   paste0("e^U(", sprintf("%.2f", log(x$lower)), ", ", sprintf("%.2f", log(x$upper)), ")")
-}
-
-#' @export
-as_list.expuniform_distribution <- function(x) {
-  lst(
-    class = "expuniform_distribution",
-    lower = x$lower,
-    upper = x$upper
-  )
-}
-
-list_as_distribution.expuniform_distribution <- function(li) {
-  if (!all(c("class", "lower", "upper") %in% names(li))) return(NULL)
-  if (li$class != "expuniform_distribution") return(NULL)
-
-  expuniform_distribution(lower = li$lower, upper = li$upper)
 }

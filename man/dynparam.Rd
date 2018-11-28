@@ -18,9 +18,11 @@ Implemented are the following functions:
 \item \code{\link[=integer_parameter]{integer_parameter()}}
 \item \code{\link[=logical_parameter]{logical_parameter()}}
 \item \code{\link[=numeric_parameter]{numeric_parameter()}}
+\item \code{\link[=range_parameter]{range_parameter()}}
+\item \code{\link[=subset_parameter]{subset_parameter()}}
 }
 
-See \link[dynparam:parameters]{?parameters} for a list of helper functions converting parameters from and to other formats.
+See \link[=parameter]{?parameter} for a list of helper functions converting parameters from and to other formats.
 }
 
 \section{Distributions}{
@@ -33,5 +35,7 @@ Implemented are the following distributions:
 \item \code{\link[=expuniform_distribution]{expuniform_distribution()}}
 \item \code{\link[=normal_distribution]{normal_distribution()}}
 }
+
+See \link[=distribution]{?distribution} for a list of helper functions converting parameters from and to other formats.
 }
 

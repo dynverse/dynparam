@@ -2,9 +2,30 @@
 % Please edit documentation in R/param_super.R
 \name{parameter}
 \alias{parameter}
-\title{Abstract parameter creation function}
+\alias{as_paramhelper}
+\alias{as_roxygen}
+\alias{as_argparse}
+\alias{as.list.parameter}
+\alias{as_parameter}
+\alias{is_parameter}
+\alias{print.parameter}
+\title{Helper functions for converting parameters from and to other formats}
 \usage{
 parameter(id, default, ..., description = NULL)
+
+as_paramhelper(param)
+
+as_roxygen(param)
+
+as_argparse(param)
+
+\method{as.list}{parameter}(x, ...)
+
+as_parameter(li)
+
+is_parameter(x)
+
+\method{print}{parameter}(x, ...)
 }
 \arguments{
 \item{id}{The name of the parameter.}
@@ -14,7 +35,16 @@ parameter(id, default, ..., description = NULL)
 \item{...}{Extra fields to be saved in the parameter.}
 
 \item{description}{An optional (but recommended) description of the parameter.}
+
+\item{param}{A parameter to be converted.}
+
+\item{x}{An object (parameter or distribution) to be converted.}
+
+\item{li}{A list to be converted into a parameter.}
 }
 \description{
-Abstract parameter creation function
+Helper functions for converting parameters from and to other formats
+}
+\seealso{
+\code{\link[=character_parameter]{character_parameter()}}, \code{\link[=integer_parameter]{integer_parameter()}}, \code{\link[=logical_parameter]{logical_parameter()}}, \code{\link[=numeric_parameter]{numeric_parameter()}}, \code{\link[=range_parameter]{range_parameter()}}, \code{\link[=subset_parameter]{subset_parameter()}}, \link{dynparam}
 }

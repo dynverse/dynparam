@@ -22,21 +22,29 @@ param
 
     ## [integer] num_iter ∈ e^U(0.00, 9.21), default=100
 
-As yaml:
+It can be transformed to a list, then to a yaml:
 
 ``` r
-cat(yaml::as.yaml(as_list(param)))
+ya <- yaml::as.yaml(as.list(param))
+cat(ya)
 ```
 
-    ## class: integer_parameter
     ## id: num_iter
     ## default: 100.0
+    ## description: Number of iterations
     ## distribution:
-    ##   class: expuniform_distribution
     ##   lower: 1.0
     ##   upper: 10000.0
-    ## description: Number of iterations
-    ## length: 1.0
+    ##   class: expuniform_distribution
+    ## class: integer_parameter
+
+And back:
+
+``` r
+as_parameter(yaml::yaml.load(ya))
+```
+
+    ## [integer] num_iter ∈ e^U(0.00, 9.21), default=100
 
 ## Numeric parameter
 
@@ -45,8 +53,7 @@ param <- numeric_parameter(
   id = "delta", 
   default = c(4.5, 2.4, 1.9), 
   distribution = normal_distribution(mean = 5, sd = 1),
-  description = "Multiplying factors",
-  length = 3
+  description = "Multiplying factors"
 )
 
 param
@@ -57,10 +64,9 @@ param
 As yaml:
 
 ``` r
-cat(yaml::as.yaml(as_list(param)))
+cat(yaml::as.yaml(as.list(param)))
 ```
 
-    ## class: numeric_parameter
     ## id: delta
     ## default:
     ## - 4.5
@@ -68,12 +74,12 @@ cat(yaml::as.yaml(as_list(param)))
     ## - 1.9
     ## description: Multiplying factors
     ## distribution:
-    ##   class: normal_distribution
     ##   mean: 5.0
     ##   sd: 1.0
     ##   lower: -.inf
     ##   upper: .inf
-    ## length: 3.0
+    ##   class: normal_distribution
+    ## class: numeric_parameter
 
 ## Character parameter
 
@@ -92,18 +98,17 @@ param
 As yaml:
 
 ``` r
-cat(yaml::as.yaml(as_list(param)))
+cat(yaml::as.yaml(as.list(param)))
 ```
 
-    ## class: character_parameter
     ## id: method
     ## default: kendall
+    ## description: Correlation method
     ## values:
     ## - kendall
     ## - spearman
     ## - pearson
-    ## description: Correlation method
-    ## length: 1.0
+    ## class: character_parameter
 
 ## Logical parameter
 
@@ -121,14 +126,13 @@ param
 As yaml:
 
 ``` r
-cat(yaml::as.yaml(as_list(param)))
+cat(yaml::as.yaml(as.list(param)))
 ```
 
-    ## class: logical_parameter
     ## id: inverse
     ## default: yes
     ## description: Inversion parameter
-    ## length: 1.0
+    ## class: logical_parameter
 
 ## Subset parameter
 
@@ -147,22 +151,21 @@ param
 As yaml:
 
 ``` r
-cat(yaml::as.yaml(as_list(param)))
+cat(yaml::as.yaml(as.list(param)))
 ```
 
-    ## class: subset_parameter
     ## id: dimreds
     ## default:
     ## - pca
     ## - mds
+    ## description: Which dimensionality reduction methods to apply (can be multiple)
     ## values:
     ## - pca
     ## - mds
     ## - tsne
     ## - umap
     ## - ica
-    ## description: Which dimensionality reduction methods to apply (can be multiple)
-    ## length: ~
+    ## class: subset_parameter
 
 ## Range parameter
 
@@ -182,20 +185,20 @@ param
 As yaml:
 
 ``` r
-cat(yaml::as.yaml(as_list(param)))
+cat(yaml::as.yaml(as.list(param)))
 ```
 
-    ## class: range_parameter
     ## id: ks
     ## default:
     ## - 3.0
     ## - 15.0
     ## description: The numbers of clusters to be evaluated.
     ## lower_distribution:
-    ##   class: uniform_distribution
     ##   lower: 1.0
     ##   upper: 5.0
-    ## upper_distribution:
     ##   class: uniform_distribution
+    ## upper_distribution:
     ##   lower: 10.0
     ##   upper: 20.0
+    ##   class: uniform_distribution
+    ## class: range_parameter

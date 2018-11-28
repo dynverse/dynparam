@@ -1,15 +1,23 @@
-#' Abstract parameter creation function
+#' Helper functions for converting parameters from and to other formats
 #'
 #' @param id The name of the parameter.
 #' @param default The default value of the parameter.
 #' @param description An optional (but recommended) description of the parameter.
 #' @param ... Extra fields to be saved in the parameter.
+#' @param param A parameter to be converted.
+#' @param x An object (parameter or distribution) to be converted.
+#' @param li A list to be converted into a parameter.
+#'
+#' @seealso [character_parameter()], [integer_parameter()], [logical_parameter()], [numeric_parameter()], [range_parameter()], [subset_parameter()], [dynparam]
 parameter <- function(
   id,
   default,
   ...,
   description = NULL
 ) {
+  assert_that(is.character(id))
+  assert_that(is.null(description) || is.character(description))
+
   param <- list(
     id = id,
     default = default,
@@ -20,56 +28,88 @@ parameter <- function(
   param
 }
 
-#' Helper functions for converting parameters from and to other formats
-#'
-#' @param param A parameter to be converted.
-#' @param x An object (parameter or distribution) to be converted.
-#' @param li A list to be converted into a parameter.
-#'
 #' @export
-#'
-#' @rdname parameters
-#'
-#' @seealso [dynparam][dynparam]
+#' @rdname parameter
 as_paramhelper <- function(param) {
   UseMethod("as_paramhelper")
 }
 
 #' @export
-#' @rdname parameters
+#' @rdname parameter
 as_roxygen <- function(param) {
   UseMethod("as_roxygen")
 }
 
 #' @export
-#' @rdname parameters
+#' @rdname parameter
 as_argparse <- function(param) {
   UseMethod("as_argparse")
 }
 
+#' @rdname parameter
 #' @export
-#' @rdname parameters
-as_list <- function(x) {
-  UseMethod("as_list")
+as.list.parameter <- function(x, ...) {
+  x$class <- class(x)[[1]]
+  class(x) <- "list"
+
+  # transform distributions to list
+  for (n in names(x)) {
+    if ("distribution" %in% class(x[[n]])) {
+      x[[n]] <- as.list(x[[n]])
+    }
+  }
+
+  x
 }
 
 #' @export
-#' @rdname parameters
-list_as_parameter <- function(li) {
-  obj <-
-    list_as_parameter.character_parameter(li) %||%
-    list_as_parameter.integer_parameter(li) %||%
-    list_as_parameter.logical_parameter(li) %||%
-    list_as_parameter.numeric_parameter(li) %||%
-    list_as_parameter.subset_parameter(li) %||%
-    list_as_parameter.range_parameter(li)
+#' @rdname parameter
+as_parameter <- function(li) {
+  # check that list has a class
+  assert_that(li %has_name% "class", is.character(li$class))
 
-  if (is.null(obj)) stop("Unknown parameter list format: ", deparse(li, width.cutoff = 100))
+  # check that the distribution exists
+  funs <- lst(
+    character_parameter,
+    integer_parameter,
+    logical_parameter,
+    numeric_parameter,
+    subset_parameter,
+    range_parameter
+  )
+  assert_that(li$class %in% names(funs))
 
-  obj
+  # check that all the required parameters exist
+  constructor_fun <- funs[[li$class]]
+  arg_classes <- formals(constructor_fun) %>% as.list() %>% map_chr(class)
+  required_args <- arg_classes %>% keep(~ . == "name") %>% names()
+  assert_that(li %has_names% required_args)
+
+  for (n in names(li)) {
+    lin <- li[[n]]
+
+    if ("list" %in% class(lin) && "class" %in% names(lin) && grepl("distribution$", lin$class)) {
+      li[[n]] <- as_distribution(li[[n]])
+    } else if (all(map_lgl(lin, is.vector)) && length(unique(map_chr(lin, class))) == 1) {
+      li[[n]] <- unlist(lin, recursive = FALSE)
+    }
+  }
+
+  # call the constructor
+  do.call(constructor_fun, li[names(li) != "class"])
 }
 
 #' @export
+#' @rdname parameter
+is_parameter <- function(x) {
+  "parameter" %in% class(x)
+}
+on_failure(is_parameter) <- function(call, env) {
+  paste0(deparse(call$x), " is not a parameter")
+}
+
+#' @export
+#' @rdname parameter
 print.parameter <- function(x, ...) {
   cat(as.character(x))
 }

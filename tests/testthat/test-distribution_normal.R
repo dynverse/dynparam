@@ -19,13 +19,13 @@ test_that("normal_distribution works with random values", {
   expect_lte(abs(dis$sd - sd), 1e-5)
 
   # transform to list
-  lis <- as_list(dis)
+  lis <- as.list(dis)
   expect_equal(lis$class, class(dis)[[1]])
   expect_lte(abs(lis$mean - mean), 1e-5)
   expect_lte(abs(lis$sd - sd), 1e-5)
 
   # transform back to distribution
-  dis2 <- list_as_distribution(lis)
+  dis2 <- as_distribution(lis)
   expect_equal(class(dis2), class(dis))
   expect_lte(abs(dis2$mean - mean), 1e-5)
   expect_lte(abs(dis2$sd - sd), 1e-5)
@@ -52,23 +52,25 @@ test_that("normal_distribution with limits works with random values", {
   expect_lte(abs(dis$upper - upper), 1e-5)
 
   # transform to list
-  lis <- as_list(dis)
+  lis <- as.list(dis)
   expect_equal(lis$class, class(dis)[[1]])
   expect_lte(abs(lis$lower - lower), 1e-5)
   expect_lte(abs(lis$upper - upper), 1e-5)
 
   # transform back to distribution
-  dis2 <- list_as_distribution(lis)
+  dis2 <- as_distribution(lis)
   expect_equal(class(dis2), class(dis))
   expect_lte(abs(dis2$lower - lower), 1e-5)
   expect_lte(abs(dis2$upper - upper), 1e-5)
 })
 
 test_that("normal_distribution errors when expected", {
-  expect_error(normal_distribution(mean = -Inf, sd = 0), "mean.*should be finite")
-  expect_error(normal_distribution(mean = NA, sd = NA), "should be finite")
-  expect_error(normal_distribution(mean = 0, sd = NA), "sd.*should be finite")
-  expect_error(normal_distribution(mean = 10, sd = 1, lower = NA, upper = 5), "lower.*should be finite or -Inf")
-  expect_error(normal_distribution(mean = 10, sd = 1, lower = 3, upper = "NaN"), "upper.*should be finite or Inf")
-  expect_error(normal_distribution(mean = 10, sd = 1, lower = 10, upper = 5), "lower.*should not be greater than.*upper")
+  expect_error(normal_distribution(mean = -Inf, sd = 0), "mean is not a single numeric value in \\]-Inf,Inf\\[")
+  expect_error(normal_distribution(mean = NA, sd = NA), "is not a single numeric value in \\]-Inf,Inf\\[")
+  expect_error(normal_distribution(mean = 0, sd = Inf), "sd is not a single numeric value in \\]-Inf,Inf\\[")
+
+  expect_error(normal_distribution(mean = 1, sd = 1, lower = Inf, upper = 0), "lower is not a single numeric value in \\[-Inf,Inf\\[")
+  expect_error(normal_distribution(mean = 1, sd = 1, lower = NA, upper = NA), "is not a single numeric value in .-Inf,Inf.")
+  expect_error(normal_distribution(mean = 1, sd = 1, lower = 0, upper = -Inf), "upper is not a single numeric value in \\]-Inf,Inf\\]")
+  expect_error(normal_distribution(mean = 1, sd = 1, lower = 10, upper = 0), "lower not less than upper")
 })

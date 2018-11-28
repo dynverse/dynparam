@@ -16,13 +16,13 @@ test_that("uniform_distribution works with random values", {
   expect_lte(abs(dis$upper - upper), 1e-5)
 
   # transform to list
-  lis <- as_list(dis)
+  lis <- as.list(dis)
   expect_equal(lis$class, class(dis)[[1]])
   expect_lte(abs(lis$lower - lower), 1e-5)
   expect_lte(abs(lis$upper - upper), 1e-5)
 
   # transform back to distribution
-  dis2 <- list_as_distribution(lis)
+  dis2 <- as_distribution(lis)
   expect_equal(class(dis2), class(dis))
   expect_lte(abs(dis2$lower - lower), 1e-5)
   expect_lte(abs(dis2$upper - upper), 1e-5)
@@ -36,9 +36,9 @@ test_that("uniform_distribution works with random values", {
 })
 
 test_that("uniform_distribution errors when expected", {
-  expect_error(uniform_distribution(lower = -Inf, upper = 0), "lower.*should be finite")
-  expect_error(uniform_distribution(lower = NA, upper = NA), "lower.*should be finite")
-  expect_error(uniform_distribution(lower = ~help_us, upper = "we need more wood"), "should be finite")
-  expect_error(uniform_distribution(lower = 0, upper = Inf), "upper.*should be finite")
-  expect_error(uniform_distribution(lower = 10, upper = 0), "lower.*should not be greater than.*upper")
+  expect_error(uniform_distribution(lower = -Inf, upper = 0), "lower is not a single numeric value in \\]-Inf,Inf\\[")
+  expect_error(uniform_distribution(lower = NA, upper = NA), "is not a single numeric value in \\]-Inf,Inf\\[")
+  expect_error(uniform_distribution(lower = ~help_us, upper = "we need more wood"), "is not a single numeric value in \\]-Inf,Inf\\[")
+  expect_error(uniform_distribution(lower = 0, upper = Inf), "upper is not a single numeric value in \\]-Inf,Inf\\[")
+  expect_error(uniform_distribution(lower = 10, upper = 0), "lower not less than upper")
 })
