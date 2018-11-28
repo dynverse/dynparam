@@ -18,7 +18,7 @@ subset_parameter <- function(
   values,
   description = NULL
 ) {
-  assert_that(is.character(default), is.character(values))
+  assert_that(is.character(default), is.character(values), default %allin% values)
 
   parameter(
     id = id,
