@@ -26,9 +26,9 @@ Define a range parameter
 \examples{
 range_parameter(
   id = "ks",
-  default = c(3, 15),
-  lower_distribution = uniform_distribution(1, 5),
-  upper_distribution = uniform_distribution(10, 20),
+  default = c(3L, 15L),
+  lower_distribution = uniform_distribution(1L, 5L),
+  upper_distribution = uniform_distribution(10L, 20L),
   description = "The numbers of clusters to be evaluated."
 )
 }
