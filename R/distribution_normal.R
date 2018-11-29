@@ -16,10 +16,9 @@ normal_distribution <- function(mean, sd, lower = -Inf, upper = Inf) {
     is_single_numeric(mean),
     is_single_numeric(sd),
     is_single_numeric(lower, allow_neg_inf = TRUE),
-    is_single_numeric(upper, allow_pos_inf = TRUE),
-    lower < upper
+    is_single_numeric(upper, allow_pos_inf = TRUE)
   )
-  distribution(mean, sd, lower, upper) %>%
+  distribution(lower = lower, upper = upper, mean, sd) %>%
     add_class("normal_distribution")
 }
 

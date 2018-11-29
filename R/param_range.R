@@ -52,6 +52,7 @@ range_parameter <- function(
 #' @importFrom ParamHelpers makeNumericParam makeNumericVectorParam
 #' @importFrom glue glue
 #' @importFrom carrier crate
+#' @importFrom stats as.formula
 as_paramhelper.range_parameter <- function(param) {
   dfun_lower <- distribution_function(param$lower_distribution)
   qfun_lower <- quantile_function(param$lower_distribution)
@@ -82,7 +83,7 @@ as_paramhelper.range_parameter <- function(param) {
       upper = dfun_upper(param$upper_distribution$upper),
       default = dfun_upper(param$default[[2]]),
       trafo = qfun_upper,
-      requires = as.formula(paste0("~ ", param$id, "_lower < ", param$id, "_upper"))
+      requires = stats::as.formula(glue::glue("~ {param$id}_lower < {param$id}_upper"))
     )
   )
 

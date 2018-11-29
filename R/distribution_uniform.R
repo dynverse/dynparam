@@ -1,14 +1,13 @@
 #' Uniform distribution
 #'
-#' @param lower Lower limit of the distribution.
-#' @param upper Upper limit of the distribution.
+#' @inheritParams distribution
 #'
 #' @export
 #'
 #' @examples
 #' uniform_distribution(1, 10)
 uniform_distribution <- function(lower, upper) {
-  assert_that(is_single_numeric(lower), is_single_numeric(upper), lower < upper)
+  assert_that(is_single_numeric(lower), is_single_numeric(upper))
   distribution(lower, upper) %>%
     add_class("uniform_distribution")
 }

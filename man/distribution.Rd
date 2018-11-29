@@ -11,7 +11,7 @@
 \alias{is_distribution}
 \title{Helper functions for converting distributions from and to other formats}
 \usage{
-distribution(...)
+distribution(lower, upper, ...)
 
 distribution_function(dist)
 
@@ -28,6 +28,10 @@ as_distribution(li)
 is_distribution(x)
 }
 \arguments{
+\item{lower}{Lower limit of the distribution.}
+
+\item{upper}{Upper limit of the distribution.}
+
 \item{...}{Fields to be saved in the distribution.}
 
 \item{dist}{A distribution object.}

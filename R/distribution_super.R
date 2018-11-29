@@ -1,5 +1,7 @@
 #' Helper functions for converting distributions from and to other formats
 #'
+#' @param lower Lower limit of the distribution.
+#' @param upper Upper limit of the distribution.
 #' @param dist A distribution object.
 #' @param li A list to be converted into a distribution.
 #' @param x An object which might be a distribution.
@@ -8,9 +10,19 @@
 #'
 #' @seealso [uniform_distribution()], [normal_distribution()], [expuniform_distribution()], [dynparam]
 distribution <- function(
+  lower,
+  upper,
   ...
 ) {
+  assert_that(
+    is_single_numeric(lower, allow_neg_inf = TRUE, allow_pos_inf = TRUE),
+    is_single_numeric(upper, allow_neg_inf = TRUE, allow_pos_inf = TRUE),
+    lower < upper
+  )
+
   dist <- lst(
+    lower,
+    upper,
     ...
   )
   class(dist) <- c("distribution", "list")

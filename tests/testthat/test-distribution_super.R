@@ -14,15 +14,15 @@ test_that("as_distribution works", {
 })
 
 test_that("is_distribution works", {
-  dis <- distribution(a = 1, b = 2)
+  dis <- distribution(lower = 1, upper = 2, c = 3)
   expect_true(is_distribution(dis))
 
-  lis <- list(a = 1, b = 2)
+  lis <- list(lower = 1, upper = 2, c = 3)
   expect_false(is_distribution(lis))
 })
 
 test_that("print and cat works", {
-  dis <- distribution(a = 1, b = 2)
-  expect_equal(as.character(dis), "distribution(a = 1, b = 2)")
-  expect_output(print(dis), "distribution\\(a = 1, b = 2\\)")
+  dis <- distribution(lower = 1, upper = 2, c = 3)
+  expect_equal(as.character(dis), "distribution(lower = 1, upper = 2, c = 3)")
+  expect_output(print(dis), "distribution\\(lower = 1, upper = 2, c = 3\\)")
 })

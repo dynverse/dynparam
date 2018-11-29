@@ -1,7 +1,6 @@
 #' Exponentially scaled uniform distribution.
 #'
-#' @param lower Lower limit of the distribution.
-#' @param upper Upper limit of the distribution.
+#' @inheritParams distribution
 #'
 #' @export
 #'
@@ -10,7 +9,7 @@
 #'
 #' expuniform_distribution(1e-5, 1e-2)
 expuniform_distribution <- function(lower, upper) {
-  assert_that(is_single_numeric(lower), is_single_numeric(upper), lower < upper)
+  assert_that(is_single_numeric(lower), is_single_numeric(upper))
   distribution(lower, upper) %>%
     add_class("expuniform_distribution")
 }
