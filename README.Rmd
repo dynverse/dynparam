@@ -13,6 +13,17 @@ library(tidyverse)
 library(dynparam)
 ```
 
+```{r, echo=FALSE}
+cat <- function(x) {
+  base::cat(
+    "```yaml\n",
+    x, "\n", 
+    "```",
+    sep = ""
+  )
+}
+```
+
 ## Integer parameter
 ```{r}
 param <- integer_parameter(
@@ -25,7 +36,7 @@ param
 ```
 
 It can be transformed to a list, then to a yaml:
-```{r}
+```{r comment = "", results = "asis"}
 ya <- yaml::as.yaml(as.list(param))
 cat(ya)
 ```
@@ -48,7 +59,7 @@ param
 ```
 
 As yaml:
-```{r}
+```{r comment = "", results = "asis"}
 cat(yaml::as.yaml(as.list(param)))
 ```
 
@@ -64,7 +75,7 @@ param
 ```
 
 As yaml:
-```{r}
+```{r comment = "", results = "asis"}
 cat(yaml::as.yaml(as.list(param)))
 ```
 
@@ -79,7 +90,7 @@ param
 ```
 
 As yaml:
-```{r}
+```{r comment = "", results = "asis"}
 cat(yaml::as.yaml(as.list(param)))
 ```
 
@@ -95,7 +106,7 @@ param
 ```
 
 As yaml:
-```{r}
+```{r comment = "", results = "asis"}
 cat(yaml::as.yaml(as.list(param)))
 ```
 
@@ -112,6 +123,6 @@ param
 ```
 
 As yaml:
-```{r}
+```{r comment = "", results = "asis"}
 cat(yaml::as.yaml(as.list(param)))
 ```

@@ -29,14 +29,16 @@ ya <- yaml::as.yaml(as.list(param))
 cat(ya)
 ```
 
-    ## id: num_iter
-    ## default: 100
-    ## description: Number of iterations
-    ## distribution:
-    ##   lower: 1
-    ##   upper: 10000
-    ##   type: expuniform
-    ## type: integer
+``` yaml
+id: num_iter
+default: 100
+description: Number of iterations
+distribution:
+  lower: 1
+  upper: 10000
+  type: expuniform
+type: integer
+```
 
 And back:
 
@@ -67,19 +69,21 @@ As yaml:
 cat(yaml::as.yaml(as.list(param)))
 ```
 
-    ## id: delta
-    ## default:
-    ## - 4.5
-    ## - 2.4
-    ## - 1.9
-    ## description: Multiplying factors
-    ## distribution:
-    ##   mean: 5.0
-    ##   sd: 1.0
-    ##   lower: -.inf
-    ##   upper: .inf
-    ##   type: normal
-    ## type: numeric
+``` yaml
+id: delta
+default:
+- 4.5
+- 2.4
+- 1.9
+description: Multiplying factors
+distribution:
+  lower: -.inf
+  upper: .inf
+  mean: 5.0
+  sd: 1.0
+  type: normal
+type: numeric
+```
 
 ## Character parameter
 
@@ -101,14 +105,16 @@ As yaml:
 cat(yaml::as.yaml(as.list(param)))
 ```
 
-    ## id: method
-    ## default: kendall
-    ## description: Correlation method
-    ## values:
-    ## - kendall
-    ## - spearman
-    ## - pearson
-    ## type: character
+``` yaml
+id: method
+default: kendall
+description: Correlation method
+values:
+- kendall
+- spearman
+- pearson
+type: character
+```
 
 ## Logical parameter
 
@@ -129,10 +135,12 @@ As yaml:
 cat(yaml::as.yaml(as.list(param)))
 ```
 
-    ## id: inverse
-    ## default: yes
-    ## description: Inversion parameter
-    ## type: logical
+``` yaml
+id: inverse
+default: yes
+description: Inversion parameter
+type: logical
+```
 
 ## Subset parameter
 
@@ -154,18 +162,20 @@ As yaml:
 cat(yaml::as.yaml(as.list(param)))
 ```
 
-    ## id: dimreds
-    ## default:
-    ## - pca
-    ## - mds
-    ## description: Which dimensionality reduction methods to apply (can be multiple)
-    ## values:
-    ## - pca
-    ## - mds
-    ## - tsne
-    ## - umap
-    ## - ica
-    ## type: subset
+``` yaml
+id: dimreds
+default:
+- pca
+- mds
+description: Which dimensionality reduction methods to apply (can be multiple)
+values:
+- pca
+- mds
+- tsne
+- umap
+- ica
+type: subset
+```
 
 ## Range parameter
 
@@ -180,7 +190,7 @@ param <- range_parameter(
 param
 ```
 
-    ## [range] ks ∈ ( U(1, 5), U(10, 20) ), default=(3,15)
+    ## [range] ks ∈ ( U(1, 5), U(10, 20) ), default=(3, 15)
 
 As yaml:
 
@@ -188,17 +198,20 @@ As yaml:
 cat(yaml::as.yaml(as.list(param)))
 ```
 
-    ## id: ks
-    ## default:
-    ## - 3
-    ## - 15
-    ## description: The numbers of clusters to be evaluated.
-    ## lower_distribution:
-    ##   lower: 1
-    ##   upper: 5
-    ##   type: uniform
-    ## upper_distribution:
-    ##   lower: 10
-    ##   upper: 20
-    ##   type: uniform
-    ## type: range
+``` yaml
+id: ks
+default:
+- 3
+- 15
+description: The numbers of clusters to be evaluated.
+as_integer: yes
+lower_distribution:
+  lower: 1
+  upper: 5
+  type: uniform
+upper_distribution:
+  lower: 10
+  upper: 20
+  type: uniform
+type: range
+```
