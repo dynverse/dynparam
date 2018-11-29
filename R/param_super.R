@@ -31,10 +31,10 @@ parameter <- function(
 #' @export
 #' @rdname parameter
 as.character.parameter <- function(x, ...) {
-  # the parameter should have its own as.character funtion defined
+  # the parameter should have its own as.character function defined
   class_name <- class(x)[[1]]
   class(x) <- "list"
-  deparse(x) %>% gsub("^list", class_name, .)
+  gsub("^list", class_name, deparse(x))
 }
 
 #' @export

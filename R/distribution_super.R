@@ -47,7 +47,7 @@ as.character.distribution <- function(x, ...) {
   # the distribution should have its own as.character funtion defined
   class_name <- class(x)[[1]]
   class(x) <- "list"
-  deparse(x) %>% gsub("^list", class_name, .)
+  gsub("^list", class_name, deparse(x))
 }
 
 #' @export
