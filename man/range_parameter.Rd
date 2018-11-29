@@ -5,7 +5,7 @@
 \title{Define a range parameter}
 \usage{
 range_parameter(id, default, lower_distribution, upper_distribution,
-  description = NULL)
+  as_integer = TRUE, description = NULL)
 }
 \arguments{
 \item{id}{The name of the parameter.}
@@ -18,6 +18,8 @@ See \link[dynparam:dynparam]{?dynparam} for a list of possible distributions.}
 \item{upper_distribution}{A distribution from which the upper value fo the range can be sampled.
 See \link[dynparam:dynparam]{?dynparam} for a list of possible distributions.}
 
+\item{as_integer}{Whether or not this parameter should be interpreted as an integer.}
+
 \item{description}{An optional (but recommended) description of the parameter.}
 }
 \description{
@@ -26,9 +28,19 @@ Define a range parameter
 \examples{
 range_parameter(
   id = "ks",
+  as_integer = TRUE,
   default = c(3L, 15L),
   lower_distribution = uniform_distribution(1L, 5L),
   upper_distribution = uniform_distribution(10L, 20L),
   description = "The numbers of clusters to be evaluated."
+)
+
+range_parameter(
+  id = "quantiles",
+  as_integer = FALSE,
+  default = c(0.1, 0.99),
+  lower_distribution = uniform_distribution(0, 0.25),
+  upper_distribution = uniform_distribution(0.9, 1),
+  description = "The lower and upper quantile thresholds."
 )
 }
