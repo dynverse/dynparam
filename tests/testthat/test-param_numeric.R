@@ -21,7 +21,7 @@ test_that("k cluster test", {
 
   li <- as.list(p)
 
-  expect_equal(li$class, "numeric_parameter")
+  expect_equal(li$type, "numeric")
   expect_equal(li$id, "k")
   expect_equal(li$default, 5)
   expect_equal(li$distribution, as.list(uniform_distribution(3, 10)))
@@ -60,7 +60,7 @@ test_that("multiple value test", {
 
   li <- as.list(p)
 
-  expect_equal(li$class, "numeric_parameter")
+  expect_equal(li$type, "numeric")
   expect_equal(li$id, "num_iter")
   expect_equal(li$default, c(100, 1000))
   expect_equal(li$distribution, as.list(expuniform_distribution(10, 10000)))

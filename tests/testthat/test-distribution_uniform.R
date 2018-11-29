@@ -17,7 +17,7 @@ test_that("uniform_distribution works with random values", {
 
   # transform to list
   lis <- as.list(dis)
-  expect_equal(lis$class, class(dis)[[1]])
+  expect_equal(lis$type, gsub("_distribution", "", class(dis))[[1]])
   expect_lte(abs(lis$lower - lower), 1e-5)
   expect_lte(abs(lis$upper - upper), 1e-5)
 

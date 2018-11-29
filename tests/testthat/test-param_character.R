@@ -21,7 +21,7 @@ test_that("correlation method test", {
 
   li <- as.list(p)
 
-  expect_equal(li$class, "character_parameter")
+  expect_equal(li$type, "character")
   expect_equal(li$id, "method")
   expect_equal(li$default, "pearson")
   expect_equal(li$values, c("pearson", "spearman", "kendall"))
@@ -59,7 +59,7 @@ test_that("multiple value test", {
 
   li <- as.list(p)
 
-  expect_equal(li$class, "character_parameter")
+  expect_equal(li$type, "character")
   expect_equal(li$id, "winner")
   expect_equal(li$default, c("bob", "celine"))
   expect_equal(li$values, c("alice", "bob", "celine", "david", "eric", "filip"))

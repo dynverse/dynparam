@@ -18,7 +18,7 @@ test_that("scale test", {
 
   li <- as.list(p)
 
-  expect_equal(li$class, "logical_parameter")
+  expect_equal(li$type, "logical")
   expect_equal(li$id, "scale")
   expect_equal(li$default, TRUE)
   expect_equal(li$description, "Whether or not to scale the input variables")
@@ -51,7 +51,7 @@ test_that("multiple value test", {
 
   li <- as.list(p)
 
-  expect_equal(li$class, "logical_parameter")
+  expect_equal(li$type, "logical")
   expect_equal(li$id, "num_iter")
   expect_equal(li$default, c(TRUE, FALSE, TRUE))
   expect_equal(li$description, "The number of iterations.")

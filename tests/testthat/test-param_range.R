@@ -24,7 +24,7 @@ test_that("k cluster test", {
 
   li <- as.list(p)
 
-  expect_equal(li$class, "range_parameter")
+  expect_equal(li$type, "range")
   expect_equal(li$id, "ks")
   expect_equal(li$default, c(3L, 15L))
   expect_equal(li$lower_distribution, as.list(uniform_distribution(2L, 5L)))

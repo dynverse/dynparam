@@ -21,7 +21,7 @@ test_that("correlation method test", {
 
   li <- as.list(p)
 
-  expect_equal(li$class, "subset_parameter")
+  expect_equal(li$type, "subset")
   expect_equal(li$id, "method")
   expect_equal(li$default, "pearson")
   expect_equal(li$values, c("pearson", "spearman", "kendall"))
