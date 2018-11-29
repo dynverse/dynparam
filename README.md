@@ -13,8 +13,8 @@ library(dynparam)
 ``` r
 param <- integer_parameter(
   id = "num_iter", 
-  default = 100,
-  distribution = expuniform_distribution(lower = 1e0, upper = 1e4),
+  default = 100L,
+  distribution = expuniform_distribution(lower = 1L, upper = 10000L),
   description = "Number of iterations"
 )
 param
@@ -30,11 +30,11 @@ cat(ya)
 ```
 
     ## id: num_iter
-    ## default: 100.0
+    ## default: 100
     ## description: Number of iterations
     ## distribution:
-    ##   lower: 1.0
-    ##   upper: 10000.0
+    ##   lower: 1
+    ##   upper: 10000
     ##   type: expuniform
     ## type: integer
 
@@ -172,9 +172,9 @@ cat(yaml::as.yaml(as.list(param)))
 ``` r
 param <- range_parameter(
   id = "ks",
-  default = c(3, 15),
-  lower_distribution = uniform_distribution(1, 5),
-  upper_distribution = uniform_distribution(10, 20),
+  default = c(3L, 15L),
+  lower_distribution = uniform_distribution(1L, 5L),
+  upper_distribution = uniform_distribution(10L, 20L),
   description = "The numbers of clusters to be evaluated."
 )
 param
@@ -190,15 +190,15 @@ cat(yaml::as.yaml(as.list(param)))
 
     ## id: ks
     ## default:
-    ## - 3.0
-    ## - 15.0
+    ## - 3
+    ## - 15
     ## description: The numbers of clusters to be evaluated.
     ## lower_distribution:
-    ##   lower: 1.0
-    ##   upper: 5.0
+    ##   lower: 1
+    ##   upper: 5
     ##   type: uniform
     ## upper_distribution:
-    ##   lower: 10.0
-    ##   upper: 20.0
+    ##   lower: 10
+    ##   upper: 20
     ##   type: uniform
     ## type: range
