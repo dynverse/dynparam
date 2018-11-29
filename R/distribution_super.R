@@ -47,7 +47,7 @@ print.distribution <- function(x, ...) {
 #' @rdname distribution
 #' @export
 as.list.distribution <- function(x, ...) {
-  x$class <- class(x)[[1]]
+  x$type <- gsub("_distribution$", "", class(x)[[1]])
   class(x) <- "list"
   x
 }
@@ -55,25 +55,17 @@ as.list.distribution <- function(x, ...) {
 #' @export
 #' @rdname distribution
 as_distribution <- function(li) {
-  # check that list has a class
-  assert_that(li %has_name% "class", is.character(li$class))
-
-  # check that the distribution exists
-  funs <- lst(
-    uniform_distribution,
-    expuniform_distribution,
-    normal_distribution
-  )
-  assert_that(li$class %in% names(funs))
+  # check that list has a recognised type
+  assert_that("list" %in% class(li) && li %has_name% "type" && li$type %in% names(distributions))
 
   # check that all the required parameters exist
-  constructor_fun <- funs[[li$class]]
+  constructor_fun <- distributions[[li$type]]
   arg_classes <- formals(constructor_fun) %>% as.list() %>% map_chr(class)
   required_args <- arg_classes %>% keep(~ . == "name") %>% names()
   assert_that(li %has_names% required_args)
 
   # call the constructor
-  do.call(constructor_fun, li[names(li) != "class"])
+  do.call(constructor_fun, li[names(li) != "type"])
 }
 
 #' @export

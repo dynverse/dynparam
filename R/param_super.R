@@ -58,7 +58,9 @@ as_argparse <- function(param) {
 #' @rdname parameter
 #' @export
 as.list.parameter <- function(x, ...) {
-  x$class <- class(x)[[1]]
+  assert_that(is_parameter(x))
+
+  x$type <- gsub("_parameter", "", class(x)[[1]])
   class(x) <- "list"
 
   # transform distributions to list
@@ -74,22 +76,11 @@ as.list.parameter <- function(x, ...) {
 #' @export
 #' @rdname parameter
 as_parameter <- function(li) {
-  # check that list has a class
-  assert_that(li %has_name% "class", is.character(li$class))
-
-  # check that the distribution exists
-  funs <- lst(
-    character_parameter,
-    integer_parameter,
-    logical_parameter,
-    numeric_parameter,
-    subset_parameter,
-    range_parameter
-  )
-  assert_that(li$class %in% names(funs))
+  # check that list has a recognised type
+  assert_that("list" %in% class(li), li %has_name% "type", li$type %in% names(parameters))
 
   # check that all the required parameters exist
-  constructor_fun <- funs[[li$class]]
+  constructor_fun <- parameters[[li$type]]
   arg_classes <- formals(constructor_fun) %>% as.list() %>% map_chr(class)
   required_args <- arg_classes %>% keep(~ . == "name") %>% names()
   assert_that(li %has_names% required_args)
@@ -97,7 +88,7 @@ as_parameter <- function(li) {
   for (n in names(li)) {
     lin <- li[[n]]
 
-    if ("list" %in% class(lin) && "class" %in% names(lin) && grepl("distribution$", lin$class)) {
+    if ("list" %in% class(lin) && lin %has_name% "type" && lin$type %in% names(distributions)) {
       li[[n]] <- as_distribution(li[[n]])
     } else if (all(map_lgl(lin, is.vector)) && length(unique(map_chr(lin, class))) == 1) {
       li[[n]] <- unlist(lin, recursive = FALSE)
@@ -105,7 +96,7 @@ as_parameter <- function(li) {
   }
 
   # call the constructor
-  do.call(constructor_fun, li[names(li) != "class"])
+  do.call(constructor_fun, li[names(li) != "type"])
 }
 
 #' @export
@@ -115,6 +106,10 @@ is_parameter <- function(x) {
 }
 on_failure(is_parameter) <- function(call, env) {
   paste0(deparse(call$x), " is not a parameter")
+}
+
+is_parameter_list <- function(li) {
+  "list" %in% class(li) && li %has_name% "type" && li$type %in% names(parameters)
 }
 
 #' @export
