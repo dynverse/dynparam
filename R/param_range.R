@@ -68,8 +68,6 @@ as_paramhelper.range_parameter <- function(param) {
     qfun_upper <- function(x) round(qfun_upper(x))
   }
 
-
-
   params <- list(
     ParamHelpers::makeNumericParam(
       id = paste0(param$id, "_lower"),
@@ -109,5 +107,5 @@ as_paramhelper.range_parameter <- function(param) {
 
 #' @export
 as.character.range_parameter <- function(x, ...) {
-  paste0("[range] ", x$id, " \u2208 ( ", as.character(x$lower_distribution), ", ", as.character(x$upper_distribution), " ), default=(", x$default[[1]], ",", x$default[[2]], ")")
+  paste0("[range] ", x$id, " \u2208 ( ", as.character(x$lower_distribution), ", ", as.character(x$upper_distribution), " ), default=(", x$default[[1]], ", ", x$default[[2]], ")")
 }
