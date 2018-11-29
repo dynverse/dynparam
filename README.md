@@ -35,8 +35,8 @@ cat(ya)
     ## distribution:
     ##   lower: 1.0
     ##   upper: 10000.0
-    ##   class: expuniform_distribution
-    ## class: integer_parameter
+    ##   type: expuniform
+    ## type: integer
 
 And back:
 
@@ -78,8 +78,8 @@ cat(yaml::as.yaml(as.list(param)))
     ##   sd: 1.0
     ##   lower: -.inf
     ##   upper: .inf
-    ##   class: normal_distribution
-    ## class: numeric_parameter
+    ##   type: normal
+    ## type: numeric
 
 ## Character parameter
 
@@ -108,7 +108,7 @@ cat(yaml::as.yaml(as.list(param)))
     ## - kendall
     ## - spearman
     ## - pearson
-    ## class: character_parameter
+    ## type: character
 
 ## Logical parameter
 
@@ -132,7 +132,7 @@ cat(yaml::as.yaml(as.list(param)))
     ## id: inverse
     ## default: yes
     ## description: Inversion parameter
-    ## class: logical_parameter
+    ## type: logical
 
 ## Subset parameter
 
@@ -165,7 +165,7 @@ cat(yaml::as.yaml(as.list(param)))
     ## - tsne
     ## - umap
     ## - ica
-    ## class: subset_parameter
+    ## type: subset
 
 ## Range parameter
 
@@ -196,9 +196,9 @@ cat(yaml::as.yaml(as.list(param)))
     ## lower_distribution:
     ##   lower: 1.0
     ##   upper: 5.0
-    ##   class: uniform_distribution
+    ##   type: uniform
     ## upper_distribution:
     ##   lower: 10.0
     ##   upper: 20.0
-    ##   class: uniform_distribution
-    ## class: range_parameter
+    ##   type: uniform
+    ## type: range
