@@ -35,10 +35,10 @@ subset_parameter <- function(
 as_paramhelper.subset_parameter <- function(param) {
   param <-
     ParamHelpers::makeLogicalVectorParam(
-    id = param$id,
-    default = param$values %in% param$default,
-    len = length(param$values)
-  )
+      id = param$id,
+      default = param$values %in% param$default,
+      len = length(param$values)
+    )
   trafo_fun <-
     carrier::crate(function(df) {
       df[[param$id]] <- lapply(
