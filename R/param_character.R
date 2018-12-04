@@ -47,7 +47,7 @@ as_paramhelper.character_parameter <- function(param) {
     args$default <- as.list(args$default)
   }
 
-  list(params = list(do.call(fun, args)))
+  do.call(fun, args)
 }
 
 #' @export
