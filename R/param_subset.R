@@ -41,12 +41,8 @@ as_paramhelper.subset_parameter <- function(param) {
     )
   trafo_fun <-
     carrier::crate(function(df) {
-      df[[param$id]] <- lapply(
-        df[[param$id]],
-        function(x) {
-          param$values[x]
-        }
-      )
+      df[[param$id]] <- param$values[df[[param$id]]]
+      df
     }, param = param)
 
   list(params = list(param), trafo_fun = trafo_fun)
