@@ -69,41 +69,40 @@ as_paramhelper.range_parameter <- function(param) {
     qfun_upper <- function(x) round(qfun_upper(x))
   }
 
-  params <- list(
-    ParamHelpers::makeNumericParam(
-      id = paste0(param$id, "_lower"),
-      lower = dfun_lower(param$lower_distribution$lower),
-      upper = dfun_lower(param$lower_distribution$upper),
-      default = dfun_lower(param$default[[1]]),
-      trafo = qfun_lower
-    ),
-    ParamHelpers::makeNumericParam(
-      id = paste0(param$id, "_upper"),
-      lower = dfun_upper(param$upper_distribution$lower),
-      upper = dfun_upper(param$upper_distribution$upper),
-      default = dfun_upper(param$default[[2]]),
-      trafo = qfun_upper,
-      requires = stats::as.formula(glue::glue("~ {param$id}_lower < {param$id}_upper"))
+  param <-
+    ParamHelpers::makeNumericVectorParam(
+      id = param$id,
+      lower = c(
+        dfun_lower(param$lower_distribution$lower),
+        dfun_upper(param$upper_distribution$lower)
+      ),
+      upper = c(
+        dfun_lower(param$lower_distribution$upper),
+        dfun_upper(param$upper_distribution$upper)
+      ),
+      len = 2,
+      default = c(
+        dfun_lower(param$default[[1]]),
+        dfun_upper(param$default[[2]])
+      ),
+      trafo = carrier::crate(
+        function(x) {
+          c(
+            qfun_lower(x[[1]]),
+            qfun_upper(x[[2]])
+          )
+        },
+        qfun_lower = qfun_lower,
+        qfun_upper = qfun_upper
+      )
     )
-  )
 
-  trafo_fun <-
-    carrier::crate(function(df) {
-      id <- param$id
-      lid <- paste0(param$id, "_lower")
-      uid <- paste0(param$id, "_upper")
+  forbidden <-
+    paste0(param$id, "[1] > ", param$id, "[2]")
 
-      df[[id]] <- c(df[[lid]], df[[uid]])
-      df[[lid]] <- NULL
-      df[[uid]] <- NULL
+  attr(param, "forbidden") <- forbidden
 
-      df
-    }, param = param)
-
-  list(
-    params = params,
-    trafo_fun = trafo_fun
-  )
+  param
 }
 
 #' @export
