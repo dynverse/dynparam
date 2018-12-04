@@ -126,3 +126,64 @@ As yaml:
 ```{r comment = "", results = "asis"}
 cat(yaml::as.yaml(as.list(param)))
 ```
+
+## Parameter set
+```{r}
+parameters <- parameter_set(
+  integer_parameter(
+    id = "num_iter",
+    default = 100L,
+    distribution = expuniform_distribution(lower = 1L, upper = 10000L),
+    description = "Number of iterations"
+  ),
+
+  numeric_parameter(
+    id = "delta",
+    default = c(4.5, 2.4, 1.9),
+    distribution = normal_distribution(mean = 5, sd = 1),
+    description = "Multiplying factors"
+  ),
+
+  character_parameter(
+    id = "method",
+    default = "kendall",
+    values = c("kendall", "spearman", "pearson"),
+    description = "Correlation method"
+  ),
+
+  logical_parameter(
+    id = "inverse",
+    default = TRUE,
+    description = "Inversion parameter"
+  ),
+
+  subset_parameter(
+    id = "dimreds",
+    default = c("pca", "mds"),
+    values = c("pca", "mds", "tsne", "umap", "ica"),
+    description = "Which dimensionality reduction methods to apply (can be multiple)"
+  ),
+  
+  range_parameter(
+    id = "ks",
+    default = c(3L, 15L),
+    lower_distribution = uniform_distribution(1L, 5L),
+    upper_distribution = uniform_distribution(10L, 20L),
+    description = "The numbers of clusters to be evaluated."
+  ),
+  
+  range_parameter(
+    id = "js",
+    default = c(3L, 15L),
+    lower_distribution = uniform_distribution(1L, 5L),
+    upper_distribution = uniform_distribution(10L, 20L),
+    description = "The numbers of clusters to be evaluated."
+  )
+)
+
+paramset <- as_paramhelper(parameters)
+
+paramset %>%
+  ParamHelpers::generateDesign(n = 1, trafo = TRUE) %>% 
+  ParamHelpers::dfRowToList(paramset, 1)
+```
