@@ -67,3 +67,11 @@ as_parameter_set <- function(li) {
 
   # todo
 }
+
+as.character.parameter_set <- function(x, ...) {
+  # todo
+}
+
+print.parameter_set <- function(x, ...) {
+  cat(as.character(x))
+}
