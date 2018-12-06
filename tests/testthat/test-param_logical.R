@@ -27,11 +27,10 @@ test_that("scale test", {
   expect_equal(p2, p)
 
   ph <- as_paramhelper(p)
-  ph1 <- ph$params[[1]]
 
-  expect_equal(ph1$id, "scale")
-  expect_equal(ph1$default, TRUE)
-  expect_equal(ph1$len, 1)
+  expect_equal(ph$id, "scale")
+  expect_equal(ph$default, TRUE)
+  expect_equal(ph$len, 1)
 })
 
 test_that("multiple value test", {
@@ -60,11 +59,10 @@ test_that("multiple value test", {
   expect_equal(p2, p)
 
   ph <- as_paramhelper(p)
-  ph1 <- ph$params[[1]]
 
-  expect_equal(ph1$id, "num_iter")
-  expect_equal(ph1$default, c(TRUE, FALSE, TRUE))
-  expect_equal(ph1$len, 3)
+  expect_equal(ph$id, "num_iter")
+  expect_equal(ph$default, c(TRUE, FALSE, TRUE))
+  expect_equal(ph$len, 3)
 })
 
 test_that("wrong parse fails gracefully", {

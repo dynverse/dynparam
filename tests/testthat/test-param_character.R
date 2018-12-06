@@ -31,12 +31,11 @@ test_that("correlation method test", {
   expect_equal(p2, p)
 
   ph <- as_paramhelper(p)
-  ph1 <- ph$params[[1]]
 
-  expect_equal(ph1$id, "method")
-  expect_equal(ph1$default, "pearson")
-  expect_equal(unlist(ph1$values) %>% unname(), c("pearson", "spearman", "kendall"))
-  expect_equal(ph1$len, 1)
+  expect_equal(ph$id, "method")
+  expect_equal(ph$default, "pearson")
+  expect_equal(unlist(ph$values) %>% unname(), c("pearson", "spearman", "kendall"))
+  expect_equal(ph$len, 1)
 })
 
 test_that("multiple value test", {
@@ -69,12 +68,11 @@ test_that("multiple value test", {
   expect_equal(p2, p)
 
   ph <- as_paramhelper(p)
-  ph1 <- ph$params[[1]]
 
-  expect_equal(ph1$id, "winner")
-  expect_equal(unlist(unname(ph1$default)), c("bob", "celine"))
-  expect_equal(unlist(unname(ph1$values)), c("alice", "bob", "celine", "david", "eric", "filip"))
-  expect_equal(ph1$len, 2)
+  expect_equal(ph$id, "winner")
+  expect_equal(unlist(unname(ph$default)), c("bob", "celine"))
+  expect_equal(unlist(unname(ph$values)), c("alice", "bob", "celine", "david", "eric", "filip"))
+  expect_equal(ph$len, 2)
 })
 
 test_that("wrong parse fails gracefully", {

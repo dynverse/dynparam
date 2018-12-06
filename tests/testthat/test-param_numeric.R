@@ -31,13 +31,12 @@ test_that("k cluster test", {
   expect_equal(p2, p)
 
   ph <- as_paramhelper(p)
-  ph1 <- ph$params[[1]]
 
-  expect_equal(ph1$id, "k")
-  expect_equal(ph1$default, (5-3) / (10-3))
-  expect_equal(ph1$lower, 0)
-  expect_equal(ph1$upper, 1)
-  expect_equal(ph1$len, 1)
+  expect_equal(ph$id, "k")
+  expect_equal(ph$default, (5-3) / (10-3))
+  expect_equal(ph$lower, 0)
+  expect_equal(ph$upper, 1)
+  expect_equal(ph$len, 1)
 })
 
 test_that("multiple value test", {
@@ -70,13 +69,12 @@ test_that("multiple value test", {
   expect_equal(p2, p)
 
   ph <- as_paramhelper(p)
-  ph1 <- ph$params[[1]]
 
-  expect_equal(ph1$id, "num_iter")
-  expect_equal(unlist(unname(ph1$default)), (log(c(100, 1000)) - log(10)) / (log(10000) - log(10)))
-  expect_equal(ph1$lower, c(0, 0))
-  expect_equal(ph1$upper, c(1, 1))
-  expect_equal(ph1$len, 2)
+  expect_equal(ph$id, "num_iter")
+  expect_equal(unlist(unname(ph$default)), (log(c(100, 1000)) - log(10)) / (log(10000) - log(10)))
+  expect_equal(ph$lower, c(0, 0))
+  expect_equal(ph$upper, c(1, 1))
+  expect_equal(ph$len, 2)
 })
 
 test_that("wrong parse fails gracefully", {

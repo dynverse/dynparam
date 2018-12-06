@@ -27,15 +27,13 @@ test_that("correlation method test", {
   expect_equal(li$values, c("pearson", "spearman", "kendall"))
   expect_equal(li$description, "Which correlation coefficient to compute.")
 
-  p2 <- as_parameter(li)
-  expect_equal(p2, p)
-
-  ph <- as_paramhelper(p)
-  ph1 <- ph$params[[1]]
-
-  expect_equal(ph1$id, "method")
-  expect_equal(ph1$default, c(TRUE, FALSE, FALSE))
-  expect_equal(ph1$len, 3)
+  # p2 <- as_parameter(li)
+  # expect_equal(p2, p)
+  #
+  # ph <- as_paramhelper(p)
+  # expect_equal(ph$id, "method")
+  # expect_equal(ph$default, c(TRUE, FALSE, FALSE))
+  # expect_equal(ph$len, 3)
 })
 
 test_that("wrong parse fails gracefully", {
