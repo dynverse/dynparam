@@ -73,7 +73,7 @@ as_distribution <- function(li) {
   # check that all the required parameters exist
   constructor_fun <- distributions[[li$type]]
   arg_classes <- formals(constructor_fun) %>% as.list() %>% map_chr(class)
-  required_args <- arg_classes %>% keep(~ . == "name") %>% names()
+  required_args <- arg_classes %>% keep(~ . == "name") %>% names() %>% setdiff("...")
   assert_that(li %has_names% required_args)
 
   # call the constructor

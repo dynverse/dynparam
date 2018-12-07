@@ -65,7 +65,7 @@ as.list.parameter <- function(x, ...) {
 
   # transform distributions to list
   for (n in names(x)) {
-    if ("distribution" %in% class(x[[n]])) {
+    if (is_distribution(x[[n]])) {
       x[[n]] <- as.list(x[[n]])
     }
   }
@@ -82,7 +82,7 @@ as_parameter <- function(li) {
   # check that all the required parameters exist
   constructor_fun <- parameters[[li$type]]
   arg_classes <- formals(constructor_fun) %>% as.list() %>% map_chr(class)
-  required_args <- arg_classes %>% keep(~ . == "name") %>% names()
+  required_args <- arg_classes %>% keep(~ . == "name") %>% names() %>% setdiff("...")
   assert_that(li %has_names% required_args)
 
   for (n in names(li)) {
