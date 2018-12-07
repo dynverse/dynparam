@@ -54,7 +54,6 @@ param <- numeric_parameter(
   distribution = normal_distribution(mean = 5, sd = 1),
   description = "Multiplying factors"
 )
-
 param
 ```
 
@@ -127,7 +126,7 @@ As yaml:
 cat(yaml::as.yaml(as.list(param)))
 ```
 
-## Parameter set
+## Example of parameter set
 ```{r}
 parameters <- parameter_set(
   integer_parameter(
@@ -169,21 +168,24 @@ parameters <- parameter_set(
     default = c(3L, 15L),
     lower_distribution = uniform_distribution(1L, 5L),
     upper_distribution = uniform_distribution(10L, 20L),
-    description = "The numbers of clusters to be evaluated."
+    description = "The numbers of clusters to be evaluated",
+    as_integer = TRUE
   ),
-  
+
   range_parameter(
-    id = "js",
-    default = c(3L, 15L),
-    lower_distribution = uniform_distribution(1L, 5L),
-    upper_distribution = uniform_distribution(10L, 20L),
-    description = "The numbers of clusters to be evaluated."
+    id = "quantiles",
+    default = c(0.15, 0.90),
+    lower_distribution = uniform_distribution(0, .4),
+    upper_distribution = uniform_distribution(.6, 1),
+    description = "Quantile cutoff range",
+    as_integer = FALSE
   )
 )
 
 paramset <- as_paramhelper(parameters)
 
 paramset %>%
-  ParamHelpers::generateDesign(n = 1, trafo = TRUE) %>% 
-  ParamHelpers::dfRowToList(paramset, 1)
+  ParamHelpers::generateDesign(n = 1) %>% 
+  ParamHelpers::dfRowToList(paramset, 1) %>% 
+  ParamHelpers::trafoValue(paramset, .)
 ```

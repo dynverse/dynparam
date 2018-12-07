@@ -57,7 +57,6 @@ param <- numeric_parameter(
   distribution = normal_distribution(mean = 5, sd = 1),
   description = "Multiplying factors"
 )
-
 param
 ```
 
@@ -215,3 +214,89 @@ upper_distribution:
   type: uniform
 type: range
 ```
+
+## Example of parameter set
+
+``` r
+parameters <- parameter_set(
+  integer_parameter(
+    id = "num_iter",
+    default = 100L,
+    distribution = expuniform_distribution(lower = 1L, upper = 10000L),
+    description = "Number of iterations"
+  ),
+
+  numeric_parameter(
+    id = "delta",
+    default = c(4.5, 2.4, 1.9),
+    distribution = normal_distribution(mean = 5, sd = 1),
+    description = "Multiplying factors"
+  ),
+
+  character_parameter(
+    id = "method",
+    default = "kendall",
+    values = c("kendall", "spearman", "pearson"),
+    description = "Correlation method"
+  ),
+
+  logical_parameter(
+    id = "inverse",
+    default = TRUE,
+    description = "Inversion parameter"
+  ),
+
+  subset_parameter(
+    id = "dimreds",
+    default = c("pca", "mds"),
+    values = c("pca", "mds", "tsne", "umap", "ica"),
+    description = "Which dimensionality reduction methods to apply (can be multiple)"
+  ),
+  
+  range_parameter(
+    id = "ks",
+    default = c(3L, 15L),
+    lower_distribution = uniform_distribution(1L, 5L),
+    upper_distribution = uniform_distribution(10L, 20L),
+    description = "The numbers of clusters to be evaluated",
+    as_integer = TRUE
+  ),
+
+  range_parameter(
+    id = "quantiles",
+    default = c(0.15, 0.90),
+    lower_distribution = uniform_distribution(0, .4),
+    upper_distribution = uniform_distribution(.6, 1),
+    description = "Quantile cutoff range",
+    as_integer = FALSE
+  )
+)
+
+paramset <- as_paramhelper(parameters)
+
+paramset %>%
+  ParamHelpers::generateDesign(n = 1) %>% 
+  ParamHelpers::dfRowToList(paramset, 1) %>% 
+  ParamHelpers::trafoValue(paramset, .)
+```
+
+    ## $num_iter
+    ## [1] 16
+    ## 
+    ## $delta
+    ## [1] 5.131200 5.609039 6.928212
+    ## 
+    ## $method
+    ## [1] "pearson"
+    ## 
+    ## $inverse
+    ## [1] TRUE
+    ## 
+    ## $dimreds
+    ## [1] "pca"  "mds"  "umap"
+    ## 
+    ## $ks
+    ## [1]  2 19
+    ## 
+    ## $quantiles
+    ## [1] 0.08933543 0.60371960
