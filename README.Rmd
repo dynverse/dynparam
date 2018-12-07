@@ -183,7 +183,10 @@ parameters <- parameter_set(
   
   forbidden = "inverse == (method == 'kendall')"
 )
+```
 
+As paramhelper object:
+```{r}
 paramset <- as_paramhelper(parameters)
 
 paramset %>%
@@ -191,7 +194,8 @@ paramset %>%
   ParamHelpers::dfRowToList(paramset, 1) %>% 
   ParamHelpers::trafoValue(paramset, .)
 ```
+
 As yaml:
-```{r}
+```{r comment = "", results = "asis"}
 cat(yaml::as.yaml(as.list(parameters)))
 ```

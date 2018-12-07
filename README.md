@@ -273,7 +273,11 @@ parameters <- parameter_set(
   
   forbidden = "inverse == (method == 'kendall')"
 )
+```
 
+As paramhelper object:
+
+``` r
 paramset <- as_paramhelper(parameters)
 
 paramset %>%
@@ -283,25 +287,25 @@ paramset %>%
 ```
 
     ## $num_iter
-    ## [1] 2
+    ## [1] 1035
     ## 
     ## $delta
-    ## [1] 6.840533 6.689682 4.551487
+    ## [1] 6.981747 5.213430 5.670545
     ## 
     ## $method
-    ## [1] "pearson"
+    ## [1] "kendall"
     ## 
     ## $inverse
     ## [1] TRUE
     ## 
     ## $dimreds
-    ## [1] "pca" "ica"
+    ## [1] "pca"  "mds"  "tsne"
     ## 
     ## $ks
-    ## [1]  4 19
+    ## [1]  2 11
     ## 
     ## $quantiles
-    ## [1] 0.1832240 0.7622653
+    ## [1] 0.1113371 0.7324466
 
 As yaml:
 
@@ -309,68 +313,67 @@ As yaml:
 cat(yaml::as.yaml(as.list(parameters)))
 ```
 
-    ## ```yaml
-    ## - id: num_iter
-    ##   default: 100
-    ##   description: Number of iterations
-    ##   distribution:
-    ##     lower: 1
-    ##     upper: 10000
-    ## - id: delta
-    ##   default:
-    ##   - 4.5
-    ##   - 2.4
-    ##   - 1.9
-    ##   description: Multiplying factors
-    ##   distribution:
-    ##     lower: -.inf
-    ##     upper: .inf
-    ##     mean: 5.0
-    ##     sd: 1.0
-    ## - id: method
-    ##   default: kendall
-    ##   description: Correlation method
-    ##   values:
-    ##   - kendall
-    ##   - spearman
-    ##   - pearson
-    ## - id: inverse
-    ##   default: yes
-    ##   description: Inversion parameter
-    ## - id: dimreds
-    ##   default:
-    ##   - pca
-    ##   - mds
-    ##   description: Which dimensionality reduction methods to apply (can be multiple)
-    ##   values:
-    ##   - pca
-    ##   - mds
-    ##   - tsne
-    ##   - umap
-    ##   - ica
-    ## - id: ks
-    ##   default:
-    ##   - 3
-    ##   - 15
-    ##   description: The numbers of clusters to be evaluated
-    ##   as_integer: yes
-    ##   lower_distribution:
-    ##     lower: 1
-    ##     upper: 5
-    ##   upper_distribution:
-    ##     lower: 10
-    ##     upper: 20
-    ## - id: quantiles
-    ##   default:
-    ##   - 0.15
-    ##   - 0.9
-    ##   description: Quantile cutoff range
-    ##   as_integer: no
-    ##   lower_distribution:
-    ##     lower: 0.0
-    ##     upper: 0.4
-    ##   upper_distribution:
-    ##     lower: 0.6
-    ##     upper: 1.0
-    ## 
-    ## ```
+``` yaml
+- id: num_iter
+  default: 100
+  description: Number of iterations
+  distribution:
+    lower: 1
+    upper: 10000
+- id: delta
+  default:
+  - 4.5
+  - 2.4
+  - 1.9
+  description: Multiplying factors
+  distribution:
+    lower: -.inf
+    upper: .inf
+    mean: 5.0
+    sd: 1.0
+- id: method
+  default: kendall
+  description: Correlation method
+  values:
+  - kendall
+  - spearman
+  - pearson
+- id: inverse
+  default: yes
+  description: Inversion parameter
+- id: dimreds
+  default:
+  - pca
+  - mds
+  description: Which dimensionality reduction methods to apply (can be multiple)
+  values:
+  - pca
+  - mds
+  - tsne
+  - umap
+  - ica
+- id: ks
+  default:
+  - 3
+  - 15
+  description: The numbers of clusters to be evaluated
+  as_integer: yes
+  lower_distribution:
+    lower: 1
+    upper: 5
+  upper_distribution:
+    lower: 10
+    upper: 20
+- id: quantiles
+  default:
+  - 0.15
+  - 0.9
+  description: Quantile cutoff range
+  as_integer: no
+  lower_distribution:
+    lower: 0.0
+    upper: 0.4
+  upper_distribution:
+    lower: 0.6
+    upper: 1.0
+```
