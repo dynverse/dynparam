@@ -48,7 +48,7 @@ as_paramhelper.subset_parameter <- function(param) {
     default = as.list(ifelse(param$values %in% param$default, "TRUE", "FALSE")),
     len = length(param$values),
     values = list("TRUE", "FALSE"),
-    trafo = carrier::crate(function(x) values[unlust(x) == "TRUE"], values = param$values)
+    trafo = carrier::crate(function(x) values[unlist(x) == "TRUE"], values = param$values)
   )
 }
 
