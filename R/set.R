@@ -69,6 +69,10 @@ as.list.parameter_set <- function(x, ...) {
     }
   }
 
+  if (has_attr(x, "forbidden")) {
+    x$forbidden <- attr(x, "forbidden")
+  }
+
   x
 }
 
