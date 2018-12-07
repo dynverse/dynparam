@@ -29,9 +29,9 @@ subset_parameter <- function(
     add_class("subset_parameter")
 }
 
-make_discrete_vector_param <- function(
-  id, len, values, default, requires = NULL,
-  tunable = TRUE, special.vals = list(), trafo = NULL
+makeDiscreteVectorParamWithTrafo <- function(
+  id, len, values, default, trafo = NULL, requires = NULL,
+  tunable = TRUE, special.vals = list()
 ) {
   ParamHelpers:::makeParam(
     id = id, type = "discretevector", learner.param = FALSE, len = len,
@@ -43,12 +43,12 @@ make_discrete_vector_param <- function(
 #' @export
 #' @importFrom carrier crate
 as_paramhelper.subset_parameter <- function(param) {
-  par <- make_discrete_vector_param(
+  makeDiscreteVectorParamWithTrafo(
     id = param$id,
-    default = ifelse(param$values %in% param$default, "TRUE", "FALSE"),
+    default = as.list(ifelse(param$values %in% param$default, "TRUE", "FALSE")),
     len = length(param$values),
-    values = c("TRUE", "FALSE"),
-    trafo = carrier::crate(function(x) values[x == "TRUE"], values = param$values) # this would be so nice but it doesn't work
+    values = list("TRUE", "FALSE"),
+    trafo = carrier::crate(function(x) values[unlust(x) == "TRUE"], values = param$values)
   )
 }
 
