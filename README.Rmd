@@ -179,7 +179,9 @@ parameters <- parameter_set(
     upper_distribution = uniform_distribution(.6, 1),
     description = "Quantile cutoff range",
     as_integer = FALSE
-  )
+  ),
+  
+  forbidden = "inverse == (method == 'kendall')"
 )
 
 paramset <- as_paramhelper(parameters)
@@ -188,4 +190,8 @@ paramset %>%
   ParamHelpers::generateDesign(n = 1) %>% 
   ParamHelpers::dfRowToList(paramset, 1) %>% 
   ParamHelpers::trafoValue(paramset, .)
+```
+As yaml:
+```{r}
+cat(yaml::as.yaml(as.list(parameters)))
 ```

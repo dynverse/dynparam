@@ -269,7 +269,9 @@ parameters <- parameter_set(
     upper_distribution = uniform_distribution(.6, 1),
     description = "Quantile cutoff range",
     as_integer = FALSE
-  )
+  ),
+  
+  forbidden = "inverse == (method == 'kendall')"
 )
 
 paramset <- as_paramhelper(parameters)
@@ -281,10 +283,10 @@ paramset %>%
 ```
 
     ## $num_iter
-    ## [1] 16
+    ## [1] 2
     ## 
     ## $delta
-    ## [1] 5.131200 5.609039 6.928212
+    ## [1] 6.840533 6.689682 4.551487
     ## 
     ## $method
     ## [1] "pearson"
@@ -293,10 +295,82 @@ paramset %>%
     ## [1] TRUE
     ## 
     ## $dimreds
-    ## [1] "pca"  "mds"  "umap"
+    ## [1] "pca" "ica"
     ## 
     ## $ks
-    ## [1]  2 19
+    ## [1]  4 19
     ## 
     ## $quantiles
-    ## [1] 0.08933543 0.60371960
+    ## [1] 0.1832240 0.7622653
+
+As yaml:
+
+``` r
+cat(yaml::as.yaml(as.list(parameters)))
+```
+
+    ## ```yaml
+    ## - id: num_iter
+    ##   default: 100
+    ##   description: Number of iterations
+    ##   distribution:
+    ##     lower: 1
+    ##     upper: 10000
+    ## - id: delta
+    ##   default:
+    ##   - 4.5
+    ##   - 2.4
+    ##   - 1.9
+    ##   description: Multiplying factors
+    ##   distribution:
+    ##     lower: -.inf
+    ##     upper: .inf
+    ##     mean: 5.0
+    ##     sd: 1.0
+    ## - id: method
+    ##   default: kendall
+    ##   description: Correlation method
+    ##   values:
+    ##   - kendall
+    ##   - spearman
+    ##   - pearson
+    ## - id: inverse
+    ##   default: yes
+    ##   description: Inversion parameter
+    ## - id: dimreds
+    ##   default:
+    ##   - pca
+    ##   - mds
+    ##   description: Which dimensionality reduction methods to apply (can be multiple)
+    ##   values:
+    ##   - pca
+    ##   - mds
+    ##   - tsne
+    ##   - umap
+    ##   - ica
+    ## - id: ks
+    ##   default:
+    ##   - 3
+    ##   - 15
+    ##   description: The numbers of clusters to be evaluated
+    ##   as_integer: yes
+    ##   lower_distribution:
+    ##     lower: 1
+    ##     upper: 5
+    ##   upper_distribution:
+    ##     lower: 10
+    ##     upper: 20
+    ## - id: quantiles
+    ##   default:
+    ##   - 0.15
+    ##   - 0.9
+    ##   description: Quantile cutoff range
+    ##   as_integer: no
+    ##   lower_distribution:
+    ##     lower: 0.0
+    ##     upper: 0.4
+    ##   upper_distribution:
+    ##     lower: 0.6
+    ##     upper: 1.0
+    ## 
+    ## ```
