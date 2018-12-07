@@ -6,6 +6,7 @@
 ``` r
 library(tidyverse)
 library(dynparam)
+set.seed(1)
 ```
 
 ## Integer parameter
@@ -287,25 +288,25 @@ paramset %>%
 ```
 
     ## $num_iter
-    ## [1] 1035
+    ## [1] 98
     ## 
     ## $delta
-    ## [1] 6.981747 5.213430 5.670545
+    ## [1] 5.575781 7.404653 4.694612
     ## 
     ## $method
-    ## [1] "kendall"
+    ## [1] "pearson"
     ## 
     ## $inverse
     ## [1] TRUE
     ## 
     ## $dimreds
-    ## [1] "pca"  "mds"  "tsne"
+    ## [1] "pca"  "tsne" "umap" "ica" 
     ## 
     ## $ks
-    ## [1]  2 11
+    ## [1]  1 14
     ## 
     ## $quantiles
-    ## [1] 0.1113371 0.7324466
+    ## [1] 0.3478763 0.7361396
 
 As yaml:
 
@@ -314,13 +315,15 @@ cat(yaml::as.yaml(as.list(parameters)))
 ```
 
 ``` yaml
-- id: num_iter
+'':
+  id: num_iter
   default: 100
   description: Number of iterations
   distribution:
     lower: 1
     upper: 10000
-- id: delta
+'':
+  id: delta
   default:
   - 4.5
   - 2.4
@@ -331,17 +334,20 @@ cat(yaml::as.yaml(as.list(parameters)))
     upper: .inf
     mean: 5.0
     sd: 1.0
-- id: method
+'':
+  id: method
   default: kendall
   description: Correlation method
   values:
   - kendall
   - spearman
   - pearson
-- id: inverse
+'':
+  id: inverse
   default: yes
   description: Inversion parameter
-- id: dimreds
+'':
+  id: dimreds
   default:
   - pca
   - mds
@@ -352,7 +358,8 @@ cat(yaml::as.yaml(as.list(parameters)))
   - tsne
   - umap
   - ica
-- id: ks
+'':
+  id: ks
   default:
   - 3
   - 15
@@ -364,7 +371,8 @@ cat(yaml::as.yaml(as.list(parameters)))
   upper_distribution:
     lower: 10
     upper: 20
-- id: quantiles
+'':
+  id: quantiles
   default:
   - 0.15
   - 0.9
@@ -376,4 +384,5 @@ cat(yaml::as.yaml(as.list(parameters)))
   upper_distribution:
     lower: 0.6
     upper: 1.0
+forbidden: inverse == (method == 'kendall')
 ```

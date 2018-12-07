@@ -11,6 +11,7 @@ editor_options:
 ```{r, message = FALSE, error = FALSE, warning = FALSE}
 library(tidyverse)
 library(dynparam)
+set.seed(1)
 ```
 
 ```{r, echo=FALSE}
