@@ -40,13 +40,20 @@ as_paramhelper.parameter_set <- function(param) {
   forbiddens <- params %>%
     map(attr, "forbidden") %>%
     c(attr(param, "forbidden")) %>%
-    unlist() %>%
-    paste("(", ., ")", collapse = " & ", sep = "") %>%
-    parse(text = .)
+    unlist()
+
+  forbidden_expr <-
+    if (length(forbiddens) == 0) {
+      NULL
+    } else {
+      forbiddens %>%
+        paste("(", ., ")", collapse = " & ", sep = "") %>%
+        parse(text = .)
+    }
 
   ParamHelpers::makeParamSet(
     params = params,
-    forbidden = forbiddens
+    forbidden = forbidden_expr
   )
 }
 
