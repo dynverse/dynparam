@@ -315,15 +315,14 @@ cat(yaml::as.yaml(as.list(parameters)))
 ```
 
 ``` yaml
-'':
-  id: num_iter
+parameters:
+- id: num_iter
   default: 100
   description: Number of iterations
   distribution:
     lower: 1
     upper: 10000
-'':
-  id: delta
+- id: delta
   default:
   - 4.5
   - 2.4
@@ -334,20 +333,17 @@ cat(yaml::as.yaml(as.list(parameters)))
     upper: .inf
     mean: 5.0
     sd: 1.0
-'':
-  id: method
+- id: method
   default: kendall
   description: Correlation method
   values:
   - kendall
   - spearman
   - pearson
-'':
-  id: inverse
+- id: inverse
   default: yes
   description: Inversion parameter
-'':
-  id: dimreds
+- id: dimreds
   default:
   - pca
   - mds
@@ -358,8 +354,7 @@ cat(yaml::as.yaml(as.list(parameters)))
   - tsne
   - umap
   - ica
-'':
-  id: ks
+- id: ks
   default:
   - 3
   - 15
@@ -371,8 +366,7 @@ cat(yaml::as.yaml(as.list(parameters)))
   upper_distribution:
     lower: 10
     upper: 20
-'':
-  id: quantiles
+- id: quantiles
   default:
   - 0.15
   - 0.9

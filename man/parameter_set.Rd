@@ -7,7 +7,7 @@
 \alias{as.list.parameter_set}
 \title{Parameter set helper functions}
 \usage{
-parameter_set(..., forbidden = NULL)
+parameter_set(..., parameters = NULL, forbidden = NULL)
 
 is_parameter_set(x)
 
@@ -16,7 +16,9 @@ is_parameter_set(x)
 \method{as.list}{parameter_set}(x, ...)
 }
 \arguments{
-\item{...}{A list of parameters to wrap in a parameter set.}
+\item{...}{Parameters to wrap in a parameter set.}
+
+\item{parameters}{A list of parameters to wrap in a parameter set.}
 
 \item{forbidden}{States forbidden region of parameter via a character vector, which will be turned into an expression.}
 
