@@ -65,8 +65,8 @@ as_paramhelper.range_parameter <- function(param) {
     param$upper_distribution$lower <- param$upper_distribution$lower - .5 + 1e-10
     param$upper_distribution$upper <- param$upper_distribution$upper + .5 - 1e-10
 
-    qfun_lower <- function(x) round(qfun_lower(x))
-    qfun_upper <- function(x) round(qfun_upper(x))
+    qfun_lower <- carrier::crate(function(x) round(qfun_lower(x)), qfun_lower = qfun_lower)
+    qfun_upper <- carrier::crate(function(x) round(qfun_upper(x)), qfun_upper = qfun_upper)
   }
 
   param <-
