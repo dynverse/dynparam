@@ -62,7 +62,14 @@ as_paramhelper.parameter_set <- function(param) {
 as.list.parameter_set <- function(x, ...) {
   assert_that(is_parameter_set(x))
 
-  # todo
+  # transform parameters to list
+  for (n in names(x)) {
+    if (is_parameter(x[[n]])) {
+      x[[n]] <- as.list(x[[n]])
+    }
+  }
+
+  x
 }
 
 
@@ -72,11 +79,34 @@ as_parameter_set <- function(li) {
   # check that list has a recognised type
   assert_that("list" %in% class(li))
 
-  # todo
+  # check that all the required parameters exist
+  constructor_fun <- parameter_set
+  arg_classes <- formals(constructor_fun) %>% as.list() %>% map_chr(class)
+  required_args <- arg_classes %>% keep(~ . == "name") %>% names() %>% setdiff("...")
+  assert_that(li %has_names% required_args)
+
+  for (n in names(li)) {
+    lin <- li[[n]]
+
+    if ("list" %in% class(lin) && lin %has_name% "type" && lin$type %in% names(parameters)) {
+      li[[n]] <- as_parameter(li[[n]])
+    } else if (all(map_lgl(lin, is.vector)) && length(unique(map_chr(lin, class))) == 1) {
+      li[[n]] <- unlist(lin, recursive = FALSE)
+    }
+  }
+
+  # call the constructor
+  do.call(constructor_fun, li)
 }
 
 as.character.parameter_set <- function(x, ...) {
-  # todo
+  assert_that(is_parameter_set(x))
+
+  # transform parameters to list
+  x %>%
+    keep(is_parameter) %>%
+    map_chr(as.character) %>%
+    paste(collapse = "\n")
 }
 
 print.parameter_set <- function(x, ...) {
