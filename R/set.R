@@ -83,7 +83,7 @@ as_parameter_set <- function(li) {
 
   for (i in seq_along(li$parameters)) {
     lin <- li$parameters[[i]]
-    assert_that(is.list(lin), lin %has_name% "type", lin$type %iN% names(parameters))
+    assert_that(is.list(lin), lin %has_name% "type", lin$type %in% names(parameters))
     li$parameters[[i]] <- as_parameter(lin)
   }
 
