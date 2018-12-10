@@ -15,7 +15,13 @@ parameter_set <- function(..., parameters = NULL, forbidden = NULL) {
 
   parameters <- c(list(...), parameters)
 
-  assert_that(all(map_lgl(parameters, is_parameter)))
+  # make sure that all parameters are indeed parameters
+  for (i in seq_along(parameters)) {
+    assert_that(is_parameter(parameters[[i]]), msg = paste0("parameter ", i, " is not a parameter"))
+  }
+
+  # add parameter names to parameter list
+  names(parameters) <- map_chr(parameters, ~.$id)
 
   list(
     parameters = parameters,
@@ -65,13 +71,21 @@ as.list.parameter_set <- function(x, ...) {
   assert_that(is_parameter_set(x))
 
   # transform parameters to list
-  for (n in names(x)) {
-    if (is_parameter(x[[n]])) {
-      x$parameters[[n]] <- as.list(x$parameters[[n]])
+  out <- list()
+
+  # convert parameters to list and save to out
+  for (i in seq_along(x$parameters)) {
+    if (is_parameter(x$parameters[[i]])) {
+      out[[i]] <- as.list(x$parameters[[i]])
     }
   }
 
-  x
+  # save forbidden to list
+  if (!is.null(x$forbidden)) {
+    out[[length(out) + 1]] <- list(forbidden = x$forbidden)
+  }
+
+  out
 }
 
 
@@ -79,18 +93,22 @@ as.list.parameter_set <- function(x, ...) {
 #' @rdname parameter
 as_parameter_set <- function(li) {
   # check that list has a recognised type
-  assert_that("list" %in% class(li), li %has_name% "parameters")
+  assert_that("list" %in% class(li), is.null(names(li)))
 
-  for (i in seq_along(li$parameters)) {
-    lin <- li$parameters[[i]]
-    assert_that(is.list(lin), lin %has_name% "type", lin$type %in% names(parameters))
-    li$parameters[[i]] <- as_parameter(lin)
+  params <- list()
+  forbidden <- NULL
+
+  for (i in seq_along(li)) {
+    lin <- li[[i]]
+    if (is.list(lin) && lin %has_name% "type" && lin$type %in% names(parameters)) {
+      params[[length(params) + 1]] <- as_parameter(lin)
+    } else if (is.list(lin) && lin %has_name% "forbidden" && is.character(lin$forbidden)) {
+      forbidden <- lin$forbidden
+    }
   }
 
-  assert_that(is.null(li$forbidden) || is.character(li$forbidden))
-
   # call the constructor
-  do.call(parameter_set, li)
+  parameter_set(parameters = params, forbidden = forbidden)
 }
 
 as.character.parameter_set <- function(x, ...) {
