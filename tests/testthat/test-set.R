@@ -91,6 +91,15 @@ test_that("parameter set test test", {
 
   expect_match(as.character(ph$forbidden), "inverse == \\(method == \"kendall\"\\)")
   expect_match(as.character(ph$forbidden), "ks\\[1\\] > ks\\[2\\]")
+
+  # test print
+  expect_output(print(parameters), "integer.*num_iter")
+  expect_output(print(parameters), "numeric.*delta")
+  expect_output(print(parameters), "character.*method")
+  expect_output(print(parameters), "logical.*inverse")
+  expect_output(print(parameters), "subset.*dimreds")
+  expect_output(print(parameters), "range.*ks")
+  expect_output(print(parameters), "range.*quantiles")
 })
 
 test_that("wrong parse fails gracefully", {
