@@ -71,11 +71,26 @@ test_that("parameter set test test", {
   expect_equal(parameters$parameters$ks, ks_p)
   expect_equal(parameters$parameters$quantiles, quantiles_p)
 
+  # test to list conversion and back
   li <- as.list(parameters)
 
   ps <- as_parameter_set(li)
 
   expect_equal(parameters, ps)
+
+  # test paramhelper conversion
+  ph <- as_paramhelper(parameters)
+  expect_equal(names(ph$pars), names(parameters$parameters))
+  expect_equal(ph$pars$num_iter, as_paramhelper(num_iter_p))
+  expect_equal(ph$pars$delta, as_paramhelper(delta_p))
+  expect_equal(ph$pars$method, as_paramhelper(method_p))
+  expect_equal(ph$pars$inverse, as_paramhelper(inverse_p))
+  expect_equal(ph$pars$dimred, as_paramhelper(dimred_p))
+  expect_equal(ph$pars$ks, as_paramhelper(ks_p))
+  expect_equal(ph$pars$quantiles, as_paramhelper(quantiles_p))
+
+  expect_match(as.character(ph$forbidden), "inverse == \\(method == \"kendall\"\\)")
+  expect_match(as.character(ph$forbidden), "ks\\[1\\] > ks\\[2\\]")
 })
 
 test_that("wrong parse fails gracefully", {
