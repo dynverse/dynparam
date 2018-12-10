@@ -31,28 +31,31 @@ parameter <- function(
 #' @export
 #' @rdname parameter
 as.character.parameter <- function(x, ...) {
-  # the parameter should have its own as.character function defined
-  class_name <- class(x)[[1]]
-  class(x) <- "list"
-  gsub("^list", class_name, deparse(x))
+  lis <- as_character_tibble(x) %>% unlist()
+
+  ifelse(names(lis) == "id", lis, paste0(names(lis), "=", lis)) %>% paste0(collapse = " | ")
 }
 
 #' @export
 #' @rdname parameter
-as_paramhelper <- function(param) {
+as_paramhelper <- function(x) {
   UseMethod("as_paramhelper")
 }
 
 #' @export
 #' @rdname parameter
-as_roxygen <- function(param) {
+as_roxygen <- function(x) {
   UseMethod("as_roxygen")
 }
 
 #' @export
 #' @rdname parameter
-as_argparse <- function(param) {
+as_argparse <- function(x) {
   UseMethod("as_argparse")
+}
+
+as_character_tibble <- function(x) {
+  UseMethod("as_character_tibble")
 }
 
 #' @rdname parameter
@@ -114,28 +117,29 @@ print.parameter <- function(x, ...) {
   cat(as.character(x))
 }
 
-# #' @importFrom Hmisc capitalize
-# to_roxygen.parameter <- function(param) {
-#   description <-
-#     param$description %>%
-#     ifelse(!is.null(.), ., "") %>%     # use "" if no description is provided
-#     str_replace_all("\n", "") %>%      # remove newlines
-#     Hmisc::capitalize() %>%            # capitalise sentences
-#     gsub("\\\\link\\[[a-zA-Z0-9_:]*\\]\\{([^\\}]*)\\}", "\\1", .) # substitute \link[X](Y) with just Y
-#
-#   range_text <-
-#     case_when(
-#       param$type == "discrete" ~ paste0("; values: {", paste0("`", sapply(parameter$values, deparse), "`", collapse = ", "), "}"),
-#       param$type %in% c("integer", "numeric") ~ paste0("; range: from `", deparse(parameter$lower), "` to `", deparse(parameter$upper), "`"),
-#       TRUE ~ ""
-#     )
-#
-#   paste0(
-#     "@param ", parameter_id, " ",
-#     parameter$type, "; ", description, " (default: `",
-#     deparse(parameter$default, width.cutoff = 500), "`", range_text, ")"
-#   )
-# }
+#' @importFrom Hmisc capitalize
+#' @export
+#' @rdname parameter
+as_roxygen.parameter <- function(x) {
+  lis <- as_character_tibble(x) %>% unlist()
+
+  description <-
+    x$description %>%
+    ifelse(!is.null(.), ., "") %>%     # use "" if no description is provided
+    str_replace_all("\n", "") %>%      # remove newlines
+    Hmisc::capitalize() %>%            # capitalise sentences
+    gsub("\\\\link\\[[a-zA-Z0-9_:]*\\]\\{([^\\}]*)\\}", "\\1", .) # substitute \link[X](Y) with just Y
+
+  extra_text <-
+    lis[names(lis) != "id"] %>%
+    paste0(names(.), "=", .) %>%
+    paste0(collapse = "; ") %>%
+    paste0("(", ., ")")
+
+  paste0(
+    "@param ", x$id, " ", description, " ", extra_text
+  )
+}
 
 
 

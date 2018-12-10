@@ -1,6 +1,6 @@
 context("test-set")
 
-test_that("parameter set test test", {
+test_that("works with one parameter", {
   epsilon_p <- numeric_parameter(
     id = "epsilon",
     default = 0.05,
@@ -34,10 +34,10 @@ test_that("parameter set test test", {
   expect_length(as.character(ph$forbidden), 0)
 
   # test print
-  expect_output(print(parameters), "numeric.*epsilon")
+  expect_output(print(parameters), "epsilon.*numeric")
 })
 
-test_that("works with one parameter", {
+test_that("works with many parameters", {
   num_iter_p <- integer_parameter(
     id = "num_iter",
     default = 100L,
@@ -130,13 +130,13 @@ test_that("works with one parameter", {
   expect_match(as.character(ph$forbidden), "ks\\[1\\] > ks\\[2\\]")
 
   # test print
-  expect_output(print(parameters), "integer.*num_iter")
-  expect_output(print(parameters), "numeric.*delta")
-  expect_output(print(parameters), "character.*method")
-  expect_output(print(parameters), "logical.*inverse")
-  expect_output(print(parameters), "subset.*dimreds")
-  expect_output(print(parameters), "range.*ks")
-  expect_output(print(parameters), "range.*quantiles")
+  expect_output(print(parameters), "num_iter.*integer")
+  expect_output(print(parameters), "delta.*numeric")
+  expect_output(print(parameters), "method.*character")
+  expect_output(print(parameters), "inverse.*logical")
+  expect_output(print(parameters), "dimreds.*subset")
+  expect_output(print(parameters), "ks.*range")
+  expect_output(print(parameters), "quantiles.*range")
 })
 
 test_that("wrong parse fails gracefully", {

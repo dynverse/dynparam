@@ -53,37 +53,37 @@ range_parameter <- function(
 #' @importFrom glue glue
 #' @importFrom carrier crate
 #' @importFrom stats as.formula
-as_paramhelper.range_parameter <- function(param) {
-  dfun_lower <- distribution_function(param$lower_distribution)
-  qfun_lower <- quantile_function(param$lower_distribution)
-  dfun_upper <- distribution_function(param$upper_distribution)
-  qfun_upper <- quantile_function(param$upper_distribution)
+as_paramhelper.range_parameter <- function(x) {
+  dfun_lower <- distribution_function(x$lower_distribution)
+  qfun_lower <- quantile_function(x$lower_distribution)
+  dfun_upper <- distribution_function(x$upper_distribution)
+  qfun_upper <- quantile_function(x$upper_distribution)
 
-  if (param$as_integer) {
-    param$lower_distribution$lower <- param$lower_distribution$lower - .5 + 1e-10
-    param$lower_distribution$upper <- param$lower_distribution$upper + .5 - 1e-10
-    param$upper_distribution$lower <- param$upper_distribution$lower - .5 + 1e-10
-    param$upper_distribution$upper <- param$upper_distribution$upper + .5 - 1e-10
+  if (x$as_integer) {
+    x$lower_distribution$lower <- x$lower_distribution$lower - .5 + 1e-10
+    x$lower_distribution$upper <- x$lower_distribution$upper + .5 - 1e-10
+    x$upper_distribution$lower <- x$upper_distribution$lower - .5 + 1e-10
+    x$upper_distribution$upper <- x$upper_distribution$upper + .5 - 1e-10
 
-    qfun_lower <- carrier::crate(function(x) round(qfun_lower(x)), qfun_lower = qfun_lower)
-    qfun_upper <- carrier::crate(function(x) round(qfun_upper(x)), qfun_upper = qfun_upper)
+    qfun_lower <- carrier::crate(function(y) round(qfun_lower(y)), qfun_lower = qfun_lower)
+    qfun_upper <- carrier::crate(function(y) round(qfun_upper(y)), qfun_upper = qfun_upper)
   }
 
   param <-
     ParamHelpers::makeNumericVectorParam(
-      id = param$id,
+      id = x$id,
       lower = c(
-        dfun_lower(param$lower_distribution$lower),
-        dfun_upper(param$upper_distribution$lower)
+        dfun_lower(x$lower_distribution$lower),
+        dfun_upper(x$upper_distribution$lower)
       ),
       upper = c(
-        dfun_lower(param$lower_distribution$upper),
-        dfun_upper(param$upper_distribution$upper)
+        dfun_lower(x$lower_distribution$upper),
+        dfun_upper(x$upper_distribution$upper)
       ),
       len = 2,
       default = c(
-        dfun_lower(param$default[[1]]),
-        dfun_upper(param$default[[2]])
+        dfun_lower(x$default[[1]]),
+        dfun_upper(x$default[[2]])
       ),
       trafo = carrier::crate(
         function(x) {
@@ -98,14 +98,18 @@ as_paramhelper.range_parameter <- function(param) {
     )
 
   forbidden <-
-    paste0(param$id, "[1] > ", param$id, "[2]")
+    paste0(x$id, "[1] > ", x$id, "[2]")
 
   attr(param, "forbidden") <- forbidden
 
   param
 }
 
-#' @export
-as.character.range_parameter <- function(x, ...) {
-  paste0("[range] ", x$id, " \u2208 ( ", as.character(x$lower_distribution), ", ", as.character(x$upper_distribution), " ), default=(", x$default[[1]], ", ", x$default[[2]], ")")
+as_character_tibble.range_parameter <- function(x) {
+  tibble(
+    id = x$id,
+    type = "range",
+    domain = paste0("( ", as.character(x$lower_distribution), ", ", as.character(x$upper_distribution), " )"),
+    default = paste0("(", x$default[[1]], ", ", x$default[[2]], ")")
+  )
 }

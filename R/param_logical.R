@@ -27,14 +27,14 @@ logical_parameter <- function(
 
 #' @export
 #' @importFrom ParamHelpers makeLogicalParam makeLogicalVectorParam
-as_paramhelper.logical_parameter <- function(param) {
-  length <- length(param$default)
+as_paramhelper.logical_parameter <- function(x) {
+  length <- length(x$default)
 
   fun <- if (length == 1) ParamHelpers::makeLogicalParam else ParamHelpers::makeLogicalVectorParam
 
   args <- list(
-    id = param$id,
-    default = param$default
+    id = x$id,
+    default = x$default
   )
 
   if (length != 1) args$len <- length
@@ -42,7 +42,10 @@ as_paramhelper.logical_parameter <- function(param) {
   do.call(fun, args)
 }
 
-#' @export
-as.character.logical_parameter <- function(x, ...) {
-  paste0("[logical] ", x$id, ", default=", collapse_set(x$default))
+as_character_tibble.logical_parameter <- function(x) {
+  tibble(
+    id = x$id,
+    type = "logical",
+    default = collapse_set(x$default)
+  )
 }

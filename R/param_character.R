@@ -31,15 +31,15 @@ character_parameter <- function(
 
 #' @export
 #' @importFrom ParamHelpers makeDiscreteParam makeDiscreteVectorParam
-as_paramhelper.character_parameter <- function(param) {
-  length <- length(param$default)
+as_paramhelper.character_parameter <- function(x) {
+  length <- length(x$default)
 
   fun <- if (length == 1) ParamHelpers::makeDiscreteParam else ParamHelpers::makeDiscreteVectorParam
 
   args <- list(
-    id = param$id,
-    values = param$values,
-    default = param$default
+    id = x$id,
+    values = x$values,
+    default = x$default
   )
 
   if (length != 1) {
@@ -51,8 +51,11 @@ as_paramhelper.character_parameter <- function(param) {
   do.call(fun, args)
 }
 
-#' @export
-as.character.character_parameter <- function(x, ...) {
-  subset_char <- if (length(x$default) == 1) " \u2208 " else " \u2286 "
-  paste0("[character] ", x$id, subset_char, "{", paste(x$values, collapse = ", "), "}, default=", collapse_set(x$default))
+as_character_tibble.character_parameter <- function(x) {
+  tibble(
+    id = x$id,
+    type = "character",
+    domain = paste0("{", paste(x$values, collapse = ", "), "}"),
+    default = collapse_set(x$default)
+  )
 }

@@ -40,14 +40,14 @@ on_failure(is_parameter_set) <- function(call, env) {
 
 #' @export
 #' @rdname parameter_set
-as_paramhelper.parameter_set <- function(param) {
-  assert_that(is_parameter_set(param))
+as_paramhelper.parameter_set <- function(x) {
+  assert_that(is_parameter_set(x))
 
-  params <- map(param$parameters, as_paramhelper)
+  params <- map(x$parameters, as_paramhelper)
 
   forbiddens <- params %>%
     map(attr, "forbidden") %>%
-    c(param$forbidden) %>%
+    c(x$forbidden) %>%
     unlist()
 
   forbidden_expr <-
@@ -111,6 +111,8 @@ as_parameter_set <- function(li) {
   parameter_set(parameters = params, forbidden = forbidden)
 }
 
+#' @export
+#' @rdname parameter
 as.character.parameter_set <- function(x, ...) {
   assert_that(is_parameter_set(x))
 

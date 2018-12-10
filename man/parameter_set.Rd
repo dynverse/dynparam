@@ -11,7 +11,7 @@ parameter_set(..., parameters = NULL, forbidden = NULL)
 
 is_parameter_set(x)
 
-\method{as_paramhelper}{parameter_set}(param)
+\method{as_paramhelper}{parameter_set}(x)
 
 \method{as.list}{parameter_set}(x, ...)
 }

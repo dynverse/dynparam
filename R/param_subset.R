@@ -42,17 +42,23 @@ makeDiscreteVectorParamWithTrafo <- function(
 
 #' @export
 #' @importFrom carrier crate
-as_paramhelper.subset_parameter <- function(param) {
+as_paramhelper.subset_parameter <- function(x) {
+  values <- x$values
   makeDiscreteVectorParamWithTrafo(
-    id = param$id,
-    default = as.list(ifelse(param$values %in% param$default, "TRUE", "FALSE")),
-    len = length(param$values),
+    id = x$id,
+    default = as.list(ifelse(x$values %in% x$default, "TRUE", "FALSE")),
+    len = length(x$values),
     values = list("TRUE", "FALSE"),
-    trafo = carrier::crate(function(x) values[unlist(x) == "TRUE"], values = param$values)
+    trafo = carrier::crate(function(x) values[unlist(x) == "TRUE"], values = values)
   )
 }
 
-#' @export
-as.character.subset_parameter <- function(x, ...) {
-  paste0("[subset] ", x$id, " = {x | x \u2286 {", paste(x$values, collapse = ", "), "}}, default=", collapse_set(x$default))
+as_character_tibble.subset_parameter <- function(x) {
+  tibble(
+    id = x$id,
+    type = "subset",
+    domain = paste0("{x | x \u2286 {", paste(x$values, collapse = ", "), "}}"),
+    default = collapse_set(x$default)
+  )
 }
+

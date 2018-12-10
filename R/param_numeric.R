@@ -40,17 +40,17 @@ numeric_parameter <- function(
 
 #' @export
 #' @importFrom ParamHelpers makeNumericParam makeNumericVectorParam
-as_paramhelper.numeric_parameter <- function(param) {
-  dfun <- distribution_function(param$distribution)
-  qfun <- quantile_function(param$distribution)
-  length <- length(param$default)
+as_paramhelper.numeric_parameter <- function(x) {
+  dfun <- distribution_function(x$distribution)
+  qfun <- quantile_function(x$distribution)
+  length <- length(x$default)
 
   fun <- if (length == 1) ParamHelpers::makeNumericParam else ParamHelpers::makeNumericVectorParam
   args <- list(
-    id = param$id,
-    lower = dfun(param$distribution$lower),
-    upper = dfun(param$distribution$upper),
-    default = dfun(param$default),
+    id = x$id,
+    lower = dfun(x$distribution$lower),
+    upper = dfun(x$distribution$upper),
+    default = dfun(x$default),
     trafo = qfun
   )
   if (length != 1) args$len <- length
@@ -58,8 +58,11 @@ as_paramhelper.numeric_parameter <- function(param) {
   do.call(fun, args)
 }
 
-#' @export
-as.character.numeric_parameter <- function(x, ...) {
-  subset_char <- if (length(x$default) == 1) " \u2208 " else " \u2286 "
-  paste0("[numeric] ", x$id, subset_char, as.character(x$distribution), ", default=", collapse_set(x$default))
+as_character_tibble.numeric_parameter <- function(x) {
+  tibble(
+    id = x$id,
+    type = "numeric",
+    domain = as.character(x$distribution),
+    default = collapse_set(x$default)
+  )
 }

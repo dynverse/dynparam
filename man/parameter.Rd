@@ -10,18 +10,20 @@
 \alias{as_parameter}
 \alias{is_parameter}
 \alias{print.parameter}
+\alias{as_roxygen.parameter}
 \alias{as_parameter_set}
+\alias{as.character.parameter_set}
 \title{Helper functions for converting parameters from and to other formats}
 \usage{
 parameter(id, default, ..., description = NULL)
 
 \method{as.character}{parameter}(x, ...)
 
-as_paramhelper(param)
+as_paramhelper(x)
 
-as_roxygen(param)
+as_roxygen(x)
 
-as_argparse(param)
+as_argparse(x)
 
 \method{as.list}{parameter}(x, ...)
 
@@ -31,7 +33,11 @@ is_parameter(x)
 
 \method{print}{parameter}(x, ...)
 
+\method{as_roxygen}{parameter}(x)
+
 as_parameter_set(li)
+
+\method{as.character}{parameter_set}(x, ...)
 }
 \arguments{
 \item{id}{The name of the parameter.}
@@ -44,9 +50,9 @@ as_parameter_set(li)
 
 \item{x}{An object (parameter or distribution) to be converted.}
 
-\item{param}{A parameter to be converted.}
-
 \item{li}{A list to be converted into a parameter.}
+
+\item{param}{A parameter to be converted.}
 }
 \description{
 Helper functions for converting parameters from and to other formats
