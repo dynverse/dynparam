@@ -43,6 +43,19 @@ test_that("k cluster test", {
   expect_equal(ph$lower, c(0, 0))
   expect_equal(ph$upper, c(1, 1))
   expect_equal(ph$len, 2)
+
+  ps <- ParamHelpers::makeParamSet(ph)
+  tval <-
+    ParamHelpers::generateDesign(par.set = ps, n = 1) %>%
+    ParamHelpers::dfRowToList(par.set = ps, i = 1) %>%
+    ParamHelpers::trafoValue(par = ps, .)
+
+  expect_equal(names(tval), "ks")
+  expect_gte(tval$ks[[1]], 2)
+  expect_lte(tval$ks[[1]], 5)
+  expect_gte(tval$ks[[2]], 10)
+  expect_lte(tval$ks[[2]], 20)
+  expect_true(tval$ks[[1]] <= tval$ks[[2]])
 })
 
 
@@ -90,6 +103,19 @@ test_that("quantiles test", {
   expect_equal(ph$lower, c(0, 0))
   expect_equal(ph$upper, c(1, 1))
   expect_equal(ph$len, 2)
+
+  ps <- ParamHelpers::makeParamSet(ph)
+  tval <-
+    ParamHelpers::generateDesign(par.set = ps, n = 1) %>%
+    ParamHelpers::dfRowToList(par.set = ps, i = 1) %>%
+    ParamHelpers::trafoValue(par = ps, .)
+
+  expect_equal(names(tval), "quantiles")
+  expect_gte(tval$quantiles[[1]], .01)
+  expect_lte(tval$quantiles[[1]], .25)
+  expect_gte(tval$quantiles[[2]], .9)
+  expect_lte(tval$quantiles[[2]], .99)
+  expect_true(tval$quantiles[[1]] <= tval$quantiles[[2]])
 })
 
 

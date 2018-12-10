@@ -34,6 +34,15 @@ test_that("correlation method test", {
   expect_equal(ph$id, "method")
   expect_equal(ph$default %>% unlist(), c("TRUE", "FALSE", "FALSE"))
   expect_equal(ph$len, 3)
+
+  ps <- ParamHelpers::makeParamSet(ph)
+  tval <-
+    ParamHelpers::generateDesign(par.set = ps, n = 1) %>%
+    ParamHelpers::dfRowToList(par.set = ps, i = 1) %>%
+    ParamHelpers::trafoValue(par = ps, .)
+
+  expect_equal(names(tval), "method")
+  expect_true(all(tval$method %in% c("spearman", "pearson", "kendall")))
 })
 
 test_that("wrong parse fails gracefully", {
