@@ -45,7 +45,7 @@ as_paramhelper.parameter_set <- function(param) {
 
   params <- map(param$parameters, as_paramhelper)
 
-  forbiddens <- param$parameters %>%
+  forbiddens <- params %>%
     map(attr, "forbidden") %>%
     c(param$forbidden) %>%
     unlist()
