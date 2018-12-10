@@ -1,6 +1,43 @@
 context("test-set")
 
 test_that("parameter set test test", {
+  epsilon_p <- numeric_parameter(
+    id = "epsilon",
+    default = 0.05,
+    distribution = expuniform_distribution(1e-5, 1),
+    description = "Epsilon factor"
+  )
+  parameters <- parameter_set(
+    epsilon_p
+  )
+
+  expect_is(parameters, "parameter_set")
+  expect_null(parameters$forbidden)
+
+  expect_true(is_parameter_set(parameters))
+  expect_true(all(map_lgl(parameters$parameters, is_parameter)))
+
+  expect_equal(parameters$parameters$epsilon, epsilon_p)
+
+  # test to list conversion and back
+  li <- as.list(parameters)
+
+  ps <- as_parameter_set(li)
+
+  expect_equal(parameters, ps)
+
+  # test paramhelper conversion
+  ph <- as_paramhelper(parameters)
+  expect_equal(names(ph$pars), names(parameters$parameters))
+  expect_equal(ph$pars$epsilon, as_paramhelper(epsilon_p))
+
+  expect_length(as.character(ph$forbidden), 0)
+
+  # test print
+  expect_output(print(parameters), "numeric.*epsilon")
+})
+
+test_that("works with one parameter", {
   num_iter_p <- integer_parameter(
     id = "num_iter",
     default = 100L,
