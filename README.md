@@ -315,13 +315,14 @@ cat(yaml::as.yaml(as.list(parameters)))
 ```
 
 ``` yaml
-parameters:
 - id: num_iter
   default: 100
   description: Number of iterations
   distribution:
     lower: 1
     upper: 10000
+    type: expuniform
+  type: integer
 - id: delta
   default:
   - 4.5
@@ -333,6 +334,8 @@ parameters:
     upper: .inf
     mean: 5.0
     sd: 1.0
+    type: normal
+  type: numeric
 - id: method
   default: kendall
   description: Correlation method
@@ -340,9 +343,11 @@ parameters:
   - kendall
   - spearman
   - pearson
+  type: character
 - id: inverse
   default: yes
   description: Inversion parameter
+  type: logical
 - id: dimreds
   default:
   - pca
@@ -354,6 +359,7 @@ parameters:
   - tsne
   - umap
   - ica
+  type: subset
 - id: ks
   default:
   - 3
@@ -363,9 +369,12 @@ parameters:
   lower_distribution:
     lower: 1
     upper: 5
+    type: uniform
   upper_distribution:
     lower: 10
     upper: 20
+    type: uniform
+  type: range
 - id: quantiles
   default:
   - 0.15
@@ -375,8 +384,11 @@ parameters:
   lower_distribution:
     lower: 0.0
     upper: 0.4
+    type: uniform
   upper_distribution:
     lower: 0.6
     upper: 1.0
-forbidden: inverse == (method == 'kendall')
+    type: uniform
+  type: range
+- forbidden: inverse == (method == 'kendall')
 ```
