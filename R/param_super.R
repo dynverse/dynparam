@@ -108,10 +108,6 @@ on_failure(is_parameter) <- function(call, env) {
   paste0(deparse(call$x), " is not a parameter")
 }
 
-is_parameter_list <- function(li) {
-  "list" %in% class(li) && li %has_name% "type" && li$type %in% names(parameters)
-}
-
 #' @export
 #' @rdname parameter
 print.parameter <- function(x, ...) {
