@@ -58,7 +58,7 @@ as_paramhelper.numeric_parameter <- function(x) {
   do.call(fun, args)
 }
 
-as_character_tibble.numeric_parameter <- function(x) {
+as_descriptive_tibble.numeric_parameter <- function(x) {
   tibble(
     id = x$id,
     type = "numeric",

@@ -42,7 +42,7 @@ as_paramhelper.logical_parameter <- function(x) {
   do.call(fun, args)
 }
 
-as_character_tibble.logical_parameter <- function(x) {
+as_descriptive_tibble.logical_parameter <- function(x) {
   tibble(
     id = x$id,
     type = "logical",

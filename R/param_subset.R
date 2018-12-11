@@ -53,7 +53,7 @@ as_paramhelper.subset_parameter <- function(x) {
   )
 }
 
-as_character_tibble.subset_parameter <- function(x) {
+as_descriptive_tibble.subset_parameter <- function(x) {
   tibble(
     id = x$id,
     type = "subset",

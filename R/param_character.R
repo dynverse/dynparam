@@ -51,7 +51,7 @@ as_paramhelper.character_parameter <- function(x) {
   do.call(fun, args)
 }
 
-as_character_tibble.character_parameter <- function(x) {
+as_descriptive_tibble.character_parameter <- function(x) {
   tibble(
     id = x$id,
     type = "character",

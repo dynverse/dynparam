@@ -36,28 +36,6 @@ as.character.parameter <- function(x, ...) {
   ifelse(names(lis) == "id", lis, paste0(names(lis), "=", lis)) %>% paste0(collapse = " | ")
 }
 
-#' @export
-#' @rdname parameter
-as_paramhelper <- function(x) {
-  UseMethod("as_paramhelper")
-}
-
-#' @export
-#' @rdname parameter
-as_roxygen <- function(x) {
-  UseMethod("as_roxygen")
-}
-
-#' @export
-#' @rdname parameter
-as_argparse <- function(x) {
-  UseMethod("as_argparse")
-}
-
-as_character_tibble <- function(x) {
-  UseMethod("as_character_tibble")
-}
-
 #' @rdname parameter
 #' @export
 as.list.parameter <- function(x, ...) {
@@ -128,7 +106,7 @@ as_roxygen.parameter <- function(x) {
     ifelse(!is.null(.), ., "") %>%     # use "" if no description is provided
     str_replace_all("\n", "") %>%      # remove newlines
     Hmisc::capitalize() %>%            # capitalise sentences
-    gsub("\\\\link\\[[a-zA-Z0-9_:]*\\]\\{([^\\}]*)\\}", "\\1", .) # substitute \link[X](Y) with just Y
+    str_replace_all("\\\\link\\[[a-zA-Z0-9_:]*\\]\\{([^\\}]*)\\}", "\\1") # substitute \link[X](Y) with just Y
 
   extra_text <-
     lis[names(lis) != "id"] %>%
@@ -142,7 +120,11 @@ as_roxygen.parameter <- function(x) {
 }
 
 
+#' @export
+#' @rdname parameter
+as_argparse.parameter <- function(x) {
 
+}
 
 
 
