@@ -62,3 +62,6 @@ as_descriptive_tibble.subset_parameter <- function(x) {
   )
 }
 
+argparse_trafo.subset_parameter <- function(x) {
+  function(v) strsplit(v, split = ",")
+}

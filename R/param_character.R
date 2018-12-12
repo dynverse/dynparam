@@ -59,3 +59,7 @@ as_descriptive_tibble.character_parameter <- function(x) {
     default = collapse_set(x$default)
   )
 }
+
+argparse_trafo.character_parameter <- function(x) {
+  function(v) strsplit(v, split = ",")
+}

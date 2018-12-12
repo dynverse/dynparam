@@ -3,14 +3,12 @@
 \name{parameter}
 \alias{parameter}
 \alias{as.character.parameter}
-\alias{as_paramhelper}
-\alias{as_roxygen}
-\alias{as_argparse}
 \alias{as.list.parameter}
 \alias{as_parameter}
 \alias{is_parameter}
 \alias{print.parameter}
 \alias{as_roxygen.parameter}
+\alias{as_argparse.parameter}
 \alias{as_parameter_set}
 \alias{as.character.parameter_set}
 \title{Helper functions for converting parameters from and to other formats}
@@ -18,12 +16,6 @@
 parameter(id, default, ..., description = NULL)
 
 \method{as.character}{parameter}(x, ...)
-
-as_paramhelper(x)
-
-as_roxygen(x)
-
-as_argparse(x)
 
 \method{as.list}{parameter}(x, ...)
 
@@ -34,6 +26,8 @@ is_parameter(x)
 \method{print}{parameter}(x, ...)
 
 \method{as_roxygen}{parameter}(x)
+
+\method{as_argparse}{parameter}(x)
 
 as_parameter_set(li)
 

@@ -1,4 +1,7 @@
-
+#' Common transformation functions for dynparam objects
+#'
+#' @param x A dynparam object (e.g. distribution, parameter, parameter_set)
+#'
 #' @export
 #' @rdname super
 as_paramhelper <- function(x) {

@@ -105,11 +105,15 @@ as_paramhelper.range_parameter <- function(x) {
   param
 }
 
-as_character_tibble.range_parameter <- function(x) {
+as_descriptive_tibble.range_parameter <- function(x) {
   tibble(
     id = x$id,
     type = "range",
     domain = paste0("( ", as.character(x$lower_distribution), ", ", as.character(x$upper_distribution), " )"),
     default = paste0("(", x$default[[1]], ", ", x$default[[2]], ")")
   )
+}
+
+argparse_trafo.range_parameter <- function(x) {
+  function(v) strsplit(v, split = ",") %>% as.numeric()
 }

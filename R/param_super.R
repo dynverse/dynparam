@@ -31,7 +31,7 @@ parameter <- function(
 #' @export
 #' @rdname parameter
 as.character.parameter <- function(x, ...) {
-  lis <- as_character_tibble(x) %>% unlist()
+  lis <- as_descriptive_tibble(x) %>% unlist()
 
   ifelse(names(lis) == "id", lis, paste0(names(lis), "=", lis)) %>% paste0(collapse = " | ")
 }
@@ -99,7 +99,7 @@ print.parameter <- function(x, ...) {
 #' @export
 #' @rdname parameter
 as_roxygen.parameter <- function(x) {
-  lis <- as_character_tibble(x) %>% unlist()
+  lis <- as_descriptive_tibble(x) %>% unlist()
 
   description <-
     x$description %>%
@@ -123,9 +123,19 @@ as_roxygen.parameter <- function(x) {
 #' @export
 #' @rdname parameter
 as_argparse.parameter <- function(x) {
+  lis <- as_descriptive_tibble(x) %>% unlist()
 
+  option <- optparse::make_option(
+    opt_str = paste0("--", lid$id),
+    type = "character",
+    default = paste0(x$default, collapse = ",")
+  )
+  trafo <- argparse_trafo(x)
+  list(option = option, trafo = trafo)
 }
 
-
+argparse_trafo <- function(x) {
+  UseMethod("argparse_trafo")
+}
 
 
