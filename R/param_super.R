@@ -96,9 +96,7 @@ print.parameter <- function(x, ...) {
 }
 
 #' @importFrom Hmisc capitalize
-#' @export
-#' @rdname parameter
-as_roxygen.parameter <- function(x) {
+get_description <- function(x) {
   lis <- as_descriptive_tibble(x) %>% unlist()
 
   description <-
@@ -106,7 +104,12 @@ as_roxygen.parameter <- function(x) {
     ifelse(!is.null(.), ., "") %>%     # use "" if no description is provided
     str_replace_all("\n", "") %>%      # remove newlines
     Hmisc::capitalize() %>%            # capitalise sentences
-    str_replace_all("\\\\link\\[[a-zA-Z0-9_:]*\\]\\{([^\\}]*)\\}", "\\1") # substitute \link[X](Y) with just Y
+    str_replace_all("\\\\link\\[[a-zA-Z0-9_:]*\\]\\{([^\\}]*)\\}", "\\1") %>%  # substitute \link[X](Y) with just Y
+    str_replace_all("[ \t]*$", "")     # remove trailing whitespace
+
+  if (!grepl("\\.$", description)) {
+    description <- paste0(description, ".")
+  }
 
   extra_text <-
     lis[names(lis) != "id"] %>%
@@ -114,9 +117,13 @@ as_roxygen.parameter <- function(x) {
     paste0(collapse = "; ") %>%
     paste0("(", ., ")")
 
-  paste0(
-    "@param ", x$id, " ", description, " ", extra_text
-  )
+  paste0(description, " ", extra_text)
+}
+
+#' @export
+#' @rdname parameter
+as_roxygen.parameter <- function(x) {
+  paste0("@param ", x$id, " ", get_description(x))
 }
 
 
@@ -125,17 +132,18 @@ as_roxygen.parameter <- function(x) {
 as_argparse.parameter <- function(x) {
   lis <- as_descriptive_tibble(x) %>% unlist()
 
-  option <- optparse::make_option(
-    opt_str = paste0("--", lid$id),
+  optparse::make_option(
+    opt_str = paste0("--", x$id),
     type = "character",
-    default = paste0(x$default, collapse = ",")
+    default = paste0(x$default, collapse = ","),
+    help = get_description(x)
   )
-  trafo <- argparse_trafo(x)
-  list(option = option, trafo = trafo)
 }
 
-argparse_trafo <- function(x) {
+argparse_trafo <- function(x, v) {
   UseMethod("argparse_trafo")
 }
 
-
+argparse_trafo.parameter <- function(x, v) {
+  strsplit(v, split = ",") %>% first()
+}

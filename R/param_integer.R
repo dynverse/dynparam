@@ -66,6 +66,6 @@ as_descriptive_tibble.integer_parameter <- function(x) {
   )
 }
 
-argparse_trafo.integer_parameter <- function(x) {
-  function(v) strsplit(v, split = ",") %>% as.integer()
+argparse_trafo.integer_parameter <- function(x, v) {
+  argparse_trafo.parameter(x, v) %>% as.integer()
 }

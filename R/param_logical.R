@@ -50,6 +50,6 @@ as_descriptive_tibble.logical_parameter <- function(x) {
   )
 }
 
-argparse_trafo.logical_parameter <- function(x) {
-  function(v) strsplit(v, split = ",") %>% as.logical()
+argparse_trafo.logical_parameter <- function(x, v) {
+  argparse_trafo.parameter(x, v) %>% as.logical()
 }
