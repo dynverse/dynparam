@@ -3,7 +3,6 @@
 #' @param ... Parameters to wrap in a parameter set.
 #' @param parameters A list of parameters to wrap in a parameter set.
 #' @param x An object for which to check whether it is a parameter set.
-#' @param param A parameter set to convert to a ParamHelpers object.
 #' @param forbidden States forbidden region of parameter via a character vector, which will be turned into an expression.
 #'
 #' @export

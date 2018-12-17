@@ -23,8 +23,6 @@ is_parameter_set(x)
 \item{forbidden}{States forbidden region of parameter via a character vector, which will be turned into an expression.}
 
 \item{x}{An object for which to check whether it is a parameter set.}
-
-\item{param}{A parameter set to convert to a ParamHelpers object.}
 }
 \description{
 Parameter set helper functions

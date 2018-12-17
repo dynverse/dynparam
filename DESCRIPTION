@@ -37,8 +37,10 @@ Imports:
   Hmisc,
   lhs,
   magrittr,
+  optparse,
   ParamHelpers,
   purrr,
+  stringr,
   testthat,
   tibble,
   tidyr

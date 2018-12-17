@@ -45,8 +45,6 @@ as_parameter_set(li)
 \item{x}{An object (parameter or distribution) to be converted.}
 
 \item{li}{A list to be converted into a parameter.}
-
-\item{param}{A parameter to be converted.}
 }
 \description{
 Helper functions for converting parameters from and to other formats

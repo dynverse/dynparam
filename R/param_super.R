@@ -4,7 +4,6 @@
 #' @param default The default value of the parameter.
 #' @param description An optional (but recommended) description of the parameter.
 #' @param ... Extra fields to be saved in the parameter.
-#' @param param A parameter to be converted.
 #' @param x An object (parameter or distribution) to be converted.
 #' @param li A list to be converted into a parameter.
 #'
@@ -96,6 +95,7 @@ print.parameter <- function(x, ...) {
 }
 
 #' @importFrom Hmisc capitalize
+#' @importFrom stringr str_replace_all
 get_description <- function(x) {
   lis <- as_descriptive_tibble(x) %>% unlist()
 
@@ -129,6 +129,8 @@ as_roxygen.parameter <- function(x) {
 
 #' @export
 #' @rdname parameter
+#'
+#' @importFrom optparse make_option
 as_argparse.parameter <- function(x) {
   lis <- as_descriptive_tibble(x) %>% unlist()
 
