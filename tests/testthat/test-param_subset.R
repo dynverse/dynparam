@@ -46,8 +46,8 @@ test_that("correlation method test", {
 })
 
 test_that("wrong parse fails gracefully", {
-  expect_error(subset_parameter(id = "a", default = "b", values = "c", description = "d"), "default is missing elements \"c\"")
-  expect_error(subset_parameter(id = "a", default = "b", values = c("c", "d"), description = "d"), "default is missing elements c\\(\"c\", \"d\"\\)")
+  expect_error(subset_parameter(id = "a", default = "b", values = "c", description = "d"), "default is missing 1 element from values")
+  expect_error(subset_parameter(id = "a", default = "b", values = c("c", "d"), description = "d"), "default is missing 1 element from values")
   expect_error(subset_parameter(id = 1, default = "b", values = "b", description = "d"), "id is not a character vector")
   expect_error(subset_parameter(id = "a", default = 1, values = "b", description = "d"), "default is not a character vector")
   expect_error(subset_parameter(id = "a", default = "b", values = 1, description = "d"), "values is not a character vector")

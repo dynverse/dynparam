@@ -65,12 +65,12 @@ test_that("normal_distribution with limits works with random values", {
 })
 
 test_that("normal_distribution errors when expected", {
-  expect_error(normal_distribution(mean = -Inf, sd = 0), "mean is not a single numeric value in \\]-Inf,Inf\\[")
-  expect_error(normal_distribution(mean = NA, sd = NA), "is not a single numeric value in \\]-Inf,Inf\\[")
-  expect_error(normal_distribution(mean = 0, sd = Inf), "sd is not a single numeric value in \\]-Inf,Inf\\[")
+  expect_error(normal_distribution(mean = -Inf, sd = 0), "mean is not bounded by \\(-Inf,Inf\\)")
+  expect_error(normal_distribution(mean = NA, sd = NA), "is not a single numeric value")
+  expect_error(normal_distribution(mean = 0, sd = Inf), "sd is not bounded by \\(-Inf,Inf\\)")
 
-  expect_error(normal_distribution(mean = 1, sd = 1, lower = Inf, upper = 0), "lower is not a single numeric value in \\[-Inf,Inf\\[")
-  expect_error(normal_distribution(mean = 1, sd = 1, lower = NA, upper = NA), "is not a single numeric value in .-Inf,Inf.")
-  expect_error(normal_distribution(mean = 1, sd = 1, lower = 0, upper = -Inf), "upper is not a single numeric value in \\]-Inf,Inf\\]")
+  expect_error(normal_distribution(mean = 1, sd = 1, lower = Inf, upper = 0), "lower is not bounded by \\[-Inf,Inf\\)")
+  expect_error(normal_distribution(mean = 1, sd = 1, lower = NA, upper = NA), "is not a single numeric value")
+  expect_error(normal_distribution(mean = 1, sd = 1, lower = 0, upper = -Inf), "upper is not bounded by \\(-Inf,Inf\\]")
   expect_error(normal_distribution(mean = 1, sd = 1, lower = 10, upper = 0), "lower not less than upper")
 })

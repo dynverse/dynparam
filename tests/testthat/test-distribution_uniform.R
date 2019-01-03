@@ -36,9 +36,9 @@ test_that("uniform_distribution works with random values", {
 })
 
 test_that("uniform_distribution errors when expected", {
-  expect_error(uniform_distribution(lower = -Inf, upper = 0), "lower is not a single numeric value in \\]-Inf,Inf\\[")
-  expect_error(uniform_distribution(lower = NA, upper = NA), "is not a single numeric value in \\]-Inf,Inf\\[")
-  expect_error(uniform_distribution(lower = ~help_us, upper = "we need more wood"), "is not a single numeric value in \\]-Inf,Inf\\[")
-  expect_error(uniform_distribution(lower = 0, upper = Inf), "upper is not a single numeric value in \\]-Inf,Inf\\[")
+  expect_error(uniform_distribution(lower = -Inf, upper = 0), "lower is not bounded by \\(-Inf,Inf\\)")
+  expect_error(uniform_distribution(lower = NA, upper = NA), "is not a single numeric value")
+  expect_error(uniform_distribution(lower = ~help_us, upper = "we need more wood"), "is not a single numeric value")
+  expect_error(uniform_distribution(lower = 0, upper = Inf), "upper is not bounded by \\(-Inf,Inf\\)")
   expect_error(uniform_distribution(lower = 10, upper = 0), "lower not less than upper")
 })
