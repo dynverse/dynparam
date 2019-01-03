@@ -9,7 +9,10 @@
 #'
 #' expuniform_distribution(1e-5, 1e-2)
 expuniform_distribution <- function(lower, upper) {
-  assert_that(is_single_numeric(lower), is_single_numeric(upper))
+  assert_that(
+    is_single_numeric(lower), is_bounded(lower),
+    is_single_numeric(upper), is_bounded(upper)
+  )
   distribution(lower, upper) %>%
     add_class("expuniform_distribution")
 }

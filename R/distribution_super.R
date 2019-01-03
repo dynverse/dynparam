@@ -15,8 +15,8 @@ distribution <- function(
   ...
 ) {
   assert_that(
-    is_single_numeric(lower, allow_neg_inf = TRUE, allow_pos_inf = TRUE),
-    is_single_numeric(upper, allow_neg_inf = TRUE, allow_pos_inf = TRUE),
+    is_single_numeric(lower), is_bounded(lower, lower_closed = TRUE),
+    is_single_numeric(upper), is_bounded(upper, upper_closed = TRUE),
     lower < upper
   )
 
@@ -68,7 +68,7 @@ as.list.distribution <- function(x, ...) {
 #' @rdname distribution
 as_distribution <- function(li) {
   # check that list has a recognised type
-  assert_that("list" %in% class(li) && li %has_name% "type" && li$type %in% names(distributions))
+  assert_that("list" %all_in% class(li), li %has_name% "type", li$type %all_in% names(distributions))
 
   # check that all the required parameters exist
   constructor_fun <- distributions[[li$type]]

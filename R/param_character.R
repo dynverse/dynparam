@@ -18,7 +18,7 @@ character_parameter <- function(
   values,
   description = NULL
 ) {
-  assert_that(is.character(default), is.character(values), default %allin% values)
+  assert_that(is.character(default), is.character(values), default %all_in% values)
 
   parameter(
     id = id,

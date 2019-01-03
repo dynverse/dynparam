@@ -57,7 +57,7 @@ as.list.parameter <- function(x, ...) {
 #' @rdname parameter
 as_parameter <- function(li) {
   # check that list has a recognised type
-  assert_that("list" %in% class(li), li %has_name% "type", li$type %in% names(parameters))
+  assert_that("list" %all_in% class(li), li %has_name% "type", li$type %all_in% names(parameters))
 
   # check that all the required parameters exist
   constructor_fun <- parameters[[li$type]]

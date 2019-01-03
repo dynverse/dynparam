@@ -92,14 +92,14 @@ as.list.parameter_set <- function(x, ...) {
 #' @rdname parameter
 as_parameter_set <- function(li) {
   # check that list has a recognised type
-  assert_that("list" %in% class(li), is.null(names(li)))
+  assert_that("list" %all_in% class(li), is.null(names(li)))
 
   params <- list()
   forbidden <- NULL
 
   for (i in seq_along(li)) {
     lin <- li[[i]]
-    if (is.list(lin) && lin %has_name% "type" && lin$type %in% names(parameters)) {
+    if (is.list(lin) && lin %has_name% "type" && lin$type %all_in% names(parameters)) {
       params[[length(params) + 1]] <- as_parameter(lin)
     } else if (is.list(lin) && lin %has_name% "forbidden" && is.character(lin$forbidden)) {
       forbidden <- lin$forbidden

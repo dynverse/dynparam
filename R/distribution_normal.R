@@ -13,10 +13,10 @@
 #' normal_distribution(mean = 5, sd = 1, lower = 1, upper = 10)
 normal_distribution <- function(mean, sd, lower = -Inf, upper = Inf) {
   assert_that(
-    is_single_numeric(mean),
-    is_single_numeric(sd),
-    is_single_numeric(lower, allow_neg_inf = TRUE),
-    is_single_numeric(upper, allow_pos_inf = TRUE)
+    is_single_numeric(mean), is_bounded(mean),
+    is_single_numeric(sd), is_bounded(sd),
+    is_single_numeric(lower), is_bounded(lower, lower_closed = TRUE),
+    is_single_numeric(upper), is_bounded(upper, upper_closed = TRUE)
   )
   distribution(lower = lower, upper = upper, mean, sd) %>%
     add_class("normal_distribution")

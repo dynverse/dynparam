@@ -7,7 +7,10 @@
 #' @examples
 #' uniform_distribution(1, 10)
 uniform_distribution <- function(lower, upper) {
-  assert_that(is_single_numeric(lower), is_single_numeric(upper))
+  assert_that(
+    is_single_numeric(lower), is_bounded(lower),
+    is_single_numeric(upper), is_bounded(upper)
+  )
   distribution(lower, upper) %>%
     add_class("uniform_distribution")
 }
