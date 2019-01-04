@@ -53,9 +53,8 @@ as_paramhelper.parameter_set <- function(x) {
     if (length(forbiddens) == 0) {
       NULL
     } else {
-      forbiddens %>%
-        paste("(", ., ")", collapse = " & ", sep = "") %>%
-        parse(text = .)
+      forbidden_text <- paste("(", forbiddens, ")", collapse = " & ", sep = "")
+      parse(text = forbidden_text)
     }
 
   ParamHelpers::makeParamSet(

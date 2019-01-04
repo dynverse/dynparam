@@ -95,14 +95,13 @@ print.parameter <- function(x, ...) {
 }
 
 #' @importFrom Hmisc capitalize
-#' @importFrom stringr str_replace_all
+#' @importFrom stringr str_replace_all str_replace str_glue_data
 get_description <- function(x) {
   lis <- as_descriptive_tibble(x) %>% unlist()
 
   description <-
-    x$description %>%
-    ifelse(!is.null(.), ., "") %>%     # use "" if no description is provided
-    str_replace_all("\n", "") %>%      # remove newlines
+    (x$description %||% "") %>%                     # use "" if no description is provided
+    str_replace_all("\n", "") %>%                   # remove newlines
     Hmisc::capitalize() %>%            # capitalise sentences
     str_replace_all("\\\\link\\[[a-zA-Z0-9_:]*\\]\\{([^\\}]*)\\}", "\\1") %>%  # substitute \link[X](Y) with just Y
     str_replace_all("[ \t]*$", "")     # remove trailing whitespace
@@ -113,9 +112,9 @@ get_description <- function(x) {
 
   extra_text <-
     lis[names(lis) != "id"] %>%
-    paste0(names(.), "=", .) %>%
+    stringr::str_glue_data("{names(.)} = {.}") %>%
     paste0(collapse = "; ") %>%
-    paste0("(", ., ")")
+    stringr::str_replace("(.*)", "(\\1)")
 
   paste0(description, " ", extra_text)
 }
