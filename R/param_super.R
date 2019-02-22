@@ -110,6 +110,7 @@ get_description <- function(x, lis = as_descriptive_tibble(x) %>% unlist()) {
 
   extra_text <-
     lis[names(lis) != "id"] %>%
+    as.list() %>%
     stringr::str_glue_data("{names(.)} = {.}") %>%
     paste0(collapse = "; ") %>%
     stringr::str_replace("(.*)", "(\\1)")
