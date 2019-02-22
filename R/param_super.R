@@ -96,9 +96,7 @@ print.parameter <- function(x, ...) {
 
 #' @importFrom Hmisc capitalize
 #' @importFrom stringr str_replace_all str_replace str_glue_data
-get_description <- function(x) {
-  lis <- as_descriptive_tibble(x) %>% unlist()
-
+get_description <- function(x, lis = as_descriptive_tibble(x) %>% unlist()) {
   description <-
     (x$description %||% "") %>%                     # use "" if no description is provided
     str_replace_all("\n", "") %>%                   # remove newlines
@@ -137,7 +135,7 @@ as_argparse.parameter <- function(x) {
     opt_str = paste0("--", x$id),
     type = "character",
     default = paste0(x$default, collapse = ","),
-    help = get_description(x)
+    help = get_description(x, lis = lis)
   )
 }
 
