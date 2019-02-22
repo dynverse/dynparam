@@ -67,6 +67,7 @@ as_descriptive_tibble.numeric_parameter <- function(x) {
   )
 }
 
+#' @export
 argparse_trafo.numeric_parameter <- function(x, v) {
   argparse_trafo.parameter(x, v) %>% as.numeric()
 }

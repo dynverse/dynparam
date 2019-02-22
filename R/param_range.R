@@ -114,6 +114,7 @@ as_descriptive_tibble.range_parameter <- function(x) {
   )
 }
 
+#' @export
 argparse_trafo.range_parameter <- function(x, v) {
   argparse_trafo.parameter(x, v) %>% as.numeric()
 }

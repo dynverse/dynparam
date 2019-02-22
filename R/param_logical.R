@@ -50,6 +50,7 @@ as_descriptive_tibble.logical_parameter <- function(x) {
   )
 }
 
+#' @export
 argparse_trafo.logical_parameter <- function(x, v) {
   argparse_trafo.parameter(x, v) %>% as.logical()
 }
