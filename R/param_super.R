@@ -107,15 +107,19 @@ get_description <- function(x, lis = as_descriptive_tibble(x) %>% unlist()) {
   if (!grepl("\\.$", description)) {
     description <- paste0(description, ".")
   }
+  lis[["format"]] <- paste0(
+    lis[["type"]],
+    ifelse(length(lis[["default"]]) > 1, " vector", "")
+  )
 
   extra_text <-
-    lis[names(lis) != "id"] %>%
+    lis[!names(lis) %in% c("id", "type")] %>%
     as.list() %>%
     stringr::str_glue_data("{names(.)}: {.}") %>%
     Hmisc::capitalize() %>%
-    paste0(collapse = "; ")
+    paste0(collapse = "\n\t\t")
 
-  paste0("Parameter; ", description, "\n\t\t", extra_text, ".")
+  paste0("Parameter; ", description, "\n\t\t", extra_text)
 }
 
 #' @export
