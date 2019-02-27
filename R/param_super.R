@@ -111,11 +111,11 @@ get_description <- function(x, lis = as_descriptive_tibble(x) %>% unlist()) {
   extra_text <-
     lis[names(lis) != "id"] %>%
     as.list() %>%
-    stringr::str_glue_data("{names(.)} = {.}") %>%
-    paste0(collapse = "; ") %>%
-    stringr::str_replace("(.*)", "(\\1)")
+    stringr::str_glue_data("{names(.)}: {.}") %>%
+    Hmisc::capitalize() %>%
+    paste0(collapse = "; ")
 
-  paste0(description, " ", extra_text)
+  paste0("Parameter; ", description, "\n\t\t", extra_text, ".")
 }
 
 #' @export
