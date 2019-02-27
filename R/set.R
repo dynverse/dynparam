@@ -123,17 +123,3 @@ as.character.parameter_set <- function(x, ...) {
 print.parameter_set <- function(x, ...) {
   cat(as.character(x))
 }
-
-#' Add optparse options to a parser
-#'
-#' @param parser An optparse parser
-#' @param par_set A parameter set
-#'
-#' @export
-add_optparse_options <- function(parser, par_set) {
-  for (parameter in par_set$parameters) {
-    parser@options[[length(parser@options) + 1]] <-
-      as_argparse(parameter)
-  }
-  parser
-}
