@@ -57,6 +57,8 @@ as_paramhelper.integer_parameter <- function(x) {
   do.call(fun, args)
 }
 
+#' @export
+#' @rdname super
 as_descriptive_tibble.integer_parameter <- function(x) {
   tibble(
     id = x$id,

@@ -105,6 +105,8 @@ as_paramhelper.range_parameter <- function(x) {
   param
 }
 
+#' @export
+#' @rdname super
 as_descriptive_tibble.range_parameter <- function(x) {
   tibble(
     id = x$id,

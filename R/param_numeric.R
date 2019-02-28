@@ -58,6 +58,8 @@ as_paramhelper.numeric_parameter <- function(x) {
   do.call(fun, args)
 }
 
+#' @export
+#' @rdname super
 as_descriptive_tibble.numeric_parameter <- function(x) {
   tibble(
     id = x$id,

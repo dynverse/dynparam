@@ -42,6 +42,8 @@ as_paramhelper.logical_parameter <- function(x) {
   do.call(fun, args)
 }
 
+#' @export
+#' @rdname super
 as_descriptive_tibble.logical_parameter <- function(x) {
   tibble(
     id = x$id,
