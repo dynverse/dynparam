@@ -3,15 +3,12 @@
 \name{as_paramhelper}
 \alias{as_paramhelper}
 \alias{as_roxygen}
-\alias{as_argparse}
 \alias{as_descriptive_tibble}
 \title{Common transformation functions for dynparam objects}
 \usage{
 as_paramhelper(x)
 
 as_roxygen(x)
-
-as_argparse(x)
 
 as_descriptive_tibble(x)
 }

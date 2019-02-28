@@ -127,34 +127,3 @@ get_description <- function(x, lis = as_descriptive_tibble(x) %>% unlist()) {
 as_roxygen.parameter <- function(x) {
   paste0("@param ", x$id, " ", get_description(x))
 }
-
-
-#' @export
-#' @rdname parameter
-#'
-#' @importFrom optparse make_option
-as_argparse.parameter <- function(x) {
-  lis <- as_descriptive_tibble(x) %>% unlist()
-
-  optparse::make_option(
-    opt_str = paste0("--", x$id),
-    type = "character",
-    default = paste0(x$default, collapse = ","),
-    help = get_description(x, lis = lis)
-  )
-}
-
-#' Parse a character representation to a value of the correct type
-#'
-#' @param x A parameter object
-#' @param v A character representation of a parameter value
-#'
-#' @export
-argparse_trafo <- function(x, v) {
-  UseMethod("argparse_trafo")
-}
-
-#' @export
-argparse_trafo.parameter <- function(x, v) {
-  strsplit(v, split = ",") %>% first()
-}

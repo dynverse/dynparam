@@ -50,13 +50,4 @@ as_descriptive_tibble.logical_parameter <- function(x) {
   )
 }
 
-#' @export
-argparse_trafo.logical_parameter <- function(x, v) {
-  vec <- argparse_trafo.parameter(x, v) %>% tolower()
 
-  case_when(
-    vec %in% c("t", "true", "yes", "y", "on") ~ TRUE,
-    vec %in% c("f", "false", "no", "n", "off") ~ FALSE,
-    TRUE ~ NA
-  )
-}

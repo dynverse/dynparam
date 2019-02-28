@@ -8,7 +8,6 @@
 \alias{is_parameter}
 \alias{print.parameter}
 \alias{as_roxygen.parameter}
-\alias{as_argparse.parameter}
 \alias{as_parameter_set}
 \alias{as.character.parameter_set}
 \title{Helper functions for converting parameters from and to other formats}
@@ -26,8 +25,6 @@ is_parameter(x)
 \method{print}{parameter}(x, ...)
 
 \method{as_roxygen}{parameter}(x)
-
-\method{as_argparse}{parameter}(x)
 
 as_parameter_set(li)
 

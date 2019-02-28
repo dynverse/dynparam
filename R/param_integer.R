@@ -65,8 +65,3 @@ as_descriptive_tibble.integer_parameter <- function(x) {
     default = collapse_set(x$default)
   )
 }
-
-#' @export
-argparse_trafo.integer_parameter <- function(x, v) {
-  argparse_trafo.parameter(x, v) %>% as.integer()
-}

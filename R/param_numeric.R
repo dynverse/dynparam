@@ -66,8 +66,3 @@ as_descriptive_tibble.numeric_parameter <- function(x) {
     default = collapse_set(x$default)
   )
 }
-
-#' @export
-argparse_trafo.numeric_parameter <- function(x, v) {
-  argparse_trafo.parameter(x, v) %>% as.numeric()
-}
