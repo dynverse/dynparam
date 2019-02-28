@@ -94,9 +94,21 @@ print.parameter <- function(x, ...) {
   cat(as.character(x))
 }
 
+#' Get a description of the parameter
+#'
+#' @param x The parameter
+#' @param sep A separator between different fields
+#'
 #' @importFrom Hmisc capitalize
 #' @importFrom stringr str_replace_all str_replace str_glue_data
-get_description <- function(x, lis = as_descriptive_tibble(x) %>% unlist()) {
+#'
+#' @export
+get_description <- function(
+  x,
+  sep = ", "
+) {
+  lis <- as_descriptive_tibble(x) %>% unlist()
+
   description <-
     (x$description %||% "") %>%                     # use "" if no description is provided
     str_replace_all("\n", "") %>%                   # remove newlines
@@ -117,13 +129,13 @@ get_description <- function(x, lis = as_descriptive_tibble(x) %>% unlist()) {
     as.list() %>%
     stringr::str_glue_data("{names(.)}: {.}") %>%
     Hmisc::capitalize() %>%
-    paste0(collapse = "\n\t\t")
+    paste0(collapse = sep)
 
-  paste0("Parameter; ", description, "\n\t\t", extra_text)
+  paste0("Parameter; ", description, sep, extra_text)
 }
 
 #' @export
 #' @rdname parameter
 as_roxygen.parameter <- function(x) {
-  paste0("@param ", x$id, " ", get_description(x))
+  paste0("@param ", x$id, " ", get_description(x), ".")
 }
