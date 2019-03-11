@@ -98,10 +98,10 @@ as_parameter_set <- function(li) {
 
   for (i in seq_along(li)) {
     lin <- li[[i]]
-    if (is.list(lin) && lin %has_name% "type" && lin$type %all_in% names(parameters)) {
-      params[[length(params) + 1]] <- as_parameter(lin)
-    } else if (is.list(lin) && lin %has_name% "forbidden" && is.character(lin$forbidden)) {
+    if (is.list(lin) && lin %has_name% "forbidden" && is.character(lin$forbidden)) {
       forbidden <- lin$forbidden
+    } else {
+        params[[length(params) + 1]] <- as_parameter(lin)
     }
   }
 
