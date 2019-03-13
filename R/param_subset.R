@@ -66,13 +66,3 @@ as_descriptive_tibble.subset_parameter <- function(x) {
     default = collapse_set(x$default)
   )
 }
-#' @export
-#' @rdname sip
-sip.subset_parameter <- function(x, n = 1) {
-  map(
-    seq_len(n),
-    function(i) {
-      x$values[sample(c(TRUE, FALSE), size = length(x$values), replace = TRUE)]
-    }
-  )
-}

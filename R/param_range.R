@@ -118,18 +118,3 @@ as_descriptive_tibble.range_parameter <- function(x) {
     default = paste0("(", x$default[[1]], ", ", x$default[[2]], ")")
   )
 }
-
-#' @export
-#' @rdname sip
-sip.range_parameter <- function(x, n = 1) {
-  lower <- sip(x$lower_distribution, n = n)
-  upper <- sip(x$upper_distribution, n = n)
-
-  if (x$as_integer) {
-    lower <- round(lower)
-    upper <- round(upper)
-  }
-
-  map2(lower, upper, c)
-}
-

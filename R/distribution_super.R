@@ -88,10 +88,3 @@ is_distribution <- function(x) {
 on_failure(is_distribution) <- function(call, env) {
   paste0(deparse(call$x), " is not a distribution")
 }
-
-#' @export
-#' @rdname sip
-sip.distribution <- function(x, n = 1) {
-  qfun <- quantile_function(x)
-  qfun(runif(n = n, min = 0, max = 1))
-}

@@ -64,9 +64,3 @@ as_descriptive_tibble.character_parameter <- function(x) {
     default = collapse_set(x$default)
   )
 }
-
-#' @export
-#' @rdname sip
-sip.character_parameter <- function(x, n = 1) {
-  sample(x$values, size = n, replace = TRUE)
-}
