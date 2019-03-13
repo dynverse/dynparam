@@ -3,6 +3,7 @@
 #' @param id The name of the parameter.
 #' @param default The default value of the parameter.
 #' @param description An optional (but recommended) description of the parameter.
+#' @param tuneable Whether or not a parameter is tuneable.
 #' @param ... Extra fields to be saved in the parameter.
 #' @param x An object (parameter or distribution) to be converted.
 #' @param li A list to be converted into a parameter.
@@ -12,15 +13,20 @@ parameter <- function(
   id,
   default,
   ...,
-  description = NULL
+  description = NULL,
+  tuneable = TRUE
 ) {
-  assert_that(is.character(id))
-  assert_that(is.null(description) || is.character(description))
+  assert_that(
+    is.character(id),
+    is.null(description) || is.character(description),
+    is.logical(tuneable)
+  )
 
   param <- list(
     id = id,
     default = default,
     description = description,
+    tuneable = tuneable,
     ...
   )
   class(param) <- c("parameter", "list")

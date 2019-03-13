@@ -39,7 +39,8 @@ as_paramhelper.character_parameter <- function(x) {
   args <- list(
     id = x$id,
     values = x$values,
-    default = x$default
+    default = x$default,
+    tuneable = x$tuneable
   )
 
   if (length != 1) {

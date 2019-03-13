@@ -51,7 +51,8 @@ as_paramhelper.numeric_parameter <- function(x) {
     lower = dfun(x$distribution$lower),
     upper = dfun(x$distribution$upper),
     default = dfun(x$default),
-    trafo = qfun
+    trafo = qfun,
+    tuneable = x$tuneable
   )
   if (length != 1) args$len <- length
 

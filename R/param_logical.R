@@ -34,7 +34,8 @@ as_paramhelper.logical_parameter <- function(x) {
 
   args <- list(
     id = x$id,
-    default = x$default
+    default = x$default,
+    tuneable = x$tuneable
   )
 
   if (length != 1) args$len <- length

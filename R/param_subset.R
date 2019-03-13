@@ -49,7 +49,8 @@ as_paramhelper.subset_parameter <- function(x) {
     default = as.list(ifelse(x$values %in% x$default, "TRUE", "FALSE")),
     len = length(x$values),
     values = list("TRUE", "FALSE"),
-    trafo = carrier::crate(function(x) values[unlist(x) == "TRUE"], values = values)
+    trafo = carrier::crate(function(x) values[unlist(x) == "TRUE"], values = values),
+    tuneable = x$tuneable
   )
 }
 

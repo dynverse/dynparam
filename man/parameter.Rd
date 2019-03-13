@@ -12,7 +12,7 @@
 \alias{as.character.parameter_set}
 \title{Helper functions for converting parameters from and to other formats}
 \usage{
-parameter(id, default, ..., description = NULL)
+parameter(id, default, ..., description = NULL, tuneable = TRUE)
 
 \method{as.character}{parameter}(x, ...)
 
@@ -38,6 +38,8 @@ as_parameter_set(li)
 \item{...}{Extra fields to be saved in the parameter.}
 
 \item{description}{An optional (but recommended) description of the parameter.}
+
+\item{tuneable}{Whether or not a parameter is tuneable.}
 
 \item{x}{An object (parameter or distribution) to be converted.}
 

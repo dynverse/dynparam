@@ -94,7 +94,8 @@ as_paramhelper.range_parameter <- function(x) {
         },
         qfun_lower = qfun_lower,
         qfun_upper = qfun_upper
-      )
+      ),
+      tuneable = x$tuneable
     )
 
   forbidden <-
