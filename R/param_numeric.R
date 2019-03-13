@@ -25,7 +25,8 @@ numeric_parameter <- function(
   id,
   default,
   distribution,
-  description = NULL
+  description = NULL,
+  tuneable = TRUE
 ) {
   assert_that(is.numeric(default), is_distribution(distribution))
 
@@ -33,7 +34,8 @@ numeric_parameter <- function(
     id = id,
     default = default,
     distribution = distribution,
-    description = description
+    description = description,
+    tuneable = tuneable
   ) %>%
     add_class("numeric_parameter")
 }
@@ -52,7 +54,7 @@ as_paramhelper.numeric_parameter <- function(x) {
     upper = dfun(x$distribution$upper),
     default = dfun(x$default),
     trafo = qfun,
-    tuneable = x$tuneable
+    tunable = x$tuneable
   )
   if (length != 1) args$len <- length
 

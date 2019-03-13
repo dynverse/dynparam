@@ -24,7 +24,8 @@ integer_parameter <- function(
   id,
   default,
   distribution,
-  description = NULL
+  description = NULL,
+  tuneable = TRUE
 ) {
   assert_that(is.numeric(default), is_distribution(distribution))
 
@@ -32,7 +33,8 @@ integer_parameter <- function(
     id = id,
     default = default,
     distribution = distribution,
-    description = description
+    description = description,
+    tuneable = tuneable
   ) %>%
     add_class("integer_parameter")
 }
@@ -51,7 +53,7 @@ as_paramhelper.integer_parameter <- function(x) {
     upper = dfun(x$distribution$upper + .5 - 1e-10),
     default = dfun(x$default),
     trafo = function(x) round(qfun(x)),
-    tuneable = x$tuneable
+    tunable = x$tuneable
   )
   if (length != 1) args$len <- length
 

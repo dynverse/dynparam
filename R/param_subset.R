@@ -16,7 +16,8 @@ subset_parameter <- function(
   id,
   default,
   values,
-  description = NULL
+  description = NULL,
+  tuneable = TRUE
 ) {
   assert_that(is.character(default), is.character(values), default %all_in% values)
 
@@ -24,7 +25,8 @@ subset_parameter <- function(
     id = id,
     default = default,
     values = unlist(unname(values)),
-    description = description
+    description = description,
+    tuneable = tuneable
   ) %>%
     add_class("subset_parameter")
 }

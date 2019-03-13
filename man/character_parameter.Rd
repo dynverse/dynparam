@@ -4,7 +4,8 @@
 \alias{character_parameter}
 \title{Define a character / string parameter}
 \usage{
-character_parameter(id, default, values, description = NULL)
+character_parameter(id, default, values, description = NULL,
+  tuneable = TRUE)
 }
 \arguments{
 \item{id}{The name of the parameter.}
@@ -14,6 +15,8 @@ character_parameter(id, default, values, description = NULL)
 \item{values}{A set of possible values.}
 
 \item{description}{An optional (but recommended) description of the parameter.}
+
+\item{tuneable}{Whether or not a parameter is tuneable.}
 }
 \description{
 Define a character / string parameter

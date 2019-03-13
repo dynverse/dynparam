@@ -13,14 +13,16 @@
 logical_parameter <- function(
   id,
   default,
-  description = NULL
+  description = NULL,
+  tuneable = TRUE
 ) {
   assert_that(is.logical(default))
 
   parameter(
     id = id,
     default = default,
-    description = description
+    description = description,
+    tuneable = tuneable
   ) %>%
     add_class("logical_parameter")
 }
@@ -35,7 +37,7 @@ as_paramhelper.logical_parameter <- function(x) {
   args <- list(
     id = x$id,
     default = x$default,
-    tuneable = x$tuneable
+    tunable = x$tuneable
   )
 
   if (length != 1) args$len <- length

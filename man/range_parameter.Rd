@@ -5,7 +5,7 @@
 \title{Define a range parameter}
 \usage{
 range_parameter(id, default, lower_distribution, upper_distribution,
-  as_integer = TRUE, description = NULL)
+  as_integer = TRUE, description = NULL, tuneable = TRUE)
 }
 \arguments{
 \item{id}{The name of the parameter.}
@@ -21,6 +21,8 @@ See \link[dynparam:dynparam]{?dynparam} for a list of possible distributions.}
 \item{as_integer}{Whether or not this parameter should be interpreted as an integer.}
 
 \item{description}{An optional (but recommended) description of the parameter.}
+
+\item{tuneable}{Whether or not a parameter is tuneable.}
 }
 \description{
 Define a range parameter

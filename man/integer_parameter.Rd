@@ -4,7 +4,8 @@
 \alias{integer_parameter}
 \title{Define a integer parameter}
 \usage{
-integer_parameter(id, default, distribution, description = NULL)
+integer_parameter(id, default, distribution, description = NULL,
+  tuneable = TRUE)
 }
 \arguments{
 \item{id}{The name of the parameter.}
@@ -15,6 +16,8 @@ integer_parameter(id, default, distribution, description = NULL)
 See \link[dynparam:dynparam]{?dynparam} for a list of possible distributions.}
 
 \item{description}{An optional (but recommended) description of the parameter.}
+
+\item{tuneable}{Whether or not a parameter is tuneable.}
 }
 \description{
 Define a integer parameter

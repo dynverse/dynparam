@@ -4,7 +4,8 @@
 \alias{numeric_parameter}
 \title{Define a numeric parameter}
 \usage{
-numeric_parameter(id, default, distribution, description = NULL)
+numeric_parameter(id, default, distribution, description = NULL,
+  tuneable = TRUE)
 }
 \arguments{
 \item{id}{The name of the parameter.}
@@ -15,6 +16,8 @@ numeric_parameter(id, default, distribution, description = NULL)
 See \link[dynparam:dynparam]{?dynparam} for a list of possible distributions.}
 
 \item{description}{An optional (but recommended) description of the parameter.}
+
+\item{tuneable}{Whether or not a parameter is tuneable.}
 }
 \description{
 Define a numeric parameter

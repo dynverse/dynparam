@@ -4,7 +4,7 @@
 \alias{logical_parameter}
 \title{Define a logical parameter}
 \usage{
-logical_parameter(id, default, description = NULL)
+logical_parameter(id, default, description = NULL, tuneable = TRUE)
 }
 \arguments{
 \item{id}{The name of the parameter.}
@@ -12,6 +12,8 @@ logical_parameter(id, default, description = NULL)
 \item{default}{The default value of the parameter.}
 
 \item{description}{An optional (but recommended) description of the parameter.}
+
+\item{tuneable}{Whether or not a parameter is tuneable.}
 }
 \description{
 Define a logical parameter

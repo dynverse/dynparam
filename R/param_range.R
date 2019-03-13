@@ -33,7 +33,8 @@ range_parameter <- function(
   lower_distribution,
   upper_distribution,
   as_integer = TRUE,
-  description = NULL
+  description = NULL,
+  tuneable = TRUE
 ) {
   assert_that(is.numeric(default), is_distribution(lower_distribution), is_distribution(upper_distribution))
 
@@ -43,7 +44,8 @@ range_parameter <- function(
     default = default,
     lower_distribution = lower_distribution,
     upper_distribution = upper_distribution,
-    description = description
+    description = description,
+    tuneable = tuneable
   ) %>%
     add_class("range_parameter")
 }
@@ -95,7 +97,7 @@ as_paramhelper.range_parameter <- function(x) {
         qfun_lower = qfun_lower,
         qfun_upper = qfun_upper
       ),
-      tuneable = x$tuneable
+      tunable = x$tuneable
     )
 
   forbidden <-

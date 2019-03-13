@@ -16,7 +16,8 @@ character_parameter <- function(
   id,
   default,
   values,
-  description = NULL
+  description = NULL,
+  tuneable = TRUE
 ) {
   assert_that(is.character(default), is.character(values), default %all_in% values)
 
@@ -24,7 +25,8 @@ character_parameter <- function(
     id = id,
     default = default,
     values = values,
-    description = description
+    description = description,
+    tuneable = tuneable
   ) %>%
     add_class("character_parameter")
 }
@@ -40,7 +42,7 @@ as_paramhelper.character_parameter <- function(x) {
     id = x$id,
     values = x$values,
     default = x$default,
-    tuneable = x$tuneable
+    tunable = x$tuneable
   )
 
   if (length != 1) {
