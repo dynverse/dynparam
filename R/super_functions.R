@@ -24,9 +24,10 @@ as_descriptive_tibble <- function(x) {
 #'
 #' @param x A dynparam object (e.g. distribution, parameter, parameter_set)
 #' @param n Number of objects to return
+#' @param as_tibble Whether or not to return as a tibble
 #'
 #' @export
 #' @rdname sip
-sip <- function(x, n = 1) {
+sip <- function(x, n = 1, as_tibble = TRUE) {
   UseMethod("sip")
 }

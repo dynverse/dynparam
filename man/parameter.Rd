@@ -10,6 +10,7 @@
 \alias{as_roxygen.parameter}
 \alias{as_parameter_set}
 \alias{as.character.parameter_set}
+\alias{print.parameter_set}
 \title{Helper functions for converting parameters from and to other formats}
 \usage{
 parameter(id, default, ..., description = NULL, tuneable = TRUE)
@@ -29,6 +30,8 @@ is_parameter(x)
 as_parameter_set(li)
 
 \method{as.character}{parameter_set}(x, ...)
+
+\method{print}{parameter_set}(x, ...)
 }
 \arguments{
 \item{id}{The name of the parameter.}

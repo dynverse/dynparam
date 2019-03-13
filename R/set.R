@@ -128,8 +128,19 @@ print.parameter_set <- function(x, ...) {
 
 #' @export
 #' @rdname
-sip.parameter_set <- function(x, n = 1) {
-  param_sips <- map(x$parameters, sip, n = n)
+sip.parameter_set <- function(x, n = 1, as_tibble = TRUE) {
+  par_set <- as_paramhelper(x)
 
-  purrr::transpose(param_sips)
+  requireNamespace("ParamHelpers")
+
+  out <-
+    ParamHelpers::generateDesign(n = n, par.set = par_set) %>%
+    ParamHelpers::dfRowsToList(par.set = par_set) %>%
+    map(~ ParamHelpers::trafoValue(., par = par_set))
+
+  if (as_tibble) {
+    out <- out %>% list_as_tibble()
+  }
+
+  out
 }

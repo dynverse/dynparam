@@ -12,7 +12,6 @@
 \alias{as_paramhelper}
 \alias{as_roxygen}
 \alias{as_descriptive_tibble}
-\alias{sip}
 \title{Common transformation functions for dynparam objects}
 \usage{
 \method{as_descriptive_tibble}{character_parameter}(x)
@@ -32,8 +31,6 @@ as_paramhelper(x)
 as_roxygen(x)
 
 as_descriptive_tibble(x)
-
-sip(x)
 }
 \arguments{
 \item{x}{A dynparam object (e.g. distribution, parameter, parameter_set)}
