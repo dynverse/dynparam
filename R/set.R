@@ -127,7 +127,7 @@ print.parameter_set <- function(x, ...) {
 }
 
 #' @export
-#' @rdname
+#' @rdname sip
 sip.parameter_set <- function(x, n = 1, as_tibble = TRUE) {
   par_set <- as_paramhelper(x)
 
