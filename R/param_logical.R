@@ -55,4 +55,8 @@ as_descriptive_tibble.logical_parameter <- function(x) {
   )
 }
 
-
+#' @export
+#' @rdname sip
+sip.logical_parameter <- function(x, n = 1) {
+  sample(c(TRUE, FALSE), size = n, replace = TRUE)
+}

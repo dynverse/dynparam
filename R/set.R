@@ -120,6 +120,16 @@ as.character.parameter_set <- function(x, ...) {
     paste(collapse = "\n")
 }
 
+#' @export
+#' @rdname parameter
 print.parameter_set <- function(x, ...) {
   cat(as.character(x))
+}
+
+#' @export
+#' @rdname
+sip.parameter_set <- function(x, n = 1) {
+  param_sips <- map(x$parameters, sip, n = n)
+
+  purrr::transpose(param_sips)
 }

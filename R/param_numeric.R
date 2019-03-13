@@ -71,3 +71,9 @@ as_descriptive_tibble.numeric_parameter <- function(x) {
     default = collapse_set(x$default)
   )
 }
+
+#' @export
+#' @rdname sip
+sip.numeric_parameter <- function(x, n = 1) {
+  round(sip(x$distribution, n = n))
+}

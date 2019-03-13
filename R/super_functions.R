@@ -19,3 +19,14 @@ as_roxygen <- function(x) {
 as_descriptive_tibble <- function(x) {
   UseMethod("as_descriptive_tibble")
 }
+
+#' It's like `sample()`, but for dynparam
+#'
+#' @param x A dynparam object (e.g. distribution, parameter, parameter_set)
+#' @param n Number of objects to return
+#'
+#' @export
+#' @rdname sip
+sip <- function(x, n = 1) {
+  UseMethod("sip")
+}
