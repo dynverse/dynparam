@@ -52,7 +52,7 @@ as_paramhelper.integer_parameter <- function(x) {
     lower = dfun(x$distribution$lower - .5 + 1e-10),
     upper = dfun(x$distribution$upper + .5 - 1e-10),
     default = dfun(x$default),
-    trafo = function(x) round(qfun(x)),
+    trafo = function(x) as.integer(round(qfun(x))),
     tunable = x$tuneable
   )
   if (length != 1) args$len <- length
