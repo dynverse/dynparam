@@ -101,7 +101,7 @@ as_parameter_set <- function(li) {
     if (is.list(lin) && lin %has_name% "forbidden" && is.character(lin$forbidden)) {
       forbidden <- lin$forbidden
     } else {
-        params[[length(params) + 1]] <- as_parameter(lin)
+      params[[length(params) + 1]] <- as_parameter(lin)
     }
   }
 
