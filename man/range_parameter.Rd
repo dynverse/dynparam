@@ -25,20 +25,3 @@ See \link[dynparam:dynparam]{?dynparam} for a list of possible distributions.}
 \description{
 Define a range parameter
 }
-\examples{
-range_parameter(
-  id = "ks",
-  default = c(3L, 15L),
-  lower_distribution = uniform_distribution(1L, 5L),
-  upper_distribution = uniform_distribution(10L, 20L),
-  description = "The numbers of clusters to be evaluated."
-)
-
-range_parameter(
-  id = "quantiles",
-  default = c(0.1, 0.99),
-  lower_distribution = uniform_distribution(0, 0.25),
-  upper_distribution = uniform_distribution(0.9, 1),
-  description = "The lower and upper quantile thresholds."
-)
-}
