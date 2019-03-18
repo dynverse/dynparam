@@ -7,7 +7,7 @@
 #'
 #' @export
 #'
-#' @seealso [character_parameter()], [integer_parameter()], [logical_parameter()], [numeric_parameter()], [range_parameter()], [subset_parameter()], [dynparam]
+#' @seealso [character_parameter()], [integer_parameter()], [logical_parameter()], [numeric_parameter()], [integer_range_parameter()], [numeric_range_parameter()], [subset_parameter()], [dynparam]
 parameter_set <- function(..., parameters = NULL, forbidden = NULL) {
   assert_that(is.null(parameters) || is.list(parameters))
   assert_that(is.null(forbidden) || is.character(forbidden))

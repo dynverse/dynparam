@@ -67,21 +67,19 @@ test_that("works with many parameters", {
     values = c("pca", "mds", "tsne", "umap", "ica"),
     description = "Which dimensionality reduction methods to apply (can be multiple)"
   )
-  ks_p <- range_parameter(
+  ks_p <- integer_range_parameter(
     id = "ks",
     default = c(3L, 15L),
     lower_distribution = uniform_distribution(1L, 5L),
     upper_distribution = uniform_distribution(10L, 20L),
-    description = "The numbers of clusters to be evaluated",
-    as_integer = TRUE
+    description = "The numbers of clusters to be evaluated"
   )
-  quantiles_p <- range_parameter(
+  quantiles_p <- numeric_range_parameter(
     id = "quantiles",
     default = c(0.15, 0.90),
     lower_distribution = uniform_distribution(0, .4),
     upper_distribution = uniform_distribution(.6, 1),
-    description = "Quantile cutoff range",
-    as_integer = FALSE
+    description = "Quantile cutoff range"
   )
   parameters <- parameter_set(
     num_iter_p,

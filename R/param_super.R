@@ -8,7 +8,7 @@
 #' @param x An object (parameter or distribution) to be converted.
 #' @param li A list to be converted into a parameter.
 #'
-#' @seealso [character_parameter()], [integer_parameter()], [logical_parameter()], [numeric_parameter()], [range_parameter()], [subset_parameter()], [dynparam]
+#' @seealso [character_parameter()], [integer_parameter()], [logical_parameter()], [numeric_parameter()], [integer_range_parameter()], [numeric_range_parameter()], [subset_parameter()], [dynparam]
 parameter <- function(
   id,
   default,

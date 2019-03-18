@@ -112,7 +112,7 @@ cat(yaml::as.yaml(as.list(param)))
 
 ## Range parameter
 ```{r}
-param <- range_parameter(
+param <- integer_range_parameter(
   id = "ks",
   default = c(3L, 15L),
   lower_distribution = uniform_distribution(1L, 5L),
@@ -164,22 +164,20 @@ parameters <- parameter_set(
     description = "Which dimensionality reduction methods to apply (can be multiple)"
   ),
   
-  range_parameter(
+  integer_range_parameter(
     id = "ks",
     default = c(3L, 15L),
     lower_distribution = uniform_distribution(1L, 5L),
     upper_distribution = uniform_distribution(10L, 20L),
-    description = "The numbers of clusters to be evaluated",
-    as_integer = TRUE
+    description = "The numbers of clusters to be evaluated"
   ),
 
-  range_parameter(
+  numeric_range_parameter(
     id = "quantiles",
     default = c(0.15, 0.90),
     lower_distribution = uniform_distribution(0, .4),
     upper_distribution = uniform_distribution(.6, 1),
-    description = "Quantile cutoff range",
-    as_integer = FALSE
+    description = "Quantile cutoff range"
   ),
   
   forbidden = "inverse == (method == 'kendall')"
