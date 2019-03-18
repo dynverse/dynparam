@@ -140,5 +140,5 @@ get_description <- function(
 #' @export
 #' @rdname parameter
 as_roxygen.parameter <- function(x) {
-  paste0("@param ", x$id, " ", get_description(x, sep = "."), ".")
+  paste0("@param ", x$id, " ", get_description(x, sep = ". "), ".")
 }
