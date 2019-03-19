@@ -18,7 +18,8 @@ Implemented are the following functions:
 \item \code{\link[=integer_parameter]{integer_parameter()}}
 \item \code{\link[=logical_parameter]{logical_parameter()}}
 \item \code{\link[=numeric_parameter]{numeric_parameter()}}
-\item \code{\link[=range_parameter]{range_parameter()}}
+\item \code{\link[=integer_range_parameter]{integer_range_parameter()}}
+\item \code{\link[=numeric_range_parameter]{numeric_range_parameter()}}
 \item \code{\link[=subset_parameter]{subset_parameter()}}
 }
 

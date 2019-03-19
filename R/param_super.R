@@ -8,7 +8,7 @@
 #' @param x An object (parameter or distribution) to be converted.
 #' @param li A list to be converted into a parameter.
 #'
-#' @seealso [character_parameter()], [integer_parameter()], [logical_parameter()], [numeric_parameter()], [range_parameter()], [subset_parameter()], [dynparam]
+#' @seealso [character_parameter()], [integer_parameter()], [logical_parameter()], [numeric_parameter()], [integer_range_parameter()], [numeric_range_parameter()], [subset_parameter()], [dynparam]
 parameter <- function(
   id,
   default,
@@ -118,13 +118,10 @@ get_description <- function(
   description <-
     (x$description %||% "") %>%                     # use "" if no description is provided
     str_replace_all("\n", "") %>%                   # remove newlines
-    Hmisc::capitalize() %>%            # capitalise sentences
+    Hmisc::capitalize() %>%                         # capitalise sentences
     str_replace_all("\\\\link\\[[a-zA-Z0-9_:]*\\]\\{([^\\}]*)\\}", "\\1") %>%  # substitute \link[X](Y) with just Y
-    str_replace_all("[ \t]*$", "")     # remove trailing whitespace
+    str_replace_all("[ \t\\.]*$", "")               # remove trailing whitespace and punctuation
 
-  if (!grepl("\\.$", description)) {
-    description <- paste0(description, ".")
-  }
   lis[["format"]] <- paste0(
     lis[["type"]],
     ifelse(length(lis[["default"]]) > 1, " vector", "")
@@ -137,11 +134,11 @@ get_description <- function(
     Hmisc::capitalize() %>%
     paste0(collapse = sep)
 
-  paste0("Parameter; ", description, sep, extra_text)
+  paste0(description, sep, extra_text)
 }
 
 #' @export
 #' @rdname parameter
 as_roxygen.parameter <- function(x) {
-  paste0("@param ", x$id, " ", get_description(x), ".")
+  paste0("@param ", x$id, " ", get_description(x, sep = ". "), ".")
 }

@@ -8,7 +8,8 @@
 #' * [integer_parameter()]
 #' * [logical_parameter()]
 #' * [numeric_parameter()]
-#' * [range_parameter()]
+#' * [integer_range_parameter()]
+#' * [numeric_range_parameter()]
 #' * [subset_parameter()]
 #'
 #' See [?parameter][parameter] for a list of helper functions converting parameters from and to other formats.

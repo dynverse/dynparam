@@ -28,5 +28,5 @@ is_parameter_set(x)
 Parameter set helper functions
 }
 \seealso{
-\code{\link[=character_parameter]{character_parameter()}}, \code{\link[=integer_parameter]{integer_parameter()}}, \code{\link[=logical_parameter]{logical_parameter()}}, \code{\link[=numeric_parameter]{numeric_parameter()}}, \code{\link[=range_parameter]{range_parameter()}}, \code{\link[=subset_parameter]{subset_parameter()}}, \link{dynparam}
+\code{\link[=character_parameter]{character_parameter()}}, \code{\link[=integer_parameter]{integer_parameter()}}, \code{\link[=logical_parameter]{logical_parameter()}}, \code{\link[=numeric_parameter]{numeric_parameter()}}, \code{\link[=integer_range_parameter]{integer_range_parameter()}}, \code{\link[=numeric_range_parameter]{numeric_range_parameter()}}, \code{\link[=subset_parameter]{subset_parameter()}}, \link{dynparam}
 }

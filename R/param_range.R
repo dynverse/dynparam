@@ -5,34 +5,11 @@
 #'   See [?dynparam][dynparam::dynparam] for a list of possible distributions.
 #' @param upper_distribution A distribution from which the upper value fo the range can be sampled.
 #'   See [?dynparam][dynparam::dynparam] for a list of possible distributions.
-#' @param as_integer Whether or not this parameter should be interpreted as an integer.
-#'
-#' @export
-#'
-#' @examples
-#' range_parameter(
-#'   id = "ks",
-#'   as_integer = TRUE,
-#'   default = c(3L, 15L),
-#'   lower_distribution = uniform_distribution(1L, 5L),
-#'   upper_distribution = uniform_distribution(10L, 20L),
-#'   description = "The numbers of clusters to be evaluated."
-#' )
-#'
-#' range_parameter(
-#'   id = "quantiles",
-#'   as_integer = FALSE,
-#'   default = c(0.1, 0.99),
-#'   lower_distribution = uniform_distribution(0, 0.25),
-#'   upper_distribution = uniform_distribution(0.9, 1),
-#'   description = "The lower and upper quantile thresholds."
-#' )
 range_parameter <- function(
   id,
   default,
   lower_distribution,
   upper_distribution,
-  as_integer = TRUE,
   description = NULL,
   tuneable = TRUE
 ) {
@@ -40,7 +17,6 @@ range_parameter <- function(
 
   parameter(
     id = id,
-    as_integer = as_integer,
     default = default,
     lower_distribution = lower_distribution,
     upper_distribution = upper_distribution,
@@ -61,7 +37,7 @@ as_paramhelper.range_parameter <- function(x) {
   dfun_upper <- distribution_function(x$upper_distribution)
   qfun_upper <- quantile_function(x$upper_distribution)
 
-  if (x$as_integer) {
+  if ("integer_range_parameter" %in% class(x)) {
     x$lower_distribution$lower <- x$lower_distribution$lower - .5 + 1e-10
     x$lower_distribution$upper <- x$lower_distribution$upper + .5 - 1e-10
     x$upper_distribution$lower <- x$upper_distribution$lower - .5 + 1e-10
@@ -113,7 +89,7 @@ as_paramhelper.range_parameter <- function(x) {
 as_descriptive_tibble.range_parameter <- function(x) {
   tibble(
     id = x$id,
-    type = "range",
+    type = ifelse("integer_range_parameter" %in% class(x)[[1]], "integer_range", "numeric_range"),
     domain = paste0("( ", as.character(x$lower_distribution), ", ", as.character(x$upper_distribution), " )"),
     default = paste0("(", x$default[[1]], ", ", x$default[[2]], ")")
   )

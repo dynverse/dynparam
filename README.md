@@ -21,7 +21,7 @@ param <- integer_parameter(
 param
 ```
 
-    ## [integer] num_iter ∈ e^U(0.00, 9.21), default=100
+    ## num_iter | type=integer | domain=e^U(0.00, 9.21) | default=100
 
 It can be transformed to a list, then to a yaml:
 
@@ -34,6 +34,7 @@ cat(ya)
 id: num_iter
 default: 100
 description: Number of iterations
+tuneable: yes
 distribution:
   lower: 1
   upper: 10000
@@ -47,7 +48,7 @@ And back:
 as_parameter(yaml::yaml.load(ya))
 ```
 
-    ## [integer] num_iter ∈ e^U(0.00, 9.21), default=100
+    ## num_iter | type=integer | domain=e^U(0.00, 9.21) | default=100
 
 ## Numeric parameter
 
@@ -61,7 +62,7 @@ param <- numeric_parameter(
 param
 ```
 
-    ## [numeric] delta ⊆ N(5, 1), default={4.5, 2.4, 1.9}
+    ## delta | type=numeric | domain=N(5, 1) | default={4.5, 2.4, 1.9}
 
 As yaml:
 
@@ -76,6 +77,7 @@ default:
 - 2.4
 - 1.9
 description: Multiplying factors
+tuneable: yes
 distribution:
   lower: -.inf
   upper: .inf
@@ -97,7 +99,7 @@ param <- character_parameter(
 param
 ```
 
-    ## [character] method ∈ {kendall, spearman, pearson}, default=kendall
+    ## method | type=character | domain={kendall, spearman, pearson} | default=kendall
 
 As yaml:
 
@@ -109,6 +111,7 @@ cat(yaml::as.yaml(as.list(param)))
 id: method
 default: kendall
 description: Correlation method
+tuneable: yes
 values:
 - kendall
 - spearman
@@ -127,7 +130,7 @@ param <- logical_parameter(
 param
 ```
 
-    ## [logical] inverse, default=TRUE
+    ## inverse | type=logical | default=TRUE
 
 As yaml:
 
@@ -139,6 +142,7 @@ cat(yaml::as.yaml(as.list(param)))
 id: inverse
 default: yes
 description: Inversion parameter
+tuneable: yes
 type: logical
 ```
 
@@ -154,7 +158,7 @@ param <- subset_parameter(
 param
 ```
 
-    ## [subset] dimreds = {x | x ⊆ {pca, mds, tsne, umap, ica}}, default={pca, mds}
+    ## dimreds | type=subset | domain=all subsets of {pca, mds, tsne, umap, ica} | default={pca, mds}
 
 As yaml:
 
@@ -168,6 +172,7 @@ default:
 - pca
 - mds
 description: Which dimensionality reduction methods to apply (can be multiple)
+tuneable: yes
 values:
 - pca
 - mds
@@ -180,7 +185,7 @@ type: subset
 ## Range parameter
 
 ``` r
-param <- range_parameter(
+param <- integer_range_parameter(
   id = "ks",
   default = c(3L, 15L),
   lower_distribution = uniform_distribution(1L, 5L),
@@ -190,7 +195,7 @@ param <- range_parameter(
 param
 ```
 
-    ## [range] ks ∈ ( U(1, 5), U(10, 20) ), default=(3, 15)
+    ## ks | type=integer_range | domain=( U(1, 5), U(10, 20) ) | default=(3, 15)
 
 As yaml:
 
@@ -204,7 +209,7 @@ default:
 - 3
 - 15
 description: The numbers of clusters to be evaluated.
-as_integer: yes
+tuneable: yes
 lower_distribution:
   lower: 1
   upper: 5
@@ -213,7 +218,7 @@ upper_distribution:
   lower: 10
   upper: 20
   type: uniform
-type: range
+type: integer_range
 ```
 
 ## Example of parameter set
@@ -254,22 +259,20 @@ parameters <- parameter_set(
     description = "Which dimensionality reduction methods to apply (can be multiple)"
   ),
   
-  range_parameter(
+  integer_range_parameter(
     id = "ks",
     default = c(3L, 15L),
     lower_distribution = uniform_distribution(1L, 5L),
     upper_distribution = uniform_distribution(10L, 20L),
-    description = "The numbers of clusters to be evaluated",
-    as_integer = TRUE
+    description = "The numbers of clusters to be evaluated"
   ),
 
-  range_parameter(
+  numeric_range_parameter(
     id = "quantiles",
     default = c(0.15, 0.90),
     lower_distribution = uniform_distribution(0, .4),
     upper_distribution = uniform_distribution(.6, 1),
-    description = "Quantile cutoff range",
-    as_integer = FALSE
+    description = "Quantile cutoff range"
   ),
   
   forbidden = "inverse == (method == 'kendall')"
@@ -288,25 +291,25 @@ paramset %>%
 ```
 
     ## $num_iter
-    ## [1] 98
+    ## [1] 247
     ## 
     ## $delta
-    ## [1] 5.575781 7.404653 4.694612
+    ## [1] 5.153253 5.065288 7.172612
     ## 
     ## $method
-    ## [1] "pearson"
+    ## [1] "spearman"
     ## 
     ## $inverse
     ## [1] TRUE
     ## 
     ## $dimreds
-    ## [1] "pca"  "tsne" "umap" "ica" 
+    ## [1] "mds"  "tsne" "ica" 
     ## 
     ## $ks
-    ## [1]  1 14
+    ## [1]  2 17
     ## 
     ## $quantiles
-    ## [1] 0.3478763 0.7361396
+    ## [1] 0.04199506 0.94581798
 
 As yaml:
 
@@ -318,6 +321,7 @@ cat(yaml::as.yaml(as.list(parameters)))
 - id: num_iter
   default: 100
   description: Number of iterations
+  tuneable: yes
   distribution:
     lower: 1
     upper: 10000
@@ -329,6 +333,7 @@ cat(yaml::as.yaml(as.list(parameters)))
   - 2.4
   - 1.9
   description: Multiplying factors
+  tuneable: yes
   distribution:
     lower: -.inf
     upper: .inf
@@ -339,6 +344,7 @@ cat(yaml::as.yaml(as.list(parameters)))
 - id: method
   default: kendall
   description: Correlation method
+  tuneable: yes
   values:
   - kendall
   - spearman
@@ -347,12 +353,14 @@ cat(yaml::as.yaml(as.list(parameters)))
 - id: inverse
   default: yes
   description: Inversion parameter
+  tuneable: yes
   type: logical
 - id: dimreds
   default:
   - pca
   - mds
   description: Which dimensionality reduction methods to apply (can be multiple)
+  tuneable: yes
   values:
   - pca
   - mds
@@ -365,7 +373,7 @@ cat(yaml::as.yaml(as.list(parameters)))
   - 3
   - 15
   description: The numbers of clusters to be evaluated
-  as_integer: yes
+  tuneable: yes
   lower_distribution:
     lower: 1
     upper: 5
@@ -374,13 +382,13 @@ cat(yaml::as.yaml(as.list(parameters)))
     lower: 10
     upper: 20
     type: uniform
-  type: range
+  type: integer_range
 - id: quantiles
   default:
   - 0.15
   - 0.9
   description: Quantile cutoff range
-  as_integer: no
+  tuneable: yes
   lower_distribution:
     lower: 0.0
     upper: 0.4
@@ -389,6 +397,6 @@ cat(yaml::as.yaml(as.list(parameters)))
     lower: 0.6
     upper: 1.0
     type: uniform
-  type: range
+  type: numeric_range
 - forbidden: inverse == (method == 'kendall')
 ```

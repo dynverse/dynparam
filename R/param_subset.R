@@ -62,7 +62,7 @@ as_descriptive_tibble.subset_parameter <- function(x) {
   tibble(
     id = x$id,
     type = "subset",
-    domain = paste0("{x | x \u2286 {", paste(x$values, collapse = ", "), "}}"),
+    domain = paste0("all subsets of {", paste(x$values, collapse = ", "), "}"),
     default = collapse_set(x$default)
   )
 }
