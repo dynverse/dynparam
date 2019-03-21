@@ -28,7 +28,6 @@ range_parameter <- function(
 
 #' @export
 #' @importFrom ParamHelpers makeNumericParam makeNumericVectorParam
-#' @importFrom glue glue
 #' @importFrom carrier crate
 #' @importFrom stats as.formula
 as_paramhelper.range_parameter <- function(x) {

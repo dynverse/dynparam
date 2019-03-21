@@ -1,0 +1,13 @@
+citEntry(
+  entry    = "Article",
+  author   = "Robrecht Cannoodt and Wouter Saelens",
+  title    = "dynparam: Creating meta-information for parameters",
+  journal  = "In Progress",
+  year     = "2019",
+  month    = "",
+  volume   = "",
+  number   = "",
+  pages    = "",
+  doi      = "",
+  textVersion = "Cannoodt R. and Saelens W., dynparam: Creating meta-information for parameters, In Progress, 2019."
+)
