@@ -32,7 +32,7 @@ Imports:
   assertthat,
   carrier,
   dplyr,
-  dynutils (>= 1.0.1.9000),
+  dynutils (>= 1.0.2),
   Hmisc,
   magrittr,
   purrr,
@@ -43,5 +43,3 @@ Imports:
 Suggests:
   ParamHelpers,
   lhs
-Remotes:
-  dynverse/dynutils
