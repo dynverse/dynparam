@@ -32,10 +32,10 @@ character_parameter <- function(
 }
 
 #' @export
-#' @importFrom ParamHelpers makeDiscreteParam makeDiscreteVectorParam
 as_paramhelper.character_parameter <- function(x) {
   length <- length(x$default)
 
+  requireNamespace("ParamHelpers")
   fun <- if (length == 1) ParamHelpers::makeDiscreteParam else ParamHelpers::makeDiscreteVectorParam
 
   args <- list(

@@ -35,11 +35,13 @@ Imports:
   dynutils (>= 1.0.1.9000),
   Hmisc,
   magrittr,
-  ParamHelpers,
   purrr,
   stringr,
   testthat,
   tibble,
   tidyr
+Suggests:
+  ParamHelpers,
+  lhs
 Remotes:
   dynverse/dynutils

@@ -35,6 +35,7 @@ makeDiscreteVectorParamWithTrafo <- function(
   id, len, values, default, trafo = NULL, requires = NULL,
   tunable = TRUE, special.vals = list()
 ) {
+  requireNamespace("ParamHelpers")
   ParamHelpers:::makeParam(
     id = id, type = "discretevector", learner.param = FALSE, len = len,
     values = values, default = default,
