@@ -43,7 +43,7 @@ as_paramhelper.subset_parameter <- function(x) {
     lower = 0L,
     upper = 1L,
     trafo = carrier::crate(function(x) values[as.logical(x)], values = values),
-    tunable = x$tunable
+    tunable = x$tuneable
   )
 }
 
