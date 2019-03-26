@@ -35,6 +35,7 @@ subset_parameter <- function(
 #' @importFrom carrier crate
 as_paramhelper.subset_parameter <- function(x) {
   requireNamespace("ParamHelpers")
+  values <- x$values
   # this will be updated to use makeDiscreteVectorParam once the trafo
   # function is added
   ParamHelpers::makeIntegerVectorParam(
@@ -43,7 +44,7 @@ as_paramhelper.subset_parameter <- function(x) {
     len = length(x$values),
     lower = 0L,
     upper = 1L,
-    trafo = carrier::crate(function(x) values[as.logical(x)], values = x$values),
+    trafo = carrier::crate(function(x) values[as.logical(x)], values = values),
     tunable = x$tuneable
   )
 }
