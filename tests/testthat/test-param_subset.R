@@ -32,7 +32,8 @@ test_that("correlation method test", {
 
   ph <- as_paramhelper(p)
   expect_equal(ph$id, "method")
-  expect_equal(ph$default %>% unlist(), c("TRUE", "FALSE", "FALSE"))
+  #expect_equal(ph$default %>% unlist(), c("TRUE", "FALSE", "FALSE"))
+  expect_equal(ph$default %>% unlist(), c(1L, 0L, 0L))
   expect_equal(ph$len, 3)
 
   ps <- ParamHelpers::makeParamSet(ph)

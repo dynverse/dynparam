@@ -1,7 +1,7 @@
 context("test-distribution_super")
 
 test_that("as_distribution works", {
-  expect_error(as_distribution(list(1)), "li does not have name type")
+  expect_error(as_distribution(list(1)), "li does not have.*name.*type")
   expect_error(as_distribution(list(type = "hiowqhi")), "li\\$type is missing 1 element from names\\(distributions\\)")
   expect_error(as_distribution(list(type = "uniform")), "li is missing 2 names from required_args")
   expect_error(as_distribution(list(type = "uniform", upper = 1, low = 4)), "li is missing 1 name from required_args")

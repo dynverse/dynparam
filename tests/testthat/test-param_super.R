@@ -1,7 +1,7 @@
 context("test-param_super")
 
 test_that("as_parameter works", {
-  expect_error(as_parameter(list(1)), "li does not have name type")
+  expect_error(as_parameter(list(1)), "li does not have.*name.*type")
   expect_error(as_parameter(list(type = "hiowqhi")), "li\\$type is missing 1 element from names\\(parameters\\)")
   expect_error(as_parameter(list(type = "logical")), "li is missing 2 names from required_args")
   expect_error(as_parameter(list(type = "subset", id = "ks", description = "halp")), "li is missing 2 names from required_args")
