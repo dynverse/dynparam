@@ -1,5 +1,10 @@
 #' Creating meta-information for parameters
 #'
+#' Provides tools for describing parameters of algorithms in an abstract way.
+#' Description can include an id, a description, a domain (range or list of values),
+#' and a default value. 'dynparam' can also convert parameter sets to a 'ParamHelpers' format,
+#' in order to be able to use 'dynparam' in conjunction with 'mlrMBO'.
+#'
 #' @section Parameters:
 #' These functions help you provide a meta description of parameters.
 #'

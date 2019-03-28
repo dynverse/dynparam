@@ -1,7 +1,7 @@
 Package: dynparam
 Type: Package
-Title: Creating meta-information for parameters
-Version: 0.0.1
+Title: Creating Meta-Information for Parameters
+Version: 1.0.0
 Authors@R: c(
     person(
       "Robrecht", 
@@ -20,7 +20,10 @@ Authors@R: c(
   )
 URL: https://github.com/dynverse/dynparam
 BugReports: https://github.com/dynverse/dynparam/issues
-Description: These functions help you create meta informations on parameters.
+Description: Provides tools for describing parameters of algorithms in an abstract way.
+  Description can include an id, a description, a domain (range or list of values),
+  and a default value. 'dynparam' can also convert parameter sets to a 'ParamHelpers' format, 
+  in order to be able to use 'dynparam' in conjunction with 'mlrMBO'.
 License: GPL-3
 LazyData: TRUE
 RoxygenNote: 6.1.1
@@ -32,18 +35,14 @@ Imports:
   assertthat,
   carrier,
   dplyr,
-  dynutils (>= 1.0.1),
-  glue,
+  dynutils (>= 1.0.2),
   Hmisc,
-  lhs,
   magrittr,
-  optparse,
-  ParamHelpers,
   purrr,
   stringr,
   testthat,
   tibble,
   tidyr
-Remotes:
-  dynverse/dynutils,
-  dynverse/dyndimred
+Suggests:
+  ParamHelpers,
+  lhs

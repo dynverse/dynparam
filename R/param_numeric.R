@@ -41,12 +41,12 @@ numeric_parameter <- function(
 }
 
 #' @export
-#' @importFrom ParamHelpers makeNumericParam makeNumericVectorParam
 as_paramhelper.numeric_parameter <- function(x) {
   dfun <- distribution_function(x$distribution)
   qfun <- quantile_function(x$distribution)
   length <- length(x$default)
 
+  requireNamespace("ParamHelpers")
   fun <- if (length == 1) ParamHelpers::makeNumericParam else ParamHelpers::makeNumericVectorParam
   args <- list(
     id = x$id,

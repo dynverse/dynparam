@@ -400,3 +400,9 @@ cat(yaml::as.yaml(as.list(parameters)))
   type: numeric_range
 - forbidden: inverse == (method == 'kendall')
 ```
+
+``` yaml
+### Recent changes in  dynparam 1.0.0 (unreleased)
+
+* INITIAL RELEASE: dynparam helps describe method parameters.
+```

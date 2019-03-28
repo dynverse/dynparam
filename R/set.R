@@ -57,6 +57,7 @@ as_paramhelper.parameter_set <- function(x) {
       parse(text = forbidden_text)
     }
 
+  requireNamespace("ParamHelpers")
   ParamHelpers::makeParamSet(
     params = params,
     forbidden = forbidden_expr
@@ -132,6 +133,7 @@ sip.parameter_set <- function(x, n = 1, as_tibble = TRUE) {
   par_set <- as_paramhelper(x)
 
   requireNamespace("ParamHelpers")
+  requireNamespace("lhs")
 
   out <-
     ParamHelpers::generateDesign(n = n, par.set = par_set) %>%

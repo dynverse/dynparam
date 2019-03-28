@@ -198,3 +198,9 @@ As yaml:
 ```{r comment = "", results = "asis"}
 cat(yaml::as.yaml(as.list(parameters)))
 ```
+
+
+```{r news, echo=FALSE, results="asis"}
+dynutils::update_news("dynparam")
+cat(dynutils::recent_news("dynparam"))
+```

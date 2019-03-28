@@ -27,8 +27,6 @@ range_parameter <- function(
 }
 
 #' @export
-#' @importFrom ParamHelpers makeNumericParam makeNumericVectorParam
-#' @importFrom glue glue
 #' @importFrom carrier crate
 #' @importFrom stats as.formula
 as_paramhelper.range_parameter <- function(x) {
@@ -47,6 +45,7 @@ as_paramhelper.range_parameter <- function(x) {
     qfun_upper <- carrier::crate(function(y) round(qfun_upper(y)), qfun_upper = qfun_upper)
   }
 
+  requireNamespace("ParamHelpers")
   param <-
     ParamHelpers::makeNumericVectorParam(
       id = x$id,

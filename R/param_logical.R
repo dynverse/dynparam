@@ -28,10 +28,10 @@ logical_parameter <- function(
 }
 
 #' @export
-#' @importFrom ParamHelpers makeLogicalParam makeLogicalVectorParam
 as_paramhelper.logical_parameter <- function(x) {
   length <- length(x$default)
 
+  requireNamespace("ParamHelpers")
   fun <- if (length == 1) ParamHelpers::makeLogicalParam else ParamHelpers::makeLogicalVectorParam
 
   args <- list(
