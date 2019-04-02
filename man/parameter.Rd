@@ -5,7 +5,6 @@
 \alias{as.list.parameter}
 \alias{as_parameter}
 \alias{is_parameter}
-\alias{as_roxygen}
 \alias{as_descriptive_tibble}
 \title{Defining, serialising and printing parameters}
 \usage{
@@ -16,8 +15,6 @@ parameter(id, default, ..., description = NULL, tuneable = TRUE)
 as_parameter(li)
 
 is_parameter(x)
-
-as_roxygen(x)
 
 as_descriptive_tibble(x)
 }
@@ -57,7 +54,6 @@ and process a parameter.
 \item \code{as.list(param)}: Converting a parameter to a list.
 \item \code{as_parameter(li)}: Converting a list back to a parameter.
 \item \code{is_parameter(x)}: Checking whether something is a parameter.
-\item \code{as_roxygen(param)}: Convert to roxygen documentation format.
 \item \code{as_descriptive_tibble(param)}: Convert to a tibble containing meta information.
 }
 }

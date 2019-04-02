@@ -35,6 +35,8 @@ test_that("works with one parameter", {
 
   # test print
   expect_output(print(parameters), "epsilon.*numeric")
+
+  expect_equal(get_defaults(parameters), list(epsilon = 0.05))
 })
 
 test_that("works with many parameters", {
@@ -135,6 +137,19 @@ test_that("works with many parameters", {
   expect_output(print(parameters), "dimreds.*subset")
   expect_output(print(parameters), "ks.*range")
   expect_output(print(parameters), "quantiles.*range")
+
+  expect_equal(
+    get_defaults(parameters),
+    list(
+      num_iter = 100L,
+      delta = c(4.5, 2.4, 1.9),
+      method = "kendall",
+      inverse = TRUE,
+      dimreds = c("pca", "mds"),
+      ks = c(3L, 15L),
+      quantiles = c(.15, .9)
+    )
+  )
 })
 
 test_that("wrong parse fails gracefully", {

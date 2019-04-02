@@ -14,7 +14,6 @@
 #' * `as.list(param)`: Converting a parameter to a list.
 #' * `as_parameter(li)`: Converting a list back to a parameter.
 #' * `is_parameter(x)`: Checking whether something is a parameter.
-#' * `as_roxygen(param)`: Convert to roxygen documentation format.
 #' * `as_descriptive_tibble(param)`: Convert to a tibble containing meta information.
 #'
 #' @param id The name of the parameter.
@@ -188,18 +187,17 @@ get_description <- function(
 }
 
 #' @export
-as_roxygen.parameter <- function(x) {
-  paste0("@param ", x$id, " ", get_description(x, sep = ". "), ".")
-}
-
-#' @export
-#' @rdname parameter
-as_roxygen <- function(x) {
-  UseMethod("as_roxygen")
-}
-
-#' @export
 #' @rdname parameter
 as_descriptive_tibble <- function(x) {
   UseMethod("as_descriptive_tibble")
+}
+
+#' @export
+as_descriptive_tibble.parameter <- function(x) {
+  tibble(
+    id = x$id,
+    type = "abstract",
+    domain = NA,
+    default = collapse_set(x$default)
+  )
 }
