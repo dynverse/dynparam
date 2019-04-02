@@ -12,10 +12,13 @@ expuniform_distribution(lower, upper)
 \item{upper}{Upper limit of the distribution.}
 }
 \description{
-Exponentially scaled uniform distribution.
+Distributions are used for defining the domain of an \code{\link[=integer_parameter]{integer_parameter()}} or \code{\link[=numeric_parameter]{numeric_parameter()}}.
 }
 \examples{
 expuniform_distribution(1, 10000)
 
 expuniform_distribution(1e-5, 1e-2)
+}
+\seealso{
+\link{dynparam} for an overview of all dynparam functionality.
 }

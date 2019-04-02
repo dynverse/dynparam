@@ -36,6 +36,10 @@ test_that("correlation method test", {
   expect_equal(ph$default, "pearson")
   expect_equal(unlist(ph$values) %>% unname(), c("pearson", "spearman", "kendall"))
   expect_equal(ph$len, 1)
+
+  expect_match(get_description(p), "correlation coefficient to compute")
+  expect_match(get_description(p), "character")
+  expect_match(get_description(p), "kendall")
 })
 
 test_that("multiple value test", {

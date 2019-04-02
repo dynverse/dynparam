@@ -25,3 +25,6 @@ logical_parameter(
   description = "Whether or not to scale the input variables"
 )
 }
+\seealso{
+\link{dynparam} for an overview of all dynparam functionality.
+}

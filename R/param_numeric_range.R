@@ -4,6 +4,8 @@
 #'
 #' @export
 #'
+#' @seealso [dynparam] for an overview of all dynparam functionality.
+#'
 #' @examples
 #' numeric_range_parameter(
 #'   id = "quantiles",

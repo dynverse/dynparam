@@ -5,6 +5,8 @@
 #'
 #' @export
 #'
+#' @seealso [dynparam] for an overview of all dynparam functionality.
+#'
 #' @examples
 #' subset_parameter(
 #'   id = "dimreds",
@@ -50,7 +52,6 @@ as_paramhelper.subset_parameter <- function(x) {
 }
 
 #' @export
-#' @rdname super
 as_descriptive_tibble.subset_parameter <- function(x) {
   tibble(
     id = x$id,

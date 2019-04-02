@@ -12,8 +12,7 @@ numeric_parameter(id, default, distribution, description = NULL,
 
 \item{default}{The default value of the parameter.}
 
-\item{distribution}{A distribution from which the parameter can be sampled.
-See \link[dynparam:dynparam]{?dynparam} for a list of possible distributions.}
+\item{distribution}{A distribution from which the parameter can be sampled.}
 
 \item{description}{An optional (but recommended) description of the parameter.}
 
@@ -36,4 +35,7 @@ numeric_parameter(
   distribution = expuniform_distribution(1e-4, 1e-1),
   description = "Percentage decrease in age per iteration"
 )
+}
+\seealso{
+\link{dynparam} for an overview of all dynparam functionality.
 }

@@ -1,8 +1,12 @@
 #' Exponentially scaled uniform distribution.
 #'
+#' Distributions are used for defining the domain of an [integer_parameter()] or [numeric_parameter()].
+#'
 #' @inheritParams distribution
 #'
 #' @export
+#'
+#' @seealso [dynparam] for an overview of all dynparam functionality.
 #'
 #' @examples
 #' expuniform_distribution(1, 10000)

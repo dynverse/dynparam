@@ -4,6 +4,8 @@
 #'
 #' @export
 #'
+#' @seealso [dynparam] for an overview of all dynparam functionality.
+#'
 #' @examples
 #' integer_range_parameter(
 #'   id = "ks",

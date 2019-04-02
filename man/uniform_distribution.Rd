@@ -12,8 +12,11 @@ uniform_distribution(lower, upper)
 \item{upper}{Upper limit of the distribution.}
 }
 \description{
-Uniform distribution
+Distributions are used for defining the domain of an \code{\link[=integer_parameter]{integer_parameter()}} or \code{\link[=numeric_parameter]{numeric_parameter()}}.
 }
 \examples{
 uniform_distribution(1, 10)
+}
+\seealso{
+\link{dynparam} for an overview of all dynparam functionality.
 }

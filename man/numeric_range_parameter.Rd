@@ -12,11 +12,9 @@ numeric_range_parameter(id, default, lower_distribution,
 
 \item{default}{The default value of the parameter.}
 
-\item{lower_distribution}{A distribution from which the lower value of the range can be sampled.
-See \link[dynparam:dynparam]{?dynparam} for a list of possible distributions.}
+\item{lower_distribution}{A distribution from which the lower value of the range can be sampled.}
 
-\item{upper_distribution}{A distribution from which the upper value fo the range can be sampled.
-See \link[dynparam:dynparam]{?dynparam} for a list of possible distributions.}
+\item{upper_distribution}{A distribution from which the upper value fo the range can be sampled.}
 
 \item{description}{An optional (but recommended) description of the parameter.}
 
@@ -33,4 +31,7 @@ numeric_range_parameter(
   upper_distribution = uniform_distribution(0.9, 1),
   description = "The lower and upper quantile thresholds."
 )
+}
+\seealso{
+\link{dynparam} for an overview of all dynparam functionality.
 }

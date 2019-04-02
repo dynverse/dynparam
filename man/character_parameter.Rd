@@ -29,3 +29,6 @@ character_parameter(
   description = "Which correlation coefficient to compute."
 )
 }
+\seealso{
+\link{dynparam} for an overview of all dynparam functionality.
+}
