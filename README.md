@@ -3,6 +3,13 @@
 
 # dynparam
 
+Provides tools for describing parameters of algorithms in an abstract
+way. Description can include an id, a description, a domain (range or
+list of values), and a default value. ‘dynparam’ can also convert
+parameter sets to a ‘ParamHelpers’ format, in order to be able to use
+‘dynparam’ in conjunction with ‘mlrMBO’. Check `?dynparam` for an
+overview of all functionality provided by dynparam.
+
 ``` r
 library(tidyverse)
 library(dynparam)
@@ -413,7 +420,7 @@ changes.
 
 <!-- This section gets automatically generated from inst/NEWS.md, and also generates inst/NEWS -->
 
-### Recent changes in dynparam 1.0.0 (28-03-2019)
+### Recent changes in dynparam 1.0.0 (02-04-2019)
 
   - INITIAL RELEASE: dynparam helps describe method
 parameters.
