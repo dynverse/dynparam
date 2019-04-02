@@ -6,9 +6,15 @@
 Provides tools for describing parameters of algorithms in an abstract
 way. Description can include an id, a description, a domain (range or
 list of values), and a default value. ‘dynparam’ can also convert
-parameter sets to a ‘ParamHelpers’ format, in order to be able to use
-‘dynparam’ in conjunction with ‘mlrMBO’. Check `?dynparam` for an
+parameter sets to a `ParamHelpers` format, in order to be able to use
+`dynparam` in conjunction with `mlrMBO`. Check `?dynparam` for an
 overview of all functionality provided by dynparam.
+
+## Examples
+
+The main goal of `dynparam` is to be able to describe a set of
+parameters, be able to serialise the parameter sets, and also sample
+random settings from the parameter set.
 
 ``` r
 library(tidyverse)
@@ -16,7 +22,60 @@ library(dynparam)
 set.seed(1)
 ```
 
-## Integer parameter
+``` r
+parameters <- parameter_set(
+  integer_parameter(
+    id = "num_iter",
+    default = 100L,
+    distribution = expuniform_distribution(lower = 1L, upper = 10000L),
+    description = "Number of iterations"
+  ),
+  subset_parameter(
+    id = "dimreds",
+    default = c("pca", "mds"),
+    values = c("pca", "mds", "tsne", "umap", "ica"),
+    description = "Which dimensionality reduction methods to apply (can be multiple)"
+  ),
+  integer_range_parameter(
+    id = "ks",
+    default = c(3L, 15L),
+    lower_distribution = uniform_distribution(1L, 5L),
+    upper_distribution = uniform_distribution(10L, 20L),
+    description = "The numbers of clusters to be evaluated"
+  )
+)
+
+get_defaults(parameters)
+```
+
+    ## $num_iter
+    ## [1] 100
+    ## 
+    ## $dimreds
+    ## [1] "pca" "mds"
+    ## 
+    ## $ks
+    ## [1]  3 15
+
+``` r
+li <- as.list(parameters) # li is a list you can write to a json/yaml file
+pa <- as_parameter_set(li) # pa is equal to parameters
+
+sip(pa, n = 3)
+```
+
+    ## Loading required namespace: ParamHelpers
+
+    ## Loading required namespace: lhs
+
+    ## # A tibble: 3 x 4
+    ##   num_iter dimreds   ks        .object_class
+    ##      <int> <list>    <list>    <list>       
+    ## 1        2 <chr [2]> <dbl [2]> <chr [1]>    
+    ## 2     2003 <chr [2]> <dbl [2]> <chr [1]>    
+    ## 3        5 <chr [3]> <dbl [2]> <chr [1]>
+
+### Integer parameter
 
 ``` r
 num_iter <- integer_parameter(
@@ -57,7 +116,7 @@ as_parameter(yaml::yaml.load(ya))
 
     ## num_iter | type=integer | domain=e^U(0.00, 9.21) | default=100
 
-## Numeric parameter
+### Numeric parameter
 
 ``` r
 delta <- numeric_parameter(
@@ -94,7 +153,7 @@ distribution:
 type: numeric
 ```
 
-## Character parameter
+### Character parameter
 
 ``` r
 method <- character_parameter(
@@ -126,7 +185,7 @@ values:
 type: character
 ```
 
-## Logical parameter
+### Logical parameter
 
 ``` r
 inverse <- logical_parameter(
@@ -153,7 +212,7 @@ tuneable: yes
 type: logical
 ```
 
-## Subset parameter
+### Subset parameter
 
 ``` r
 dimreds <- subset_parameter(
@@ -189,7 +248,7 @@ values:
 type: subset
 ```
 
-## Integer range parameter
+### Integer range parameter
 
 ``` r
 ks <- integer_range_parameter(
@@ -228,7 +287,7 @@ upper_distribution:
 type: integer_range
 ```
 
-## Numeric range parameter
+### Numeric range parameter
 
 ``` r
 quantiles <- numeric_range_parameter(
@@ -267,7 +326,7 @@ upper_distribution:
 type: numeric_range
 ```
 
-## Example of parameter set
+### Parameter set
 
 ``` r
 parameters <- parameter_set(
@@ -378,14 +437,10 @@ Generate a random parameter set:
 sip(parameters, n = 1)
 ```
 
-    ## Loading required namespace: ParamHelpers
-
-    ## Loading required namespace: lhs
-
     ## # A tibble: 1 x 8
     ##   num_iter delta   method  inverse dimreds  ks      quantiles .object_class
     ##      <int> <list>  <chr>   <lgl>   <list>   <list>  <list>    <list>       
-    ## 1      247 <dbl [… spearm… TRUE    <chr [2… <dbl [… <dbl [2]> <chr [1]>
+    ## 1      332 <dbl [… spearm… TRUE    <chr [4… <dbl [… <dbl [2]> <chr [1]>
 
 Convert paramhelper
     object:
