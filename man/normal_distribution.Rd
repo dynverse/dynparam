@@ -16,10 +16,13 @@ normal_distribution(mean, sd, lower = -Inf, upper = Inf)
 \item{upper}{An optional upper limit.}
 }
 \description{
-Normal distribution
+Distributions are used for defining the domain of an \code{\link[=integer_parameter]{integer_parameter()}} or \code{\link[=numeric_parameter]{numeric_parameter()}}.
 }
 \examples{
 normal_distribution(mean = 0, sd = 1)
 
 normal_distribution(mean = 5, sd = 1, lower = 1, upper = 10)
+}
+\seealso{
+\link{dynparam}
 }

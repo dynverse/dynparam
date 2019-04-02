@@ -9,7 +9,7 @@
 \alias{as.list.distribution}
 \alias{as_distribution}
 \alias{is_distribution}
-\title{Helper functions for converting distributions from and to other formats}
+\title{Helper functions for processing distributions}
 \usage{
 distribution(lower, upper, ...)
 
@@ -41,7 +41,75 @@ is_distribution(x)
 \item{li}{A list to be converted into a distribution.}
 }
 \description{
-Helper functions for converting distributions from and to other formats
+Helper defining a distribution and converting it to
+different formats. Distributions are used to define the domain of an
+\code{\link[=integer_parameter]{integer_parameter()}} or a \code{\link[=numeric_parameter]{numeric_parameter()}}.
+}
+\details{
+See the sections below for more information each of the functions.
+}
+\section{Serialisation}{
+
+\itemize{
+\item \code{as.list(dist)}: Converting a distribution to a list.
+\item \code{as_distribution(li)}: Converting a list back to a distribution.
+\item \code{is_distribution(x)}: Checking whether something is a distribution.
+}
+}
+
+\section{Console}{
+
+\itemize{
+\item \code{as.character(dist)}: Convert a distribution to a character vector.
+\item \code{print(dist)}: Printing a distribution to the console.
+}
+}
+
+\section{Defining a distribution}{
+
+In order to create a new distribution named \code{xxx}, you need to create three functions.
+\itemize{
+\item A \code{xxx()} function that calls \code{distribution(...) \%>\% add_class("xxx")} at the end.
+\item \code{quantile_function.xxx()}: The quantile function for converting between a uniform distribution and the \code{xxx} distribution.
+\item \code{distribution_function.xxx()}: The distribution function for converting between a uniform distribution and the \code{xxx} distribution.
+}
+
+Check the implementations of \code{\link[=normal_distribution]{normal_distribution()}}, \code{\link[=quantile_function.normal_distribution]{quantile_function.normal_distribution()}}
+and \code{\link[=distribution_function.normal_distribution]{distribution_function.normal_distribution()}} for an example
+on how to do define these functions. Alternatively, check the examples below.
+}
+
+\examples{
+di <- uniform_distribution(lower = 1, upper = 10)
+print(di)
+
+li <- as.list(di)
+di2 <- as_distribution(li)
+print(di2)
+
+# Defining a custom distribution, using the pbeta and qbeta functions
+beta_distribution <- function(
+  shape1,
+  shape2,
+  ncp,
+  lower = -Inf,
+  upper = Inf
+) {
+  di <- distribution(lower = lower, upper = upper, shape1, shape2, ncp)
+  add_class(di, beta_distribution)
+}
+
+distribution_function.beta_distribution <- function(dist) {
+  function(q) {
+    stats::pbeta(q, shape1 = dist$shape1, shape2 = dist$shape2, ncp = dist$ncp)
+  }
+}
+
+quantile_function.beta_distribution <- function(dist) {
+  function(p) {
+    stats::qbeta(p, shape1 = dist$shape1, shape2 = dist$shape2, ncp = dist$ncp)
+  }
+}
 }
 \seealso{
 \code{\link[=uniform_distribution]{uniform_distribution()}}, \code{\link[=normal_distribution]{normal_distribution()}}, \code{\link[=expuniform_distribution]{expuniform_distribution()}}, \link{dynparam}

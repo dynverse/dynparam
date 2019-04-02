@@ -1,11 +1,16 @@
 #' Normal distribution
 #'
+#' Distributions are used for defining the domain of an [integer_parameter()] or [numeric_parameter()].
+#'
 #' @param mean Mean of the distribution
 #' @param sd Standard deviation of the distribution.
 #' @param lower An optional lower limit.
 #' @param upper An optional upper limit.
 #'
 #' @export
+#'
+#' @seealso
+#' [dynparam]
 #'
 #' @examples
 #' normal_distribution(mean = 0, sd = 1)

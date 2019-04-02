@@ -1,4 +1,30 @@
-#' Helper functions for converting distributions from and to other formats
+#' Helper functions for processing distributions
+#'
+#' Helper defining a distribution and converting it to
+#' different formats. Distributions are used to define the domain of an
+#' [integer_parameter()] or a [numeric_parameter()].
+#'
+#' See the sections below for more information each of the functions.
+#'
+#' @section Serialisation:
+#' * `as.list(dist)`: Converting a distribution to a list.
+#' * `as_distribution(li)`: Converting a list back to a distribution.
+#' * `is_distribution(x)`: Checking whether something is a distribution.
+#'
+#' @section Console:
+#' * `as.character(dist)`: Convert a distribution to a character vector.
+#' * `print(dist)`: Printing a distribution to the console.
+#'
+#' @section Defining a distribution:
+#' In order to create a new distribution named `xxx`, you need to create three functions.
+#'
+#' * A `xxx()` function that calls `distribution(...) %>% add_class("xxx")` at the end.
+#' * `quantile_function.xxx()`: The quantile function for converting between a uniform distribution and the `xxx` distribution.
+#' * `distribution_function.xxx()`: The distribution function for converting between a uniform distribution and the `xxx` distribution.
+#'
+#' Check the implementations of [normal_distribution()], [quantile_function.normal_distribution()]
+#' and [distribution_function.normal_distribution()] for an example
+#' on how to do define these functions. Alternatively, check the examples below.
 #'
 #' @param lower Lower limit of the distribution.
 #' @param upper Upper limit of the distribution.
@@ -8,7 +34,39 @@
 #'
 #' @param ... Fields to be saved in the distribution.
 #'
-#' @seealso [uniform_distribution()], [normal_distribution()], [expuniform_distribution()], [dynparam]
+#' @seealso [dynparam]
+#'
+#' @examples
+#' di <- uniform_distribution(lower = 1, upper = 10)
+#' print(di)
+#'
+#' li <- as.list(di)
+#' di2 <- as_distribution(li)
+#' print(di2)
+#'
+#' # Defining a custom distribution, using the pbeta and qbeta functions
+#' beta_distribution <- function(
+#'   shape1,
+#'   shape2,
+#'   ncp,
+#'   lower = -Inf,
+#'   upper = Inf
+#' ) {
+#'   di <- distribution(lower = lower, upper = upper, shape1, shape2, ncp)
+#'   add_class(di, beta_distribution)
+#' }
+#'
+#' distribution_function.beta_distribution <- function(dist) {
+#'   function(q) {
+#'     stats::pbeta(q, shape1 = dist$shape1, shape2 = dist$shape2, ncp = dist$ncp)
+#'   }
+#' }
+#'
+#' quantile_function.beta_distribution <- function(dist) {
+#'   function(p) {
+#'     stats::qbeta(p, shape1 = dist$shape1, shape2 = dist$shape2, ncp = dist$ncp)
+#'   }
+#' }
 distribution <- function(
   lower,
   upper,
