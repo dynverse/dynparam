@@ -10,8 +10,13 @@ editor_options:
 
 Provides tools for describing parameters of algorithms in an abstract way. 
 Description can include an id, a description, a domain (range or list of values), and a default value. 
-'dynparam' can also convert parameter sets to a 'ParamHelpers' format, in order to be able to use 'dynparam' in conjunction with 'mlrMBO'.
+'dynparam' can also convert parameter sets to a `ParamHelpers` format, in order to be able to use `dynparam` in conjunction with `mlrMBO`.
 Check `?dynparam` for an overview of all functionality provided by dynparam.
+
+## Examples
+The main goal of `dynparam` is to be able to describe a set of parameters, 
+be able to serialise the parameter sets, and also sample random settings from 
+the parameter set.
 
 ```{r, message = FALSE, error = FALSE, warning = FALSE}
 library(tidyverse)
@@ -30,135 +35,93 @@ cat <- function(x) {
 }
 ```
 
-## Integer parameter
+Define a parameter set as follows:
 ```{r}
-num_iter <- integer_parameter(
-  id = "num_iter", 
-  default = 100L,
-  distribution = expuniform_distribution(lower = 1L, upper = 10000L),
-  description = "Number of iterations"
+parameters <- parameter_set(
+  integer_parameter(
+    id = "num_iter",
+    default = 100L,
+    distribution = expuniform_distribution(lower = 1L, upper = 10000L),
+    description = "Number of iterations"
+  ),
+  subset_parameter(
+    id = "dimreds",
+    default = c("pca", "mds"),
+    values = c("pca", "mds", "tsne", "umap", "ica"),
+    description = "Which dimensionality reduction methods to apply (can be multiple)"
+  ),
+  integer_range_parameter(
+    id = "ks",
+    default = c(3L, 15L),
+    lower_distribution = uniform_distribution(1L, 5L),
+    upper_distribution = uniform_distribution(10L, 20L),
+    description = "The numbers of clusters to be evaluated"
+  )
 )
-num_iter
 ```
 
-It can be transformed to a list, then to a yaml:
-```{r comment = "", results = "asis"}
-ya <- yaml::as.yaml(as.list(num_iter))
-cat(ya)
-```
-
-And back:
+You can retrieve the default parameters as follows:
 ```{r}
-as_parameter(yaml::yaml.load(ya))
+get_defaults(parameters)
 ```
 
-## Numeric parameter
+Serialise a parameter set from/to json/yaml with the `as.list()` and `as_parameter_set()` functions.
 ```{r}
-delta <- numeric_parameter(
+li <- as.list(parameters)
+pa <- as_parameter_set(li)
+```
+
+Sample a parameter set using with `sip()`:
+```{r}
+sip(pa, n = 3)
+```
+
+### Large parameter set
+```{r}
+parameters <- parameter_set(
+  integer_parameter(
+    id = "num_iter", 
+    default = 100L,
+    distribution = expuniform_distribution(lower = 1L, upper = 10000L),
+    description = "Number of iterations"
+  ),
+  numeric_parameter(
   id = "delta", 
   default = c(4.5, 2.4, 1.9), 
   distribution = normal_distribution(mean = 5, sd = 1),
   description = "Multiplying factors"
-)
-delta
-```
-
-As yaml:
-```{r comment = "", results = "asis"}
-cat(yaml::as.yaml(as.list(delta)))
-```
-
-## Character parameter
-```{r}
-method <- character_parameter(
+),
+  character_parameter(
   id = "method", 
   default = "kendall",
   values = c("kendall", "spearman", "pearson"), 
   description = "Correlation method"
-)
-method
-```
-
-As yaml:
-```{r comment = "", results = "asis"}
-cat(yaml::as.yaml(as.list(method)))
-```
-
-## Logical parameter
-```{r}
-inverse <- logical_parameter(
+),
+  logical_parameter(
   id = "inverse",
   default = TRUE, 
   description = "Inversion parameter"
-)
-inverse
-```
-
-As yaml:
-```{r comment = "", results = "asis"}
-cat(yaml::as.yaml(as.list(inverse)))
-```
-
-## Subset parameter
-```{r}
-dimreds <- subset_parameter(
+),
+  subset_parameter(
  id = "dimreds",
  default = c("pca", "mds"),
  values = c("pca", "mds", "tsne", "umap", "ica"),
  description = "Which dimensionality reduction methods to apply (can be multiple)"
-)
-dimreds
-```
-
-As yaml:
-```{r comment = "", results = "asis"}
-cat(yaml::as.yaml(as.list(dimreds)))
-```
-
-## Integer range parameter
-```{r}
-ks <- integer_range_parameter(
+),
+  integer_range_parameter(
   id = "ks",
   default = c(3L, 15L),
   lower_distribution = uniform_distribution(1L, 5L),
   upper_distribution = uniform_distribution(10L, 20L),
   description = "The numbers of clusters to be evaluated."
-)
-ks
-```
-
-As yaml:
-```{r comment = "", results = "asis"}
-cat(yaml::as.yaml(as.list(ks)))
-```
-
-## Numeric range parameter
-```{r}
-quantiles <- numeric_range_parameter(
+),
+  numeric_range_parameter(
   id = "quantiles",
   default = c(0.15, 0.90),
   lower_distribution = uniform_distribution(0, .4),
   upper_distribution = uniform_distribution(.6, 1),
   description = "Quantile cutoff range"
-)
-quantiles
-```
-
-As yaml:
-```{r comment = "", results = "asis"}
-cat(yaml::as.yaml(as.list(quantiles)))
-```
-
-## Example of parameter set
-```{r}
-parameters <- parameter_set(
-  num_iter,
-  delta,
-  method,
-  inverse,
-  dimreds,
-  ks,
-  quantiles,
+),
   forbidden = "inverse == (method == 'kendall')"
 )
 ```
@@ -170,7 +133,7 @@ cat(yaml::as.yaml(as.list(parameters)))
 
 Generate a random parameter set:
 ```{r}
-sip(parameters, n = 1)
+sip(parameters, n = 2)
 ```
 
 Convert paramhelper object:
