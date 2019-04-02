@@ -9,8 +9,7 @@
 #'
 #' @export
 #'
-#' @seealso
-#' [dynparam]
+#' @seealso [dynparam] for an overview of all dynparam functionality.
 #'
 #' @examples
 #' normal_distribution(mean = 0, sd = 1)

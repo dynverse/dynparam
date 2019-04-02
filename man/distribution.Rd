@@ -4,22 +4,16 @@
 \alias{distribution}
 \alias{distribution_function}
 \alias{quantile_function}
-\alias{as.character.distribution}
-\alias{print.distribution}
 \alias{as.list.distribution}
 \alias{as_distribution}
 \alias{is_distribution}
-\title{Helper functions for processing distributions}
+\title{Defining, serialising and printing distributions}
 \usage{
 distribution(lower, upper, ...)
 
 distribution_function(dist)
 
 quantile_function(dist)
-
-\method{as.character}{distribution}(x, ...)
-
-\method{print}{distribution}(x, ...)
 
 \method{as.list}{distribution}(x, ...)
 
@@ -41,27 +35,27 @@ is_distribution(x)
 \item{li}{A list to be converted into a distribution.}
 }
 \description{
-Helper defining a distribution and converting it to
-different formats. Distributions are used to define the domain of an
+Distributions are used to define the domain of an
 \code{\link[=integer_parameter]{integer_parameter()}} or a \code{\link[=numeric_parameter]{numeric_parameter()}}.
 }
 \details{
 See the sections below for more information each of the functions.
 }
+\section{List of all currently implemented distributions}{
+
+\itemize{
+\item \code{\link[=expuniform_distribution]{expuniform_distribution()}}
+\item \code{\link[=normal_distribution]{normal_distribution()}}
+\item \code{\link[=uniform_distribution]{uniform_distribution()}}
+}
+}
+
 \section{Serialisation}{
 
 \itemize{
 \item \code{as.list(dist)}: Converting a distribution to a list.
 \item \code{as_distribution(li)}: Converting a list back to a distribution.
 \item \code{is_distribution(x)}: Checking whether something is a distribution.
-}
-}
-
-\section{Console}{
-
-\itemize{
-\item \code{as.character(dist)}: Convert a distribution to a character vector.
-\item \code{print(dist)}: Printing a distribution to the console.
 }
 }
 
@@ -74,8 +68,8 @@ In order to create a new distribution named \code{xxx}, you need to create three
 \item \code{distribution_function.xxx()}: The distribution function for converting between a uniform distribution and the \code{xxx} distribution.
 }
 
-Check the implementations of \code{\link[=normal_distribution]{normal_distribution()}}, \code{\link[=quantile_function.normal_distribution]{quantile_function.normal_distribution()}}
-and \code{\link[=distribution_function.normal_distribution]{distribution_function.normal_distribution()}} for an example
+Check the implementations of \code{\link[=normal_distribution]{normal_distribution()}}, \code{quantile_function.normal_distribution()}
+and \code{distribution_function.normal_distribution()} for an example
 on how to do define these functions. Alternatively, check the examples below.
 }
 
@@ -112,5 +106,5 @@ quantile_function.beta_distribution <- function(dist) {
 }
 }
 \seealso{
-\code{\link[=uniform_distribution]{uniform_distribution()}}, \code{\link[=normal_distribution]{normal_distribution()}}, \code{\link[=expuniform_distribution]{expuniform_distribution()}}, \link{dynparam}
+\link{dynparam} for an overview of all dynparam functionality.
 }

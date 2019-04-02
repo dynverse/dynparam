@@ -24,5 +24,5 @@ normal_distribution(mean = 0, sd = 1)
 normal_distribution(mean = 5, sd = 1, lower = 1, upper = 10)
 }
 \seealso{
-\link{dynparam}
+\link{dynparam} for an overview of all dynparam functionality.
 }

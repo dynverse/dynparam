@@ -6,21 +6,29 @@
 \alias{dynparam-package}
 \title{Creating meta-information for parameters}
 \description{
-Creating meta-information for parameters
+Provides tools for describing parameters of algorithms in an abstract way.
+Description can include an id, a description, a domain (range or list of values),
+and a default value. 'dynparam' can also convert parameter sets to a 'ParamHelpers' format,
+in order to be able to use 'dynparam' in conjunction with 'mlrMBO'.
 }
+\section{Parameter set}{
+
+\itemize{
+\item Create a new \code{\link[=parameter_set]{parameter_set()}} by adding several parameters to it
+\item \code{\link[=as_paramhelper]{as_paramhelper()}}: Convert it to a ParamHelpers object
+\item \code{\link[=sip]{sip()}}: Sample a parameter set
+}
+}
+
 \section{Parameters}{
 
 These functions help you provide a meta description of parameters.
 
 Implemented are the following functions:
 \itemize{
-\item \code{\link[=character_parameter]{character_parameter()}}
-\item \code{\link[=integer_parameter]{integer_parameter()}}
-\item \code{\link[=logical_parameter]{logical_parameter()}}
-\item \code{\link[=numeric_parameter]{numeric_parameter()}}
-\item \code{\link[=integer_range_parameter]{integer_range_parameter()}}
-\item \code{\link[=numeric_range_parameter]{numeric_range_parameter()}}
-\item \code{\link[=subset_parameter]{subset_parameter()}}
+\item \code{\link[=character_parameter]{character_parameter()}}, \code{\link[=integer_parameter]{integer_parameter()}}, \code{\link[=logical_parameter]{logical_parameter()}}, \code{\link[=numeric_parameter]{numeric_parameter()}}: Creating parameters with basic R data types.
+\item \code{\link[=integer_range_parameter]{integer_range_parameter()}}, \code{\link[=numeric_range_parameter]{numeric_range_parameter()}}: Create a discrete or continuous range parameter.
+\item \code{\link[=subset_parameter]{subset_parameter()}}: A parameter containing a subset of a set of values.
 }
 
 See \link[=parameter]{?parameter} for a list of helper functions converting parameters from and to other formats.
@@ -38,5 +46,12 @@ Implemented are the following distributions:
 }
 
 See \link[=distribution]{?distribution} for a list of helper functions converting parameters from and to other formats.
+}
+
+\section{Advanced topics}{
+
+\itemize{
+\item \code{\link[=distribution]{distribution()}}: Creating a custom distribution
+}
 }
 

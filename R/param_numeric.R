@@ -3,9 +3,10 @@
 #' @inheritParams parameter
 #'
 #' @param distribution A distribution from which the parameter can be sampled.
-#'   See [?dynparam][dynparam::dynparam] for a list of possible distributions.
 #'
 #' @export
+#'
+#' @seealso [dynparam] for an overview of all dynparam functionality.
 #'
 #' @examples
 #' numeric_parameter(
@@ -62,7 +63,6 @@ as_paramhelper.numeric_parameter <- function(x) {
 }
 
 #' @export
-#' @rdname super
 as_descriptive_tibble.numeric_parameter <- function(x) {
   tibble(
     id = x$id,

@@ -5,6 +5,8 @@
 #'
 #' @export
 #'
+#' @seealso [dynparam] for an overview of all dynparam functionality.
+#'
 #' @examples
 #' character_parameter(
 #'   id = "method",
@@ -55,7 +57,6 @@ as_paramhelper.character_parameter <- function(x) {
 }
 
 #' @export
-#' @rdname super
 as_descriptive_tibble.character_parameter <- function(x) {
   tibble(
     id = x$id,

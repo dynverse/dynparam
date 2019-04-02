@@ -18,5 +18,5 @@ Distributions are used for defining the domain of an \code{\link[=integer_parame
 uniform_distribution(1, 10)
 }
 \seealso{
-\link{dynparam}
+\link{dynparam} for an overview of all dynparam functionality.
 }

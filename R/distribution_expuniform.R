@@ -6,8 +6,7 @@
 #'
 #' @export
 #'
-#' @seealso
-#' [dynparam]
+#' @seealso [dynparam] for an overview of all dynparam functionality.
 #'
 #' @examples
 #' expuniform_distribution(1, 10000)

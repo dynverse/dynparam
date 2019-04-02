@@ -20,5 +20,5 @@ expuniform_distribution(1, 10000)
 expuniform_distribution(1e-5, 1e-2)
 }
 \seealso{
-\link{dynparam}
+\link{dynparam} for an overview of all dynparam functionality.
 }

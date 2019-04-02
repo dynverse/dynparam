@@ -4,8 +4,7 @@
 #'
 #' @inheritParams distribution
 #'
-#' @seealso
-#' [dynparam]
+#' @seealso [dynparam] for an overview of all dynparam functionality.
 #'
 #' @export
 #'
