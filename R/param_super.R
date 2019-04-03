@@ -1,4 +1,20 @@
-#' Helper functions for converting parameters from and to other formats
+#' Defining, serialising and printing parameters
+#'
+#' Multiple parameters can be combined in a parameter set.
+#' The sections below contain information on how to create, serialise
+#' and process a parameter.
+#'
+#' @section Creating a parameter:
+#' * [character_parameter()], [integer_parameter()], [logical_parameter()], [numeric_parameter()]: Creating parameters with basic R data types.
+#' * [integer_range_parameter()], [numeric_range_parameter()]: Create a discrete or continuous range parameter.
+#' * [subset_parameter()]: A parameter containing a subset of a set of values.
+#' * [parameter()]: An abstract function to be used by other parameter functions.
+#'
+#' @section Serialisation:
+#' * `as.list(param)`: Converting a parameter to a list.
+#' * `as_parameter(li)`: Converting a list back to a parameter.
+#' * `is_parameter(x)`: Checking whether something is a parameter.
+#' * `as_descriptive_tibble(param)`: Convert to a tibble containing meta information.
 #'
 #' @param id The name of the parameter.
 #' @param default The default value of the parameter.
@@ -8,7 +24,42 @@
 #' @param x An object (parameter or distribution) to be converted.
 #' @param li A list to be converted into a parameter.
 #'
-#' @seealso [character_parameter()], [integer_parameter()], [logical_parameter()], [numeric_parameter()], [integer_range_parameter()], [numeric_range_parameter()], [subset_parameter()], [dynparam]
+#' @seealso [dynparam] for an overview of all dynparam functionality.
+#'
+#' @export
+#'
+#' @examples
+#' int_param <- integer_parameter(
+#'   id = "num_iter",
+#'   default = 100L,
+#'   distribution = expuniform_distribution(lower = 1L, upper = 10000L),
+#'   description = "Number of iterations"
+#' )
+#'
+#' print(int_param)
+#' li <- as.list(int_param)
+#' print(as_parameter(li))
+#'
+#' subset_param <- subset_parameter(
+#'   id = "dimreds",
+#'   default = c("pca", "mds"),
+#'   values = c("pca", "mds", "tsne", "umap", "ica"),
+#'   description = "Which dimensionality reduction methods to apply (can be multiple)"
+#' )
+#'
+#' int_range_param <- integer_range_parameter(
+#'   id = "ks",
+#'   default = c(3L, 15L),
+#'   lower_distribution = uniform_distribution(1L, 5L),
+#'   upper_distribution = uniform_distribution(10L, 20L),
+#'   description = "The numbers of clusters to be evaluated"
+#' )
+#'
+#' parameter_set(
+#'   int_param,
+#'   subset_param,
+#'   int_range_param
+#' )
 parameter <- function(
   id,
   default,
@@ -34,11 +85,15 @@ parameter <- function(
 }
 
 #' @export
-#' @rdname parameter
 as.character.parameter <- function(x, ...) {
   lis <- as_descriptive_tibble(x) %>% unlist()
 
   ifelse(names(lis) == "id", lis, paste0(names(lis), "=", lis)) %>% paste0(collapse = " | ")
+}
+
+#' @export
+print.parameter <- function(x, ...) {
+  cat(as.character(x))
 }
 
 #' @rdname parameter
@@ -94,12 +149,6 @@ on_failure(is_parameter) <- function(call, env) {
   paste0(deparse(call$x), " is not a parameter")
 }
 
-#' @export
-#' @rdname parameter
-print.parameter <- function(x, ...) {
-  cat(as.character(x))
-}
-
 #' Get a description of the parameter
 #'
 #' @param x The parameter
@@ -139,6 +188,16 @@ get_description <- function(
 
 #' @export
 #' @rdname parameter
-as_roxygen.parameter <- function(x) {
-  paste0("@param ", x$id, " ", get_description(x, sep = ". "), ".")
+as_descriptive_tibble <- function(x) {
+  UseMethod("as_descriptive_tibble")
+}
+
+#' @export
+as_descriptive_tibble.parameter <- function(x) {
+  tibble(
+    id = x$id,
+    type = "abstract",
+    domain = NA,
+    default = collapse_set(x$default)
+  )
 }

@@ -3,17 +3,26 @@
 \name{parameter_set}
 \alias{parameter_set}
 \alias{is_parameter_set}
-\alias{as_paramhelper.parameter_set}
 \alias{as.list.parameter_set}
+\alias{as_parameter_set}
+\alias{get_defaults}
+\alias{sip}
+\alias{as_paramhelper}
 \title{Parameter set helper functions}
 \usage{
 parameter_set(..., parameters = NULL, forbidden = NULL)
 
 is_parameter_set(x)
 
-\method{as_paramhelper}{parameter_set}(x)
-
 \method{as.list}{parameter_set}(x, ...)
+
+as_parameter_set(li)
+
+get_defaults(x)
+
+sip(x, n = 1, as_tibble = TRUE)
+
+as_paramhelper(x)
 }
 \arguments{
 \item{...}{Parameters to wrap in a parameter set.}
@@ -23,10 +32,61 @@ is_parameter_set(x)
 \item{forbidden}{States forbidden region of parameter via a character vector, which will be turned into an expression.}
 
 \item{x}{An object for which to check whether it is a parameter set.}
+
+\item{li}{A list to be converted into a parameter set.}
+
+\item{n}{Number of objects to return.}
+
+\item{as_tibble}{Whether or not to return as a tibble.}
 }
 \description{
 Parameter set helper functions
 }
+\section{Parameter set instatiations}{
+
+\itemize{
+\item \code{get_defaults()}: Get all default parameters.
+\item \code{sip()}: It's like \code{sample()}, but for parameter sets.
+\item \code{as_paramhelper()}: Convert a parameter set to a ParamHelpers object.
+}
+}
+
+\section{Serialisation}{
+
+\itemize{
+\item \code{as.list()}: Converting a parameter set to a list.
+\item \code{as_parameter_set()}: Converting a list back to a parameter set.
+\item \code{is_parameter_set(x)}: Checking whether something is a parameter set.
+}
+}
+
+\examples{
+parameters <- parameter_set(
+  integer_parameter(
+    id = "num_iter",
+    default = 100L,
+    distribution = expuniform_distribution(lower = 1L, upper = 10000L),
+    description = "Number of iterations"
+  ),
+  subset_parameter(
+    id = "dimreds",
+    default = c("pca", "mds"),
+    values = c("pca", "mds", "tsne", "umap", "ica"),
+    description = "Which dimensionality reduction methods to apply (can be multiple)"
+  ),
+  integer_range_parameter(
+    id = "ks",
+    default = c(3L, 15L),
+    lower_distribution = uniform_distribution(1L, 5L),
+    upper_distribution = uniform_distribution(10L, 20L),
+    description = "The numbers of clusters to be evaluated"
+  )
+)
+
+get_defaults(parameters)
+
+sip(parameters, n = 1)
+}
 \seealso{
-\code{\link[=character_parameter]{character_parameter()}}, \code{\link[=integer_parameter]{integer_parameter()}}, \code{\link[=logical_parameter]{logical_parameter()}}, \code{\link[=numeric_parameter]{numeric_parameter()}}, \code{\link[=integer_range_parameter]{integer_range_parameter()}}, \code{\link[=numeric_range_parameter]{numeric_range_parameter()}}, \code{\link[=subset_parameter]{subset_parameter()}}, \link{dynparam}
+\link{dynparam} for an overview of all dynparam functionality.
 }

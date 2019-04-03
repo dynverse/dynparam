@@ -29,3 +29,6 @@ subset_parameter(
   description = "Which dimensionality reduction methods to apply (can be multiple)"
 )
 }
+\seealso{
+\link{dynparam} for an overview of all dynparam functionality.
+}

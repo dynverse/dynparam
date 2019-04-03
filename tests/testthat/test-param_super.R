@@ -17,10 +17,14 @@ test_that("is_parameter works", {
 
   lis <- list(a = 1, b = 2)
   expect_false(is_parameter(lis))
+
+  expect_match(get_description(dis), "Value")
+  expect_match(get_description(dis), "abstract")
+  expect_match(get_description(dis), "10")
 })
 
-# test_that("print and cat works", {
-#   dis <- parameter(id = "param", default = 10)
-#   expect_match(as.character(dis), "parameter\\(id = \"param\", default = 10")
-#   expect_output(print(dis), "parameter\\(id = \"param\", default = 10")
-# })
+test_that("print and cat works", {
+  dis <- parameter(id = "param", default = 10)
+  expect_match(as.character(dis), "param \\| type=abstract \\| domain=NA \\| default=10")
+  expect_output(print(dis), "param \\| type=abstract \\| domain=NA \\| default=10")
+})

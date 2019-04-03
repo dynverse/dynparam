@@ -2,9 +2,7 @@
 #'
 #' @inheritParams parameter
 #' @param lower_distribution A distribution from which the lower value of the range can be sampled.
-#'   See [?dynparam][dynparam::dynparam] for a list of possible distributions.
 #' @param upper_distribution A distribution from which the upper value fo the range can be sampled.
-#'   See [?dynparam][dynparam::dynparam] for a list of possible distributions.
 range_parameter <- function(
   id,
   default,
@@ -84,7 +82,6 @@ as_paramhelper.range_parameter <- function(x) {
 }
 
 #' @export
-#' @rdname super
 as_descriptive_tibble.range_parameter <- function(x) {
   tibble(
     id = x$id,

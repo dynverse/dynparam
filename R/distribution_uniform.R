@@ -1,6 +1,10 @@
 #' Uniform distribution
 #'
+#' Distributions are used for defining the domain of an [integer_parameter()] or [numeric_parameter()].
+#'
 #' @inheritParams distribution
+#'
+#' @seealso [dynparam] for an overview of all dynparam functionality.
 #'
 #' @export
 #'

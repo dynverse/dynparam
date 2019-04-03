@@ -4,6 +4,8 @@
 #'
 #' @export
 #'
+#' @seealso [dynparam] for an overview of all dynparam functionality.
+#'
 #' @examples
 #' logical_parameter(
 #'   id = "scale",
@@ -46,7 +48,6 @@ as_paramhelper.logical_parameter <- function(x) {
 }
 
 #' @export
-#' @rdname super
 as_descriptive_tibble.logical_parameter <- function(x) {
   tibble(
     id = x$id,

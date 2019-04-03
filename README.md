@@ -3,225 +3,26 @@
 
 # dynparam
 
+Provides tools for describing parameters of algorithms in an abstract
+way. Description can include an id, a description, a domain (range or
+list of values), and a default value. ‘dynparam’ can also convert
+parameter sets to a `ParamHelpers` format, in order to be able to use
+`dynparam` in conjunction with `mlrMBO`. Check `?dynparam` for an
+overview of all functionality provided by dynparam.
+
+## Examples
+
+The main goal of `dynparam` is to be able to describe a set of
+parameters, be able to serialise the parameter sets, and also sample
+random settings from the parameter set.
+
 ``` r
 library(tidyverse)
 library(dynparam)
 set.seed(1)
 ```
 
-## Integer parameter
-
-``` r
-param <- integer_parameter(
-  id = "num_iter", 
-  default = 100L,
-  distribution = expuniform_distribution(lower = 1L, upper = 10000L),
-  description = "Number of iterations"
-)
-param
-```
-
-    ## num_iter | type=integer | domain=e^U(0.00, 9.21) | default=100
-
-It can be transformed to a list, then to a yaml:
-
-``` r
-ya <- yaml::as.yaml(as.list(param))
-cat(ya)
-```
-
-``` yaml
-id: num_iter
-default: 100
-description: Number of iterations
-tuneable: yes
-distribution:
-  lower: 1
-  upper: 10000
-  type: expuniform
-type: integer
-```
-
-And back:
-
-``` r
-as_parameter(yaml::yaml.load(ya))
-```
-
-    ## num_iter | type=integer | domain=e^U(0.00, 9.21) | default=100
-
-## Numeric parameter
-
-``` r
-param <- numeric_parameter(
-  id = "delta", 
-  default = c(4.5, 2.4, 1.9), 
-  distribution = normal_distribution(mean = 5, sd = 1),
-  description = "Multiplying factors"
-)
-param
-```
-
-    ## delta | type=numeric | domain=N(5, 1) | default={4.5, 2.4, 1.9}
-
-As yaml:
-
-``` r
-cat(yaml::as.yaml(as.list(param)))
-```
-
-``` yaml
-id: delta
-default:
-- 4.5
-- 2.4
-- 1.9
-description: Multiplying factors
-tuneable: yes
-distribution:
-  lower: -.inf
-  upper: .inf
-  mean: 5.0
-  sd: 1.0
-  type: normal
-type: numeric
-```
-
-## Character parameter
-
-``` r
-param <- character_parameter(
-  id = "method", 
-  default = "kendall",
-  values = c("kendall", "spearman", "pearson"), 
-  description = "Correlation method"
-)
-param
-```
-
-    ## method | type=character | domain={kendall, spearman, pearson} | default=kendall
-
-As yaml:
-
-``` r
-cat(yaml::as.yaml(as.list(param)))
-```
-
-``` yaml
-id: method
-default: kendall
-description: Correlation method
-tuneable: yes
-values:
-- kendall
-- spearman
-- pearson
-type: character
-```
-
-## Logical parameter
-
-``` r
-param <- logical_parameter(
-  id = "inverse",
-  default = TRUE, 
-  description = "Inversion parameter"
-)
-param
-```
-
-    ## inverse | type=logical | default=TRUE
-
-As yaml:
-
-``` r
-cat(yaml::as.yaml(as.list(param)))
-```
-
-``` yaml
-id: inverse
-default: yes
-description: Inversion parameter
-tuneable: yes
-type: logical
-```
-
-## Subset parameter
-
-``` r
-param <- subset_parameter(
- id = "dimreds",
- default = c("pca", "mds"),
- values = c("pca", "mds", "tsne", "umap", "ica"),
- description = "Which dimensionality reduction methods to apply (can be multiple)"
-)
-param
-```
-
-    ## dimreds | type=subset | domain=all subsets of {pca, mds, tsne, umap, ica} | default={pca, mds}
-
-As yaml:
-
-``` r
-cat(yaml::as.yaml(as.list(param)))
-```
-
-``` yaml
-id: dimreds
-default:
-- pca
-- mds
-description: Which dimensionality reduction methods to apply (can be multiple)
-tuneable: yes
-values:
-- pca
-- mds
-- tsne
-- umap
-- ica
-type: subset
-```
-
-## Range parameter
-
-``` r
-param <- integer_range_parameter(
-  id = "ks",
-  default = c(3L, 15L),
-  lower_distribution = uniform_distribution(1L, 5L),
-  upper_distribution = uniform_distribution(10L, 20L),
-  description = "The numbers of clusters to be evaluated."
-)
-param
-```
-
-    ## ks | type=integer_range | domain=( U(1, 5), U(10, 20) ) | default=(3, 15)
-
-As yaml:
-
-``` r
-cat(yaml::as.yaml(as.list(param)))
-```
-
-``` yaml
-id: ks
-default:
-- 3
-- 15
-description: The numbers of clusters to be evaluated.
-tuneable: yes
-lower_distribution:
-  lower: 1
-  upper: 5
-  type: uniform
-upper_distribution:
-  lower: 10
-  upper: 20
-  type: uniform
-type: integer_range
-```
-
-## Example of parameter set
+Define a parameter set as follows:
 
 ``` r
 parameters <- parameter_set(
@@ -231,85 +32,112 @@ parameters <- parameter_set(
     distribution = expuniform_distribution(lower = 1L, upper = 10000L),
     description = "Number of iterations"
   ),
-
-  numeric_parameter(
-    id = "delta",
-    default = c(4.5, 2.4, 1.9),
-    distribution = normal_distribution(mean = 5, sd = 1),
-    description = "Multiplying factors"
-  ),
-
-  character_parameter(
-    id = "method",
-    default = "kendall",
-    values = c("kendall", "spearman", "pearson"),
-    description = "Correlation method"
-  ),
-
-  logical_parameter(
-    id = "inverse",
-    default = TRUE,
-    description = "Inversion parameter"
-  ),
-
   subset_parameter(
     id = "dimreds",
     default = c("pca", "mds"),
     values = c("pca", "mds", "tsne", "umap", "ica"),
     description = "Which dimensionality reduction methods to apply (can be multiple)"
   ),
-  
   integer_range_parameter(
     id = "ks",
     default = c(3L, 15L),
     lower_distribution = uniform_distribution(1L, 5L),
     upper_distribution = uniform_distribution(10L, 20L),
     description = "The numbers of clusters to be evaluated"
-  ),
-
-  numeric_range_parameter(
-    id = "quantiles",
-    default = c(0.15, 0.90),
-    lower_distribution = uniform_distribution(0, .4),
-    upper_distribution = uniform_distribution(.6, 1),
-    description = "Quantile cutoff range"
-  ),
-  
-  forbidden = "inverse == (method == 'kendall')"
+  )
 )
 ```
 
-As paramhelper object:
+You can retrieve the default parameters as follows:
 
 ``` r
-paramset <- as_paramhelper(parameters)
-
-paramset %>%
-  ParamHelpers::generateDesign(n = 1) %>% 
-  ParamHelpers::dfRowToList(paramset, 1) %>% 
-  ParamHelpers::trafoValue(paramset, .)
+get_defaults(parameters)
 ```
 
     ## $num_iter
-    ## [1] 247
-    ## 
-    ## $delta
-    ## [1] 5.153253 5.065288 7.172612
-    ## 
-    ## $method
-    ## [1] "spearman"
-    ## 
-    ## $inverse
-    ## [1] TRUE
+    ## [1] 100
     ## 
     ## $dimreds
-    ## [1] "mds"  "tsne" "ica" 
+    ## [1] "pca" "mds"
     ## 
     ## $ks
-    ## [1]  2 17
-    ## 
-    ## $quantiles
-    ## [1] 0.04199506 0.94581798
+    ## [1]  3 15
+
+Serialise a parameter set from/to json/yaml with the `as.list()` and
+`as_parameter_set()` functions.
+
+``` r
+li <- as.list(parameters)
+pa <- as_parameter_set(li)
+```
+
+Sample a parameter set using with `sip()`:
+
+``` r
+sip(pa, n = 3)
+```
+
+    ## Loading required namespace: ParamHelpers
+
+    ## Loading required namespace: lhs
+
+    ## # A tibble: 3 x 4
+    ##   num_iter dimreds   ks        .object_class
+    ##      <int> <list>    <list>    <list>       
+    ## 1        2 <chr [2]> <dbl [2]> <chr [1]>    
+    ## 2     2003 <chr [2]> <dbl [2]> <chr [1]>    
+    ## 3        5 <chr [3]> <dbl [2]> <chr [1]>
+
+### Large parameter set
+
+``` r
+parameters <- parameter_set(
+  integer_parameter(
+    id = "num_iter", 
+    default = 100L,
+    distribution = expuniform_distribution(lower = 1L, upper = 10000L),
+    description = "Number of iterations"
+  ),
+  numeric_parameter(
+  id = "delta", 
+  default = c(4.5, 2.4, 1.9), 
+  distribution = normal_distribution(mean = 5, sd = 1),
+  description = "Multiplying factors"
+),
+  character_parameter(
+  id = "method", 
+  default = "kendall",
+  values = c("kendall", "spearman", "pearson"), 
+  description = "Correlation method"
+),
+  logical_parameter(
+  id = "inverse",
+  default = TRUE, 
+  description = "Inversion parameter"
+),
+  subset_parameter(
+ id = "dimreds",
+ default = c("pca", "mds"),
+ values = c("pca", "mds", "tsne", "umap", "ica"),
+ description = "Which dimensionality reduction methods to apply (can be multiple)"
+),
+  integer_range_parameter(
+  id = "ks",
+  default = c(3L, 15L),
+  lower_distribution = uniform_distribution(1L, 5L),
+  upper_distribution = uniform_distribution(10L, 20L),
+  description = "The numbers of clusters to be evaluated."
+),
+  numeric_range_parameter(
+  id = "quantiles",
+  default = c(0.15, 0.90),
+  lower_distribution = uniform_distribution(0, .4),
+  upper_distribution = uniform_distribution(.6, 1),
+  description = "Quantile cutoff range"
+),
+  forbidden = "inverse == (method == 'kendall')"
+)
+```
 
 As yaml:
 
@@ -372,7 +200,7 @@ cat(yaml::as.yaml(as.list(parameters)))
   default:
   - 3
   - 15
-  description: The numbers of clusters to be evaluated
+  description: The numbers of clusters to be evaluated.
   tuneable: yes
   lower_distribution:
     lower: 1
@@ -401,15 +229,52 @@ cat(yaml::as.yaml(as.list(parameters)))
 - forbidden: inverse == (method == 'kendall')
 ```
 
+Generate a random parameter set:
+
+``` r
+sip(parameters, n = 2)
+```
+
+    ## # A tibble: 2 x 8
+    ##   num_iter delta   method  inverse dimreds  ks      quantiles .object_class
+    ##      <int> <list>  <chr>   <lgl>   <list>   <list>  <list>    <list>       
+    ## 1       90 <dbl [… spearm… TRUE    <chr [3… <dbl [… <dbl [2]> <chr [1]>    
+    ## 2      332 <dbl [… spearm… TRUE    <chr [4… <dbl [… <dbl [2]> <chr [1]>
+
+Convert paramhelper
+    object:
+
+``` r
+as_paramhelper(parameters)
+```
+
+    ##                    Type len             Def                   Constr Req
+    ## num_iter        numeric   -             0.5                   0 to 1   -
+    ## delta     numericvector   3 0.309,0.0046...                   0 to 1   -
+    ## method         discrete   -         kendall kendall,spearman,pearson   -
+    ## inverse         logical   -            TRUE                        -   -
+    ## dimreds   integervector   5       1,1,0,0,0                   0 to 1   -
+    ## ks        numericvector   2         0.5,0.5                   0 to 1   -
+    ## quantiles numericvector   2      0.375,0.75                   0 to 1   -
+    ##           Tunable Trafo
+    ## num_iter     TRUE     Y
+    ## delta        TRUE     Y
+    ## method       TRUE     -
+    ## inverse      TRUE     -
+    ## dimreds      TRUE     Y
+    ## ks           TRUE     Y
+    ## quantiles    TRUE     Y
+    ## Forbidden region specified.
+
 ## Latest changes
 
-Check out `news(package = "dynwrap")` or [NEWS.md](inst/NEWS.md) for a
+Check out `news(package = "dynparam")` or [NEWS.md](inst/NEWS.md) for a
 full list of
 changes.
 
 <!-- This section gets automatically generated from inst/NEWS.md, and also generates inst/NEWS -->
 
-### Recent changes in dynparam 1.0.0 (unreleased)
+### Recent changes in dynparam 1.0.0 (02-04-2019)
 
   - INITIAL RELEASE: dynparam helps describe method
 parameters.
