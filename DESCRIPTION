@@ -36,7 +36,6 @@ Imports:
   carrier,
   dplyr,
   dynutils (>= 1.0.2),
-  Hmisc,
   magrittr,
   purrr,
   stringr,
