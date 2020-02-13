@@ -24,7 +24,7 @@ Description: Provides tools for describing parameters of algorithms in an abstra
   Description can include an id, a description, a domain (range or list of values),
   and a default value. 'dynparam' can also convert parameter sets to a 'ParamHelpers' format, 
   in order to be able to use 'dynparam' in conjunction with 'mlrMBO'.
-License: GPL-3
+License: MIT + LICENSE file
 LazyData: TRUE
 RoxygenNote: 6.1.1
 Roxygen: list(markdown = TRUE)
@@ -45,5 +45,5 @@ Imports:
 Suggests:
   ParamHelpers,
   lhs
-Remotes:  
+Remotes: 
     dynverse/dynutils@devel
