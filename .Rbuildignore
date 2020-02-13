@@ -10,3 +10,5 @@
 ^appveyor\.yml$
 ^containers$
 ^README\.Rmd$
+^LICENSE\.md$
+^LICENSE\.md$
