@@ -236,13 +236,12 @@ sip(parameters, n = 2)
 ```
 
     ## # A tibble: 2 x 8
-    ##   num_iter delta   method  inverse dimreds  ks      quantiles .object_class
-    ##      <int> <list>  <chr>   <lgl>   <list>   <list>  <list>    <list>       
-    ## 1       90 <dbl [… spearm… TRUE    <chr [3… <dbl [… <dbl [2]> <chr [1]>    
-    ## 2      332 <dbl [… spearm… TRUE    <chr [4… <dbl [… <dbl [2]> <chr [1]>
+    ##   num_iter delta     method  inverse dimreds   ks        quantiles .object_class
+    ##      <int> <list>    <chr>   <lgl>   <list>    <list>    <list>    <list>       
+    ## 1     1823 <dbl [3]> kendall FALSE   <chr [3]> <dbl [2]> <dbl [2]> <chr [1]>    
+    ## 2      125 <dbl [3]> pearson TRUE    <chr [2]> <dbl [2]> <dbl [2]> <chr [1]>
 
-Convert paramhelper
-    object:
+Convert paramhelper object:
 
 ``` r
 as_paramhelper(parameters)
@@ -268,16 +267,20 @@ as_paramhelper(parameters)
 
 ## Latest changes
 
-Check out `news(package = "dynparam")` or [NEWS.md](NEWS.md) for a
-full list of
-changes.
+Check out `news(package = "dynparam")` or [NEWS.md](NEWS.md) for a full
+list of changes.
 
-<!-- This section gets automatically generated from inst/NEWS.md, and also generates inst/NEWS -->
+<!-- This section gets automatically generated from NEWS.md, and also generates inst/NEWS -->
+
+### Recent changes in dynparam 1.0.1 (24-06-2020)
+
+  - MINOR CHANGES: Move testthat to Suggests.
+  - MINOR CHANGES: Use `expect_equal(., ., tolerance = .)` instead of
+    `expect_lte(abs(. - .), .)` in tests.
 
 ### Recent changes in dynparam 1.0.0 (02-04-2019)
 
-  - INITIAL RELEASE: dynparam helps describe method
-parameters.
+  - INITIAL RELEASE: dynparam helps describe method parameters.
 
 ## Dynverse dependencies
 
