@@ -12,27 +12,27 @@ test_that("expuniform_distribution works with random values", {
 
   # create distribution
   dis <- expuniform_distribution(lower = lower, upper = upper)
-  expect_lte(abs(dis$lower - lower), 1e-5)
-  expect_lte(abs(dis$upper - upper), 1e-5)
+  expect_equal(dis$lower, lower, tolerance = 1e-4)
+  expect_equal(dis$upper, upper, tolerance = 1e-4)
 
   # transform to list
   lis <- as.list(dis)
   expect_equal(lis$type, gsub("_distribution", "", class(dis))[[1]])
-  expect_lte(abs(lis$lower - lower), 1e-5)
-  expect_lte(abs(lis$upper - upper), 1e-5)
+  expect_equal(lis$lower, lower, tolerance = 1e-4)
+  expect_equal(lis$upper, upper, tolerance = 1e-4)
 
   # transform back to distribution
   dis2 <- as_distribution(lis)
   expect_equal(class(dis2), class(dis))
-  expect_lte(abs(dis2$lower - lower), 1e-5)
-  expect_lte(abs(dis2$upper - upper), 1e-5)
+  expect_equal(dis2$lower, lower, tolerance = 1e-4)
+  expect_equal(dis2$upper, upper, tolerance = 1e-4)
 
   # test dist and quan functions
   dfun <- distribution_function(dis)
   qfun <- quantile_function(dis)
 
-  expect_true(all(abs(qfun(c(0, 0.5, 1)) - c(lower, middle, upper)) < 1e-5))
-  expect_true(all(abs(dfun(c(lower, middle, upper)) - c(0, .5, 1)) < 1e-5))
+  expect_equal(qfun(c(0, 0.5, 1)), c(lower, middle, upper), tolerance = 1e-4)
+  expect_equal(dfun(c(lower, middle, upper)), c(0, .5, 1), tolerance = 1e-4)
 })
 
 test_that("expuniform_distribution errors when expected", {

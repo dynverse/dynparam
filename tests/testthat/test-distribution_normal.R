@@ -15,29 +15,29 @@ test_that("normal_distribution works with random values", {
 
   # create distribution
   dis <- normal_distribution(mean = mean, sd = sd)
-  expect_lte(abs(dis$mean - mean), 1e-5)
-  expect_lte(abs(dis$sd - sd), 1e-5)
+  expect_equal(dis$mean, mean, tolerance = 1e-4)
+  expect_equal(dis$sd, sd, tolerance = 1e-4)
 
   # transform to list
   lis <- as.list(dis)
   expect_equal(lis$type, gsub("_distribution", "", class(dis))[[1]])
-  expect_lte(abs(lis$mean - mean), 1e-5)
-  expect_lte(abs(lis$sd - sd), 1e-5)
+  expect_equal(lis$mean, mean, tolerance = 1e-4)
+  expect_equal(lis$sd, sd, tolerance = 1e-4)
 
   # transform back to distribution
   dis2 <- as_distribution(lis)
   expect_equal(class(dis2), class(dis))
-  expect_lte(abs(dis2$mean - mean), 1e-5)
-  expect_lte(abs(dis2$sd - sd), 1e-5)
+  expect_equal(dis2$mean, mean, tolerance = 1e-4)
+  expect_equal(dis2$sd, sd, tolerance = 1e-4)
 
   # test dist and quan functions
   dfun <- distribution_function(dis)
   qfun <- quantile_function(dis)
 
   expect_equal(qfun(0), -Inf)
-  expect_lte(abs(qfun(0.5) - mean), 1e-5)
+  expect_equal(qfun(0.5), mean, tolerance = 1e-4)
   expect_equal(qfun(1), Inf)
-  expect_true(all(abs(dfun(c(-Inf, mean, Inf)) - c(0, .5, 1)) < 1e-5))
+  expect_equal(dfun(c(-Inf, mean, Inf)), c(0, .5, 1), tolerance = 1e-4)
 })
 
 test_that("normal_distribution with limits works with random values", {
@@ -48,20 +48,20 @@ test_that("normal_distribution with limits works with random values", {
 
   # create distribution
   dis <- normal_distribution(mean = mean, sd = sd, lower = lower, upper = upper)
-  expect_lte(abs(dis$lower - lower), 1e-5)
-  expect_lte(abs(dis$upper - upper), 1e-5)
+  expect_equal(dis$lower, lower, tolerance = 1e-4)
+  expect_equal(dis$upper, upper, tolerance = 1e-4)
 
   # transform to list
   lis <- as.list(dis)
   expect_equal(lis$type, gsub("_distribution", "", class(dis))[[1]])
-  expect_lte(abs(lis$lower - lower), 1e-5)
-  expect_lte(abs(lis$upper - upper), 1e-5)
+  expect_equal(lis$lower, lower, tolerance = 1e-4)
+  expect_equal(lis$upper, upper, tolerance = 1e-4)
 
   # transform back to distribution
   dis2 <- as_distribution(lis)
   expect_equal(class(dis2), class(dis))
-  expect_lte(abs(dis2$lower - lower), 1e-5)
-  expect_lte(abs(dis2$upper - upper), 1e-5)
+  expect_equal(dis2$lower, lower, tolerance = 1e-4)
+  expect_equal(dis2$upper, upper, tolerance = 1e-4)
 })
 
 test_that("normal_distribution errors when expected", {
