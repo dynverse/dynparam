@@ -26,7 +26,7 @@ Description: Provides tools for describing parameters of algorithms in an abstra
   in order to be able to use 'dynparam' in conjunction with 'mlrMBO'.
 License: MIT + file LICENSE
 LazyData: TRUE
-RoxygenNote: 6.1.1
+RoxygenNote: 7.1.0
 Roxygen: list(markdown = TRUE)
 Encoding: UTF-8
 Depends:
@@ -39,11 +39,9 @@ Imports:
   magrittr,
   purrr,
   stringr,
-  testthat,
   tibble,
   tidyr
 Suggests:
+  lhs,
   ParamHelpers,
-  lhs
-Remotes: 
-    dynverse/dynutils@devel
+  testthat
