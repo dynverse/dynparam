@@ -4,8 +4,14 @@
 \alias{numeric_range_parameter}
 \title{Define a numeric range parameter}
 \usage{
-numeric_range_parameter(id, default, lower_distribution,
-  upper_distribution, description = NULL, tuneable = TRUE)
+numeric_range_parameter(
+  id,
+  default,
+  lower_distribution,
+  upper_distribution,
+  description = NULL,
+  tuneable = TRUE
+)
 }
 \arguments{
 \item{id}{The name of the parameter.}

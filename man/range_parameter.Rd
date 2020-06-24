@@ -4,8 +4,14 @@
 \alias{range_parameter}
 \title{Define a range parameter}
 \usage{
-range_parameter(id, default, lower_distribution, upper_distribution,
-  description = NULL, tuneable = TRUE)
+range_parameter(
+  id,
+  default,
+  lower_distribution,
+  upper_distribution,
+  description = NULL,
+  tuneable = TRUE
+)
 }
 \arguments{
 \item{id}{The name of the parameter.}

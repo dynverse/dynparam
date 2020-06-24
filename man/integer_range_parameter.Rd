@@ -4,8 +4,14 @@
 \alias{integer_range_parameter}
 \title{Define a integer range parameter}
 \usage{
-integer_range_parameter(id, default, lower_distribution,
-  upper_distribution, description = NULL, tuneable = TRUE)
+integer_range_parameter(
+  id,
+  default,
+  lower_distribution,
+  upper_distribution,
+  description = NULL,
+  tuneable = TRUE
+)
 }
 \arguments{
 \item{id}{The name of the parameter.}

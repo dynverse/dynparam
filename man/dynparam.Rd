@@ -3,7 +3,6 @@
 \docType{package}
 \name{dynparam}
 \alias{dynparam}
-\alias{dynparam-package}
 \title{Creating meta-information for parameters}
 \description{
 Provides tools for describing parameters of algorithms in an abstract way.

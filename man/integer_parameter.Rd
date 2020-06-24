@@ -4,8 +4,13 @@
 \alias{integer_parameter}
 \title{Define a integer parameter}
 \usage{
-integer_parameter(id, default, distribution, description = NULL,
-  tuneable = TRUE)
+integer_parameter(
+  id,
+  default,
+  distribution,
+  description = NULL,
+  tuneable = TRUE
+)
 }
 \arguments{
 \item{id}{The name of the parameter.}
