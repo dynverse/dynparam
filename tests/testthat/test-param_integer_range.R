@@ -10,11 +10,11 @@ test_that("k cluster test", {
   )
 
   expect_is(p, "integer_range_parameter")
-  expect_equal(p$id, "ks")
-  expect_equal(p$default, c(3L, 15L))
-  expect_equal(p$lower_distribution, uniform_distribution(2L, 5L))
-  expect_equal(p$upper_distribution, uniform_distribution(10L, 20L))
-  expect_equal(p$description, "The number of clusters.")
+  expect_equal(p$id, "ks", check.environment = FALSE)
+  expect_equal(p$default, c(3L, 15L), check.environment = FALSE)
+  expect_equal(p$lower_distribution, uniform_distribution(2L, 5L), check.environment = FALSE)
+  expect_equal(p$upper_distribution, uniform_distribution(10L, 20L), check.environment = FALSE)
+  expect_equal(p$description, "The number of clusters.", check.environment = FALSE)
 
   expect_match(as.character(p), "range")
   expect_match(as.character(p), "ks")
@@ -24,23 +24,23 @@ test_that("k cluster test", {
 
   li <- as.list(p)
 
-  expect_equal(li$type, "integer_range")
-  expect_equal(li$id, "ks")
-  expect_equal(li$default, c(3L, 15L))
-  expect_equal(li$lower_distribution, as.list(uniform_distribution(2L, 5L)))
-  expect_equal(li$upper_distribution, as.list(uniform_distribution(10L, 20L)))
-  expect_equal(li$description, "The number of clusters.")
+  expect_equal(li$type, "integer_range", check.environment = FALSE)
+  expect_equal(li$id, "ks", check.environment = FALSE)
+  expect_equal(li$default, c(3L, 15L), check.environment = FALSE)
+  expect_equal(li$lower_distribution, as.list(uniform_distribution(2L, 5L)), check.environment = FALSE)
+  expect_equal(li$upper_distribution, as.list(uniform_distribution(10L, 20L)), check.environment = FALSE)
+  expect_equal(li$description, "The number of clusters.", check.environment = FALSE)
 
   p2 <- as_parameter(li)
-  expect_equal(p2, p)
+  expect_equal(p2, p, check.environment = FALSE)
 
   ph <- as_paramhelper(p)
 
-  expect_equal(ph$id, "ks")
-  expect_equal(ph$default, c((3L-2L) / (5L-2L), (15L-10L) / (20L-10L)))
-  expect_equal(ph$lower, c(0, 0))
-  expect_equal(ph$upper, c(1, 1))
-  expect_equal(ph$len, 2)
+  expect_equal(ph$id, "ks", check.environment = FALSE)
+  expect_equal(ph$default, c((3L-2L) / (5L-2L), (15L-10L) / (20L-10L)), check.environment = FALSE)
+  expect_equal(ph$lower, c(0, 0), check.environment = FALSE)
+  expect_equal(ph$upper, c(1, 1), check.environment = FALSE)
+  expect_equal(ph$len, 2, check.environment = FALSE)
 
   ps <- ParamHelpers::makeParamSet(ph)
   tval <-
@@ -48,7 +48,7 @@ test_that("k cluster test", {
     ParamHelpers::dfRowToList(par.set = ps, i = 1) %>%
     ParamHelpers::trafoValue(par = ps, .)
 
-  expect_equal(names(tval), "ks")
+  expect_equal(names(tval), "ks", check.environment = FALSE)
   expect_gte(tval$ks[[1]], 2)
   expect_lte(tval$ks[[1]], 5)
   expect_gte(tval$ks[[2]], 10)

@@ -9,10 +9,10 @@ test_that("correlation method test", {
   )
 
   expect_is(p, "character_parameter")
-  expect_equal(p$id, "method")
-  expect_equal(p$default, "pearson")
-  expect_equal(p$values, c("pearson", "spearman", "kendall"))
-  expect_equal(p$description, "Which correlation coefficient to compute.")
+  expect_equal(p$id, "method", check.environment = FALSE)
+  expect_equal(p$default, "pearson", check.environment = FALSE)
+  expect_equal(p$values, c("pearson", "spearman", "kendall"), check.environment = FALSE)
+  expect_equal(p$description, "Which correlation coefficient to compute.", check.environment = FALSE)
 
   expect_match(as.character(p), "character")
   expect_match(as.character(p), "method")
@@ -21,21 +21,21 @@ test_that("correlation method test", {
 
   li <- as.list(p)
 
-  expect_equal(li$type, "character")
-  expect_equal(li$id, "method")
-  expect_equal(li$default, "pearson")
-  expect_equal(li$values, c("pearson", "spearman", "kendall"))
-  expect_equal(li$description, "Which correlation coefficient to compute.")
+  expect_equal(li$type, "character", check.environment = FALSE)
+  expect_equal(li$id, "method", check.environment = FALSE)
+  expect_equal(li$default, "pearson", check.environment = FALSE)
+  expect_equal(li$values, c("pearson", "spearman", "kendall"), check.environment = FALSE)
+  expect_equal(li$description, "Which correlation coefficient to compute.", check.environment = FALSE)
 
   p2 <- as_parameter(li)
-  expect_equal(p2, p)
+  expect_equal(p2, p, check.environment = FALSE)
 
   ph <- as_paramhelper(p)
 
-  expect_equal(ph$id, "method")
-  expect_equal(ph$default, "pearson")
-  expect_equal(unlist(ph$values) %>% unname(), c("pearson", "spearman", "kendall"))
-  expect_equal(ph$len, 1)
+  expect_equal(ph$id, "method", check.environment = FALSE)
+  expect_equal(ph$default, "pearson", check.environment = FALSE)
+  expect_equal(unlist(ph$values) %>% unname(), c("pearson", "spearman", "kendall"), check.environment = FALSE)
+  expect_equal(ph$len, 1, check.environment = FALSE)
 
   expect_match(get_description(p), "correlation coefficient to compute")
   expect_match(get_description(p), "character")
@@ -50,10 +50,10 @@ test_that("multiple value test", {
     description = "persons"
   )
 
-  expect_equal(p$id, "winner")
-  expect_equal(p$default, c("bob", "celine"))
-  expect_equal(p$values, c("alice", "bob", "celine", "david", "eric", "filip"))
-  expect_equal(p$description, "persons")
+  expect_equal(p$id, "winner", check.environment = FALSE)
+  expect_equal(p$default, c("bob", "celine"), check.environment = FALSE)
+  expect_equal(p$values, c("alice", "bob", "celine", "david", "eric", "filip"), check.environment = FALSE)
+  expect_equal(p$description, "persons", check.environment = FALSE)
 
   expect_match(as.character(p), "character")
   expect_match(as.character(p), "winner")
@@ -62,21 +62,21 @@ test_that("multiple value test", {
 
   li <- as.list(p)
 
-  expect_equal(li$type, "character")
-  expect_equal(li$id, "winner")
-  expect_equal(li$default, c("bob", "celine"))
-  expect_equal(li$values, c("alice", "bob", "celine", "david", "eric", "filip"))
-  expect_equal(li$description, "persons")
+  expect_equal(li$type, "character", check.environment = FALSE)
+  expect_equal(li$id, "winner", check.environment = FALSE)
+  expect_equal(li$default, c("bob", "celine"), check.environment = FALSE)
+  expect_equal(li$values, c("alice", "bob", "celine", "david", "eric", "filip"), check.environment = FALSE)
+  expect_equal(li$description, "persons", check.environment = FALSE)
 
   p2 <- as_parameter(li)
-  expect_equal(p2, p)
+  expect_equal(p2, p, check.environment = FALSE)
 
   ph <- as_paramhelper(p)
 
-  expect_equal(ph$id, "winner")
-  expect_equal(unlist(unname(ph$default)), c("bob", "celine"))
-  expect_equal(unlist(unname(ph$values)), c("alice", "bob", "celine", "david", "eric", "filip"))
-  expect_equal(ph$len, 2)
+  expect_equal(ph$id, "winner", check.environment = FALSE)
+  expect_equal(unlist(unname(ph$default)), c("bob", "celine"), check.environment = FALSE)
+  expect_equal(unlist(unname(ph$values)), c("alice", "bob", "celine", "david", "eric", "filip"), check.environment = FALSE)
+  expect_equal(ph$len, 2, check.environment = FALSE)
 })
 
 test_that("wrong parse fails gracefully", {

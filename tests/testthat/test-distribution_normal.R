@@ -15,29 +15,29 @@ test_that("normal_distribution works with random values", {
 
   # create distribution
   dis <- normal_distribution(mean = mean, sd = sd)
-  expect_equal(dis$mean, mean, tolerance = 1e-4)
-  expect_equal(dis$sd, sd, tolerance = 1e-4)
+  expect_equal(dis$mean, mean, tolerance = 1e-4, check.environment = FALSE)
+  expect_equal(dis$sd, sd, tolerance = 1e-4, check.environment = FALSE)
 
   # transform to list
   lis <- as.list(dis)
-  expect_equal(lis$type, gsub("_distribution", "", class(dis))[[1]])
-  expect_equal(lis$mean, mean, tolerance = 1e-4)
-  expect_equal(lis$sd, sd, tolerance = 1e-4)
+  expect_equal(lis$type, gsub("_distribution", "", class(dis))[[1]], check.environment = FALSE)
+  expect_equal(lis$mean, mean, tolerance = 1e-4, check.environment = FALSE)
+  expect_equal(lis$sd, sd, tolerance = 1e-4, check.environment = FALSE)
 
   # transform back to distribution
   dis2 <- as_distribution(lis)
-  expect_equal(class(dis2), class(dis))
-  expect_equal(dis2$mean, mean, tolerance = 1e-4)
-  expect_equal(dis2$sd, sd, tolerance = 1e-4)
+  expect_equal(class(dis2), class(dis), check.environment = FALSE)
+  expect_equal(dis2$mean, mean, tolerance = 1e-4, check.environment = FALSE)
+  expect_equal(dis2$sd, sd, tolerance = 1e-4, check.environment = FALSE)
 
   # test dist and quan functions
   dfun <- distribution_function(dis)
   qfun <- quantile_function(dis)
 
-  expect_equal(qfun(0), -Inf)
-  expect_equal(qfun(0.5), mean, tolerance = 1e-4)
-  expect_equal(qfun(1), Inf)
-  expect_equal(dfun(c(-Inf, mean, Inf)), c(0, .5, 1), tolerance = 1e-4)
+  expect_equal(qfun(0), -Inf, check.environment = FALSE)
+  expect_equal(qfun(0.5), mean, tolerance = 1e-4, check.environment = FALSE)
+  expect_equal(qfun(1), Inf, check.environment = FALSE)
+  expect_equal(dfun(c(-Inf, mean, Inf)), c(0, .5, 1), tolerance = 1e-4, check.environment = FALSE)
 })
 
 test_that("normal_distribution with limits works with random values", {
@@ -48,20 +48,20 @@ test_that("normal_distribution with limits works with random values", {
 
   # create distribution
   dis <- normal_distribution(mean = mean, sd = sd, lower = lower, upper = upper)
-  expect_equal(dis$lower, lower, tolerance = 1e-4)
-  expect_equal(dis$upper, upper, tolerance = 1e-4)
+  expect_equal(dis$lower, lower, tolerance = 1e-4, check.environment = FALSE)
+  expect_equal(dis$upper, upper, tolerance = 1e-4, check.environment = FALSE)
 
   # transform to list
   lis <- as.list(dis)
-  expect_equal(lis$type, gsub("_distribution", "", class(dis))[[1]])
-  expect_equal(lis$lower, lower, tolerance = 1e-4)
-  expect_equal(lis$upper, upper, tolerance = 1e-4)
+  expect_equal(lis$type, gsub("_distribution", "", class(dis))[[1]], check.environment = FALSE)
+  expect_equal(lis$lower, lower, tolerance = 1e-4, check.environment = FALSE)
+  expect_equal(lis$upper, upper, tolerance = 1e-4, check.environment = FALSE)
 
   # transform back to distribution
   dis2 <- as_distribution(lis)
-  expect_equal(class(dis2), class(dis))
-  expect_equal(dis2$lower, lower, tolerance = 1e-4)
-  expect_equal(dis2$upper, upper, tolerance = 1e-4)
+  expect_equal(class(dis2), class(dis), check.environment = FALSE)
+  expect_equal(dis2$lower, lower, tolerance = 1e-4, check.environment = FALSE)
+  expect_equal(dis2$upper, upper, tolerance = 1e-4, check.environment = FALSE)
 })
 
 test_that("normal_distribution errors when expected", {
