@@ -1,7 +1,7 @@
 Package: dynparam
 Type: Package
 Title: Creating Meta-Information for Parameters
-Version: 1.0.1
+Version: 1.0.2
 Authors@R: c(
     person(
       "Robrecht", 
