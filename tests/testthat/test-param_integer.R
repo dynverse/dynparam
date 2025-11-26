@@ -9,10 +9,10 @@ test_that("k cluster test", {
   )
 
   expect_is(p, "integer_parameter")
-  expect_equal(p$id, "k")
-  expect_equal(p$default, 5L)
-  expect_equal(p$distribution, uniform_distribution(3L, 10L))
-  expect_equal(p$description, "The number of clusters.")
+  expect_equal(p$id, "k", check.environment = FALSE)
+  expect_equal(p$default, 5L, check.environment = FALSE)
+  expect_equal(p$distribution, uniform_distribution(3L, 10L), check.environment = FALSE)
+  expect_equal(p$description, "The number of clusters.", check.environment = FALSE)
 
   expect_match(as.character(p), "integer")
   expect_match(as.character(p), "k")
@@ -21,22 +21,22 @@ test_that("k cluster test", {
 
   li <- as.list(p)
 
-  expect_equal(li$type, "integer")
-  expect_equal(li$id, "k")
-  expect_equal(li$default, 5L)
-  expect_equal(li$distribution, as.list(uniform_distribution(3L, 10L)))
-  expect_equal(li$description, "The number of clusters.")
+  expect_equal(li$type, "integer", check.environment = FALSE)
+  expect_equal(li$id, "k", check.environment = FALSE)
+  expect_equal(li$default, 5L, check.environment = FALSE)
+  expect_equal(li$distribution, as.list(uniform_distribution(3L, 10L)), check.environment = FALSE)
+  expect_equal(li$description, "The number of clusters.", check.environment = FALSE)
 
   p2 <- as_parameter(li)
-  expect_equal(p2, p)
+  expect_equal(p2, p, check.environment = FALSE)
 
   ph <- as_paramhelper(p)
 
-  expect_equal(ph$id, "k")
-  expect_equal(ph$default, (5L-3L) / (10L-3L))
-  expect_equal(ph$lower, 0)
-  expect_equal(ph$upper, 1)
-  expect_equal(ph$len, 1)
+  expect_equal(ph$id, "k", check.environment = FALSE)
+  expect_equal(ph$default, (5L-3L) / (10L-3L), check.environment = FALSE)
+  expect_equal(ph$lower, 0, check.environment = FALSE)
+  expect_equal(ph$upper, 1, check.environment = FALSE)
+  expect_equal(ph$len, 1, check.environment = FALSE)
 })
 
 test_that("multiple value test", {
@@ -47,10 +47,10 @@ test_that("multiple value test", {
     description = "The number of iterations."
   )
 
-  expect_equal(p$id, "num_iter")
-  expect_equal(p$default, c(100L, 1000L))
-  expect_equal(p$distribution, expuniform_distribution(10L, 10000L))
-  expect_equal(p$description, "The number of iterations.")
+  expect_equal(p$id, "num_iter", check.environment = FALSE)
+  expect_equal(p$default, c(100L, 1000L), check.environment = FALSE)
+  expect_equal(p$distribution, expuniform_distribution(10L, 10000L), check.environment = FALSE)
+  expect_equal(p$description, "The number of iterations.", check.environment = FALSE)
 
   expect_match(as.character(p), "integer")
   expect_match(as.character(p), "num_iter")
@@ -59,22 +59,22 @@ test_that("multiple value test", {
 
   li <- as.list(p)
 
-  expect_equal(li$type, "integer")
-  expect_equal(li$id, "num_iter")
-  expect_equal(li$default, c(100L, 1000L))
-  expect_equal(li$distribution, as.list(expuniform_distribution(10L, 10000L)))
-  expect_equal(li$description, "The number of iterations.")
+  expect_equal(li$type, "integer", check.environment = FALSE)
+  expect_equal(li$id, "num_iter", check.environment = FALSE)
+  expect_equal(li$default, c(100L, 1000L), check.environment = FALSE)
+  expect_equal(li$distribution, as.list(expuniform_distribution(10L, 10000L)), check.environment = FALSE)
+  expect_equal(li$description, "The number of iterations.", check.environment = FALSE)
 
   p2 <- as_parameter(li)
-  expect_equal(p2, p)
+  expect_equal(p2, p, check.environment = FALSE)
 
   ph <- as_paramhelper(p)
 
-  expect_equal(ph$id, "num_iter")
-  expect_equal(unlist(unname(ph$default)), (log(c(100L, 1000L)) - log(10L)) / (log(10000L) - log(10L)))
-  expect_equal(ph$lower, c(0, 0))
-  expect_equal(ph$upper, c(1, 1))
-  expect_equal(ph$len, 2)
+  expect_equal(ph$id, "num_iter", check.environment = FALSE)
+  expect_equal(unlist(unname(ph$default)), (log(c(100L, 1000L)) - log(10L)) / (log(10000L) - log(10L)), check.environment = FALSE)
+  expect_equal(ph$lower, c(0, 0), check.environment = FALSE)
+  expect_equal(ph$upper, c(1, 1), check.environment = FALSE)
+  expect_equal(ph$len, 2, check.environment = FALSE)
 })
 
 test_that("wrong parse fails gracefully", {

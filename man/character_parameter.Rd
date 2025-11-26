@@ -4,8 +4,7 @@
 \alias{character_parameter}
 \title{Define a character / string parameter}
 \usage{
-character_parameter(id, default, values, description = NULL,
-  tuneable = TRUE)
+character_parameter(id, default, values, description = NULL, tuneable = TRUE)
 }
 \arguments{
 \item{id}{The name of the parameter.}

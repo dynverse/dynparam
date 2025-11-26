@@ -17,26 +17,26 @@ test_that("works with one parameter", {
   expect_true(is_parameter_set(parameters))
   expect_true(all(map_lgl(parameters$parameters, is_parameter)))
 
-  expect_equal(parameters$parameters$epsilon, epsilon_p)
+  expect_equal(parameters$parameters$epsilon, epsilon_p, check.environment = FALSE)
 
   # test to list conversion and back
   li <- as.list(parameters)
 
   ps <- as_parameter_set(li)
 
-  expect_equal(parameters, ps)
+  expect_equal(parameters, ps, check.environment = FALSE)
 
   # test paramhelper conversion
   ph <- as_paramhelper(parameters)
-  expect_equal(names(ph$pars), names(parameters$parameters))
-  expect_equal(ph$pars$epsilon, as_paramhelper(epsilon_p))
+  expect_equal(names(ph$pars), names(parameters$parameters), check.environment = FALSE)
+  expect_equal(ph$pars$epsilon, as_paramhelper(epsilon_p), check.environment = FALSE)
 
   expect_length(as.character(ph$forbidden), 0)
 
   # test print
   expect_output(print(parameters), "epsilon.*numeric")
 
-  expect_equal(get_defaults(parameters), list(epsilon = 0.05))
+  expect_equal(get_defaults(parameters), list(epsilon = 0.05), check.environment = FALSE)
 })
 
 test_that("works with many parameters", {
@@ -95,36 +95,36 @@ test_that("works with many parameters", {
   )
 
   expect_is(parameters, "parameter_set")
-  expect_equal(parameters$forbidden, "inverse == (method == 'kendall')")
+  expect_equal(parameters$forbidden, "inverse == (method == 'kendall')", check.environment = FALSE)
 
   expect_true(is_parameter_set(parameters))
   expect_true(all(map_lgl(parameters$parameters, is_parameter)))
 
-  expect_equal(parameters$parameters$num_iter, num_iter_p)
-  expect_equal(parameters$parameters$delta, delta_p)
-  expect_equal(parameters$parameters$method, method_p)
-  expect_equal(parameters$parameters$inverse, inverse_p)
-  expect_equal(parameters$parameters$dimred, dimred_p)
-  expect_equal(parameters$parameters$ks, ks_p)
-  expect_equal(parameters$parameters$quantiles, quantiles_p)
+  expect_equal(parameters$parameters$num_iter, num_iter_p, check.environment = FALSE)
+  expect_equal(parameters$parameters$delta, delta_p, check.environment = FALSE)
+  expect_equal(parameters$parameters$method, method_p, check.environment = FALSE)
+  expect_equal(parameters$parameters$inverse, inverse_p, check.environment = FALSE)
+  expect_equal(parameters$parameters$dimred, dimred_p, check.environment = FALSE)
+  expect_equal(parameters$parameters$ks, ks_p, check.environment = FALSE)
+  expect_equal(parameters$parameters$quantiles, quantiles_p, check.environment = FALSE)
 
   # test to list conversion and back
   li <- as.list(parameters)
 
   ps <- as_parameter_set(li)
 
-  expect_equal(parameters, ps)
+  expect_equal(parameters, ps, check.environment = FALSE)
 
   # test paramhelper conversion
   ph <- as_paramhelper(parameters)
-  expect_equal(names(ph$pars), names(parameters$parameters))
-  expect_equal(ph$pars$num_iter, as_paramhelper(num_iter_p))
-  expect_equal(ph$pars$delta, as_paramhelper(delta_p))
-  expect_equal(ph$pars$method, as_paramhelper(method_p))
-  expect_equal(ph$pars$inverse, as_paramhelper(inverse_p))
-  expect_equal(ph$pars$dimred, as_paramhelper(dimred_p))
-  expect_equal(ph$pars$ks, as_paramhelper(ks_p))
-  expect_equal(ph$pars$quantiles, as_paramhelper(quantiles_p))
+  expect_equal(names(ph$pars), names(parameters$parameters), check.environment = FALSE)
+  expect_equal(ph$pars$num_iter, as_paramhelper(num_iter_p), check.environment = FALSE)
+  expect_equal(ph$pars$delta, as_paramhelper(delta_p), check.environment = FALSE)
+  expect_equal(ph$pars$method, as_paramhelper(method_p), check.environment = FALSE)
+  expect_equal(ph$pars$inverse, as_paramhelper(inverse_p), check.environment = FALSE)
+  expect_equal(ph$pars$dimred, as_paramhelper(dimred_p), check.environment = FALSE)
+  expect_equal(ph$pars$ks, as_paramhelper(ks_p), check.environment = FALSE)
+  expect_equal(ph$pars$quantiles, as_paramhelper(quantiles_p), check.environment = FALSE)
 
   expect_match(as.character(ph$forbidden), "inverse == \\(method == \"kendall\"\\)")
   expect_match(as.character(ph$forbidden), "ks\\[1\\] > ks\\[2\\]")

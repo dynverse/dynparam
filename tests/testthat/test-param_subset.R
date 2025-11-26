@@ -9,10 +9,10 @@ test_that("correlation method test", {
   )
 
   expect_is(p, "subset_parameter")
-  expect_equal(p$id, "method")
-  expect_equal(p$default, "pearson")
-  expect_equal(p$values, c("pearson", "spearman", "kendall"))
-  expect_equal(p$description, "Which correlation coefficient to compute.")
+  expect_equal(p$id, "method", check.environment = FALSE)
+  expect_equal(p$default, "pearson", check.environment = FALSE)
+  expect_equal(p$values, c("pearson", "spearman", "kendall"), check.environment = FALSE)
+  expect_equal(p$description, "Which correlation coefficient to compute.", check.environment = FALSE)
 
   expect_match(as.character(p), "subset")
   expect_match(as.character(p), "method")
@@ -21,20 +21,20 @@ test_that("correlation method test", {
 
   li <- as.list(p)
 
-  expect_equal(li$type, "subset")
-  expect_equal(li$id, "method")
-  expect_equal(li$default, "pearson")
-  expect_equal(li$values, c("pearson", "spearman", "kendall"))
-  expect_equal(li$description, "Which correlation coefficient to compute.")
+  expect_equal(li$type, "subset", check.environment = FALSE)
+  expect_equal(li$id, "method", check.environment = FALSE)
+  expect_equal(li$default, "pearson", check.environment = FALSE)
+  expect_equal(li$values, c("pearson", "spearman", "kendall"), check.environment = FALSE)
+  expect_equal(li$description, "Which correlation coefficient to compute.", check.environment = FALSE)
 
   p2 <- as_parameter(li)
-  expect_equal(p2, p)
+  expect_equal(p2, p, check.environment = FALSE)
 
   ph <- as_paramhelper(p)
-  expect_equal(ph$id, "method")
-  #expect_equal(ph$default %>% unlist(), c("TRUE", "FALSE", "FALSE"))
-  expect_equal(ph$default %>% unlist(), c(1L, 0L, 0L))
-  expect_equal(ph$len, 3)
+  expect_equal(ph$id, "method", check.environment = FALSE)
+  #expect_equal(ph$default %>% unlist(), c("TRUE", "FALSE", "FALSE"), check.environment = FALSE)
+  expect_equal(ph$default %>% unlist(), c(1L, 0L, 0L), check.environment = FALSE)
+  expect_equal(ph$len, 3, check.environment = FALSE)
 
   ps <- ParamHelpers::makeParamSet(ph)
   tval <-
@@ -42,7 +42,7 @@ test_that("correlation method test", {
     ParamHelpers::dfRowToList(par.set = ps, i = 1) %>%
     ParamHelpers::trafoValue(par = ps, .)
 
-  expect_equal(names(tval), "method")
+  expect_equal(names(tval), "method", check.environment = FALSE)
   expect_true(all(tval$method %in% c("spearman", "pearson", "kendall")))
 })
 

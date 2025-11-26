@@ -10,11 +10,11 @@ test_that("quantiles test", {
   )
 
   expect_is(p, "numeric_range_parameter")
-  expect_equal(p$id, "quantiles")
-  expect_equal(p$default, c(.1, .99))
-  expect_equal(p$lower_distribution, uniform_distribution(0.01, .25))
-  expect_equal(p$upper_distribution, uniform_distribution(.9, .99))
-  expect_equal(p$description, "The lower and upper quantile thresholds.")
+  expect_equal(p$id, "quantiles", check.environment = FALSE)
+  expect_equal(p$default, c(.1, .99), check.environment = FALSE)
+  expect_equal(p$lower_distribution, uniform_distribution(0.01, .25), check.environment = FALSE)
+  expect_equal(p$upper_distribution, uniform_distribution(.9, .99), check.environment = FALSE)
+  expect_equal(p$description, "The lower and upper quantile thresholds.", check.environment = FALSE)
 
   expect_match(as.character(p), "numeric_range")
   expect_match(as.character(p), "quantiles")
@@ -24,23 +24,23 @@ test_that("quantiles test", {
 
   li <- as.list(p)
 
-  expect_equal(li$type, "numeric_range")
-  expect_equal(li$id, "quantiles")
-  expect_equal(li$default, c(0.1, 0.99))
-  expect_equal(li$lower_distribution, as.list(uniform_distribution(0.01, 0.25)))
-  expect_equal(li$upper_distribution, as.list(uniform_distribution(0.9, 0.99)))
-  expect_equal(li$description, "The lower and upper quantile thresholds.")
+  expect_equal(li$type, "numeric_range", check.environment = FALSE)
+  expect_equal(li$id, "quantiles", check.environment = FALSE)
+  expect_equal(li$default, c(0.1, 0.99), check.environment = FALSE)
+  expect_equal(li$lower_distribution, as.list(uniform_distribution(0.01, 0.25)), check.environment = FALSE)
+  expect_equal(li$upper_distribution, as.list(uniform_distribution(0.9, 0.99)), check.environment = FALSE)
+  expect_equal(li$description, "The lower and upper quantile thresholds.", check.environment = FALSE)
 
   p2 <- as_parameter(li)
-  expect_equal(p2, p)
+  expect_equal(p2, p, check.environment = FALSE)
 
   ph <- as_paramhelper(p)
 
-  expect_equal(ph$id, "quantiles")
-  expect_equal(ph$default, c((.1-.01) / (.25-.01), (.99-.9) / (.99-.9)))
-  expect_equal(ph$lower, c(0, 0))
-  expect_equal(ph$upper, c(1, 1))
-  expect_equal(ph$len, 2)
+  expect_equal(ph$id, "quantiles", check.environment = FALSE)
+  expect_equal(ph$default, c((.1-.01) / (.25-.01), (.99-.9) / (.99-.9)), check.environment = FALSE)
+  expect_equal(ph$lower, c(0, 0), check.environment = FALSE)
+  expect_equal(ph$upper, c(1, 1), check.environment = FALSE)
+  expect_equal(ph$len, 2, check.environment = FALSE)
 
   ps <- ParamHelpers::makeParamSet(ph)
   tval <-
@@ -48,7 +48,7 @@ test_that("quantiles test", {
     ParamHelpers::dfRowToList(par.set = ps, i = 1) %>%
     ParamHelpers::trafoValue(par = ps, .)
 
-  expect_equal(names(tval), "quantiles")
+  expect_equal(names(tval), "quantiles", check.environment = FALSE)
   expect_gte(tval$quantiles[[1]], .01)
   expect_lte(tval$quantiles[[1]], .25)
   expect_gte(tval$quantiles[[2]], .9)

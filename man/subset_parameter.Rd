@@ -4,8 +4,7 @@
 \alias{subset_parameter}
 \title{Define a subset parameter}
 \usage{
-subset_parameter(id, default, values, description = NULL,
-  tuneable = TRUE)
+subset_parameter(id, default, values, description = NULL, tuneable = TRUE)
 }
 \arguments{
 \item{id}{The name of the parameter.}

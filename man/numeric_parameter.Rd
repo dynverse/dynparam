@@ -4,8 +4,13 @@
 \alias{numeric_parameter}
 \title{Define a numeric parameter}
 \usage{
-numeric_parameter(id, default, distribution, description = NULL,
-  tuneable = TRUE)
+numeric_parameter(
+  id,
+  default,
+  distribution,
+  description = NULL,
+  tuneable = TRUE
+)
 }
 \arguments{
 \item{id}{The name of the parameter.}

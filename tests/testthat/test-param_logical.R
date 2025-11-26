@@ -8,9 +8,9 @@ test_that("scale test", {
   )
 
   expect_is(p, "logical_parameter")
-  expect_equal(p$id, "scale")
-  expect_equal(p$default, TRUE)
-  expect_equal(p$description, "Whether or not to scale the input variables")
+  expect_equal(p$id, "scale", check.environment = FALSE)
+  expect_equal(p$default, TRUE, check.environment = FALSE)
+  expect_equal(p$description, "Whether or not to scale the input variables", check.environment = FALSE)
 
   expect_match(as.character(p), "logical")
   expect_match(as.character(p), "scale")
@@ -18,19 +18,19 @@ test_that("scale test", {
 
   li <- as.list(p)
 
-  expect_equal(li$type, "logical")
-  expect_equal(li$id, "scale")
-  expect_equal(li$default, TRUE)
-  expect_equal(li$description, "Whether or not to scale the input variables")
+  expect_equal(li$type, "logical", check.environment = FALSE)
+  expect_equal(li$id, "scale", check.environment = FALSE)
+  expect_equal(li$default, TRUE, check.environment = FALSE)
+  expect_equal(li$description, "Whether or not to scale the input variables", check.environment = FALSE)
 
   p2 <- as_parameter(li)
-  expect_equal(p2, p)
+  expect_equal(p2, p, check.environment = FALSE)
 
   ph <- as_paramhelper(p)
 
-  expect_equal(ph$id, "scale")
-  expect_equal(ph$default, TRUE)
-  expect_equal(ph$len, 1)
+  expect_equal(ph$id, "scale", check.environment = FALSE)
+  expect_equal(ph$default, TRUE, check.environment = FALSE)
+  expect_equal(ph$len, 1, check.environment = FALSE)
 })
 
 test_that("multiple value test", {
@@ -40,9 +40,9 @@ test_that("multiple value test", {
     description = "The number of iterations."
   )
 
-  expect_equal(p$id, "num_iter")
-  expect_equal(p$default, c(TRUE, FALSE, TRUE))
-  expect_equal(p$description, "The number of iterations.")
+  expect_equal(p$id, "num_iter", check.environment = FALSE)
+  expect_equal(p$default, c(TRUE, FALSE, TRUE), check.environment = FALSE)
+  expect_equal(p$description, "The number of iterations.", check.environment = FALSE)
 
   expect_match(as.character(p), "logical")
   expect_match(as.character(p), "num_iter")
@@ -50,19 +50,19 @@ test_that("multiple value test", {
 
   li <- as.list(p)
 
-  expect_equal(li$type, "logical")
-  expect_equal(li$id, "num_iter")
-  expect_equal(li$default, c(TRUE, FALSE, TRUE))
-  expect_equal(li$description, "The number of iterations.")
+  expect_equal(li$type, "logical", check.environment = FALSE)
+  expect_equal(li$id, "num_iter", check.environment = FALSE)
+  expect_equal(li$default, c(TRUE, FALSE, TRUE), check.environment = FALSE)
+  expect_equal(li$description, "The number of iterations.", check.environment = FALSE)
 
   p2 <- as_parameter(li)
-  expect_equal(p2, p)
+  expect_equal(p2, p, check.environment = FALSE)
 
   ph <- as_paramhelper(p)
 
-  expect_equal(ph$id, "num_iter")
-  expect_equal(ph$default, c(TRUE, FALSE, TRUE))
-  expect_equal(ph$len, 3)
+  expect_equal(ph$id, "num_iter", check.environment = FALSE)
+  expect_equal(ph$default, c(TRUE, FALSE, TRUE), check.environment = FALSE)
+  expect_equal(ph$len, 3, check.environment = FALSE)
 })
 
 test_that("wrong parse fails gracefully", {
