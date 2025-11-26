@@ -1,3 +1,8 @@
+# dynparam 1.0.3 (upcoming)
+
+* MINOR CHANGES: Update CITATION format.
+* MINOR CHANGES: Fix DESCRIPTION format.
+
 # dynparam 1.0.2 (04-01-2021)
 
 * MINOR CHANGES: Set `check.environment` to `FALSE` in unit tests to fix breaking changes in R devel.
